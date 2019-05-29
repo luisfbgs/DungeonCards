@@ -2,7 +2,9 @@
 #define STAGESTATE
 
 #include <memory>
+#include <string>
 #include "State.h"
+#include "Board.h"
 
 class StageState : public State {
 public:
@@ -12,8 +14,9 @@ public:
     void Start();
     void Pause();
     void Resume();
-    
+    int AddCard(std::string file);    
 private:
+    Board board;
 };
 
 #endif

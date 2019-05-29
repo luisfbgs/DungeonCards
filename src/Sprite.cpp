@@ -85,6 +85,14 @@ int Sprite::GetHeight() {
     return this->height;
 }
 
+int Sprite::GetWidthS() {
+    return this->width * this->scale.x;
+}
+
+int Sprite::GetHeightS() {
+    return this->height * this->scale.y;
+}
+
 void Sprite::SetScale(float scaleX, float scaleY) {
     this->associated.box.w /= this->scale.x;
     this->associated.box.h /= this->scale.y;
