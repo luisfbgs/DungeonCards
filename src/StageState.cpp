@@ -10,7 +10,7 @@
 
 void StageState::LoadAssets() {
     GameObject *bgGO = new GameObject();
-    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, std::string("assets/img/ocean.jpg")));
+    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, std::string("assets/img/map.png")));
     bgSprite->SetScale((float)Game::GetInstance().GetWidth() / bgSprite->GetWidth(),
      (float)Game::GetInstance().GetHeight() / bgSprite->GetHeight());
     bgGO->AddComponent(bgSprite);
