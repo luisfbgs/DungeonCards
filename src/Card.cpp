@@ -3,11 +3,12 @@
 #include "Component.h"
 #include "Card.h"
 #include "Vec2.h"
+#include "Vec2Int.h"
 
 Card::Card(GameObject &associated, std::string file, int hp) : Component(associated), sprite(associated, file) {
     this->hp = hp;
     this->szW = this->szH = 1;
-    this->posX = this->posY = 0;
+    this->pos = {0, 0};
 }
 
 void Card::Update(int dt) {}
@@ -27,8 +28,7 @@ void Card::SetScale(float cellW, float cellH) {
     this->sprite.SetScale(this->szW * cellW / spriteW, this->szH * cellH / spriteH);
 }
 
-void Card::Move(int posX, int posY) {
-    this->posX = posY;
-    this->posY = posY;
-    this->associated.box.lefUp = {posX * this->sprite.GetWidthS(), posY * this->sprite.GetHeightS()};
+void Card::Move(Vec2Int pos) {
+    this->pos = pos;
+    this->associated.box.lefUp = {(float)pos.x * this->sprite.GetWidthS(), (float)pos.y * this->sprite.GetHeightS()};
 }

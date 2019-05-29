@@ -8,7 +8,7 @@
 #include "Game.h"
 #include "Board.h"
 #include "Card.h"
-#include <stdio.h>
+#include "Vec2Int.h"
 
 void StageState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
@@ -30,8 +30,17 @@ void StageState::LoadAssets() {
 void StageState::Update(int dt) {
     this->UpdateArray(dt);
     InputManager &input = InputManager::GetInstance();
+    
     this->quitRequested = input.IsKeyDown(ESCAPE_KEY);
+    // Verificar se o usuário deseja fechar o jogo
     GameData::quitAll = input.QuitRequested();
+    
+    // Mover a carta 0
+    int yMove = input.KeyPress('s') - input.KeyPress('w');
+    int xMove = input.KeyPress('d') - input.KeyPress('a');
+    if(xMove || yMove) {
+        this->board.MoveCard(0, {xMove, yMove}, this->board.GetBoardPos(0));
+    }
 }
 
 void StageState::Render() {

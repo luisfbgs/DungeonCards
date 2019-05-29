@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Card.h"
 #include "Board.h"
+#include "Vec2Int.h"
 
 void Board::Init(int rows, int columns) {
     this->rows = rows;
@@ -17,6 +18,10 @@ int Board::AddCard(std::shared_ptr<Card> card) {
     return int(cards.size() - 1);
 }
 
-void Board::MoveCard(int id, int posx, int posy){
-    cards[id]->Move(posx, posy);
+void Board::MoveCard(int id, Vec2Int pos, Vec2Int offset){
+    cards[id]->Move(pos + offset);
+}
+
+Vec2Int Board::GetBoardPos(int id) {
+    return cards[id]->pos;
 }
