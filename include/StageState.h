@@ -8,6 +8,7 @@
 
 class StageState : public State {
 public:
+    ~StageState();
     void LoadAssets();
     void Update(int dt);
     void Render();

@@ -10,7 +10,6 @@
 
 class Board {
 public:
-    Board();
     void Init(int rows, int columns, float sizeW, float sizeH);
     int AddCard(std::shared_ptr<Card> card);
     void MoveCard(int id, Vec2Int pos, Vec2Int offset = {0, 0});
@@ -22,6 +21,7 @@ public:
     int GetColumns();
     static Board& GetInstance();
     void InitActionMap();
+    void Reset();
 private:
     float cellW, cellH;
     int rows, columns;

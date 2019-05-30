@@ -16,6 +16,10 @@
 
 StageState::StageState() : board(Board::GetInstance()) {}
 
+StageState::~StageState() {
+    this->board.Reset();
+}
+
 void StageState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
     GameObject *bgGO = new GameObject();

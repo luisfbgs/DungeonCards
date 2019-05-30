@@ -7,10 +7,6 @@
 #include "Board.h"
 #include "Vec2Int.h"
 
-Board::Board() {
-    
-}
-
 void Board::Init(int rows, int columns, float sizeW, float sizeH) {
     this->rows = rows;
     this->columns = columns;
@@ -51,4 +47,8 @@ int Board::GetRows() {
 
 int Board::GetColumns(){
     return this->columns;
+}
+
+void Board::Reset() {
+    cards.clear();
 }
