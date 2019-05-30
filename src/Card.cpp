@@ -29,6 +29,7 @@ void Card::SetScale(float cellW, float cellH) {
 }
 
 void Card::Move(Vec2Int pos) {
+    printf("[Card::Move] &card --> %p\n", this);
     this->pos = pos;
     this->associated.box.lefUp = {(float)pos.x * this->sprite.GetWidthS(), (float)pos.y * this->sprite.GetHeightS()};
 }

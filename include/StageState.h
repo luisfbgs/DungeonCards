@@ -14,9 +14,10 @@ public:
     void Start();
     void Pause();
     void Resume();
-    int AddCard(std::string file);    
+    int AddCard(std::string file);
+    StageState();
 private:
-    Board board;
+    Board& board;
 };
 
 #endif
