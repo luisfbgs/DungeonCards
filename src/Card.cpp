@@ -25,7 +25,8 @@ void Card::SetScale(float cellW, float cellH) {
     // Coloca o tamanho do sprite pra ser igual o da célula
     float spriteW = this->sprite.GetWidth();
     float spriteH = this->sprite.GetHeight();
-    this->sprite.SetScale(this->szW * cellW / spriteW, this->szH * cellH / spriteH);
+    float scale = std::min(cellW / spriteW, cellH / spriteH);
+    this->sprite.SetScale(this->szW * scale, this->szH);
 }
 
 void Card::Move(Vec2Int pos) {
