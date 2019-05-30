@@ -34,8 +34,13 @@ void StageState::LoadAssets() {
     // Criar tabuleiro
     this->board.Init(2, 4, bgSprite->GetWidthS(), bgSprite->GetHeightS());
 
-    // Cria uma carta
-    this->AddCard(std::string("assets/img/player.jpeg"));
+    // Cria uma carta de inimigo
+    this->AddCard(std::string("assets/img/player.jpeg"), 0);
+    Action::Move(this->board.GetCard(0).get(), {1, 0});
+
+    // Cria a carta do jogador 1
+    this->AddCard(std::string("assets/img/player.jpg"), 1);
+    Action::Move(this->board.GetCard(1).get(), {1, 1});
 }
 
 void StageState::Update(int dt) {
@@ -56,9 +61,9 @@ void StageState::Start() {
     this->StartArray();
 }
 
-int StageState::AddCard(std::string file) {
+int StageState::AddCard(std::string file, int num) {
     GameObject *playerCard = new GameObject();
-    std::shared_ptr<Card> card(new Card(*playerCard, file));
+    std::shared_ptr<Card> card(new Card(*playerCard, file, num));
     playerCard->AddComponent(card);
 
     this->AddObject(playerCard);

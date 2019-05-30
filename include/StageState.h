@@ -12,7 +12,7 @@ public:
     void Update(int dt);
     void Render();
     void Start();
-    int AddCard(std::string file);    
+    int AddCard(std::string file, int num);    
     void Pause();
     void Resume();
     Board* GetBoardPtr();

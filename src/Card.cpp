@@ -9,29 +9,32 @@
 #include "Vec2Int.h"
 #include "InputManager.h"
 
-Card::Card(GameObject &associated, std::string file, int hp) : Component(associated),
+Card::Card(GameObject &associated, std::string file, int num, int hp) : Component(associated),
                                                                 sprite(associated, file),
                                                                 lifeBar(associated, std::string("assets/img/lifeBar.png")) {
     this->hp = hp;
     this->szW = this->szH = 1;
     this->pos = {0, 0};
+    this->playerNum = num;
 }
 
 void Card::Update(int dt) {
-    InputManager &input = InputManager::GetInstance();
-
     this->lifeBar.SetScale(this->lifeBarSize * this->hp / 100,
                            this->lifeBarSize);
-    // Mover a carta
-    int yMove = input.KeyPress('s') - input.KeyPress('w');
-    int xMove = input.KeyPress('d') - input.KeyPress('a');
-    if(xMove || yMove) {
-        Action::Move(this, {xMove, yMove}, this->pos);
-    }
-    
-    // Causar 5 de dano à si mesmo
-    if(input.KeyPress('x')) {
-        Action::Attack(this, 5);
+
+    if(playerNum) {    
+        InputManager &input = InputManager::GetInstance();
+        // Mover a carta
+        int yMove = input.KeyPress('s') - input.KeyPress('w');
+        int xMove = input.KeyPress('d') - input.KeyPress('a');
+        if(xMove || yMove) {
+            Action::Move(this, {xMove, yMove}, this->pos);
+        }
+        
+        // Causar 5 de dano à si mesmo
+        if(input.KeyPress('x')) {
+            Action::Attack(this, 5);
+        }
     }
 }
 
