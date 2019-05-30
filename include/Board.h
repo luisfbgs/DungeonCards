@@ -11,7 +11,7 @@
 class Board {
 public:
     Board();
-    void Init(int rows, int columns);
+    void Init(int rows, int columns, float sizeW, float sizeH);
     int AddCard(std::shared_ptr<Card> card);
     void MoveCard(int id, Vec2Int pos, Vec2Int offset = {0, 0});
     Vec2Int GetBoardPos(int id);

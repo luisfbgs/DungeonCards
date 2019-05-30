@@ -57,7 +57,7 @@ Game::~Game() {
 
 Game& Game::GetInstance() {
 	if(instance == nullptr) {
-		new Game("Carnivalle of the End Times", 1600, 900);
+		new Game("Carnivalle of the End Times", 1600, 600);
     }
 	return *instance;
 }

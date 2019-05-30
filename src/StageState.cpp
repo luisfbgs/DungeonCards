@@ -1,5 +1,6 @@
 #include <memory>
 #include <string>
+#include <cstdio>
 
 #include "StageState.h"
 #include "Sprite.h"
@@ -26,12 +27,12 @@ void StageState::LoadAssets() {
 
     float blackBarX = (float)Game::GetInstance().GetWidth() - bgSprite->GetWidthS();
     float blackBarY = (float)Game::GetInstance().GetHeight() - bgSprite->GetHeightS();
-    Camera::pos = {blackBarX / 2, blackBarY / 2};
+    Camera::pos = {-blackBarX / 2, -blackBarY / 2};
 
     this->AddObject(bgGO);
 
     // Criar tabuleiro
-    this->board.Init(2, 4);
+    this->board.Init(2, 4, bgSprite->GetWidthS(), bgSprite->GetHeightS());
 
     // Cria uma carta
     this->AddCard(std::string("assets/img/player.jpeg"));

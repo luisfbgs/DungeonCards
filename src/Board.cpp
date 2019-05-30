@@ -11,11 +11,11 @@ Board::Board() {
     
 }
 
-void Board::Init(int rows, int columns) {
+void Board::Init(int rows, int columns, float sizeW, float sizeH) {
     this->rows = rows;
     this->columns = columns;
-    this->cellH = Game::GetInstance().GetHeight() / rows;
-    this->cellW = Game::GetInstance().GetWidth() / columns;
+    this->cellH = sizeH / rows;
+    this->cellW = sizeW / columns;
 }
 
 int Board::AddCard(std::shared_ptr<Card> card) {
