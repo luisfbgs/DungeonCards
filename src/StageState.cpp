@@ -52,6 +52,11 @@ void StageState::Update(int dt) {
     if(xMove || yMove) {
         Action::Move(this->board.GetCard(0).get(), {xMove, yMove}, this->board.GetBoardPos(0));
     }
+    
+    // Causar 5 de dano à carta 0
+    if(input.KeyPress('x')) {
+        Action::Attack(this->board.GetCard(0).get(), 5);
+    }
 }
 
 void StageState::Render() {
