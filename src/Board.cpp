@@ -23,7 +23,7 @@ void Board::Init(int rows, int columns) {
 
 int Board::AddCard(std::shared_ptr<Card> card) {
     this->cards.emplace_back(card);
-    card->SetScale(this->cellW, this->cellH);
+    card->SetScale();
     return int(cards.size() - 1);
 }
 
@@ -50,4 +50,11 @@ Action* Board::GetAction(ActionNames id) {
 
 void Board::InitActionMap() {
     ActionMap.insert( std::pair<ActionNames, Action*>(ActionNames::MOVE, new ActionMove()));
+}
+
+float Board::GetCellW() {
+    return this->cellW;
+}
+float Board::GetCellH(){
+    return this->cellH;
 }

@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "Card.h"
+#include "Board.h"
 #include "Vec2.h"
 #include "Vec2Int.h"
 
@@ -21,15 +22,18 @@ bool Card::Is(const std::string &type) {
     return type == "Card";
 }
 
-void Card::SetScale(float cellW, float cellH) {
-    // Coloca o tamanho do sprite pra ser igual o da célula
+// Coloca o tamanho do sprite pra ser igual o da célula
+void Card::SetScale() {
+    Board &board = Board::GetInstance();
+    float cellW = board.GetCellW(), cellH = board.GetCellW();
     float spriteW = this->sprite.GetWidth();
     float spriteH = this->sprite.GetHeight();
     float scale = std::min(cellW / spriteW, cellH / spriteH);
-    this->sprite.SetScale(this->szW * scale, this->szH);
+    this->sprite.SetScale(this->szW * scale, this->szH * scale);
 }
 
 void Card::Move(Vec2Int pos) {
     this->pos = pos;
-    this->associated.box.lefUp = {(float)pos.x * this->sprite.GetWidthS(), (float)pos.y * this->sprite.GetHeightS()};
+    Board &board = Board::GetInstance();
+    this->associated.box.lefUp = {(float)pos.x * board.GetCellW(), (float)pos.y * board.GetCellH()};
 }

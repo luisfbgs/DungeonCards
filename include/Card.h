@@ -20,7 +20,7 @@ public:
     void Render();
     bool Is(const std::string &type);
     void Move(Vec2Int pos);
-    void SetScale(float cellW, float cellH);
+    void SetScale();
 private:
     int hp;
     int szW, szH;

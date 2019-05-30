@@ -1,5 +1,6 @@
 #include <memory>
 #include <string>
+
 #include "StageState.h"
 #include "Sprite.h"
 #include "GameObject.h"
@@ -9,6 +10,7 @@
 #include "Board.h"
 #include "Card.h"
 #include "Vec2Int.h"
+#include "Camera.h"
 
 StageState::StageState() : board(Board::GetInstance()){}
 
@@ -16,10 +18,15 @@ void StageState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
     GameObject *bgGO = new GameObject();
     std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, std::string("assets/img/board.jpeg")));
-    bgSprite->SetScale((float)Game::GetInstance().GetWidth() / bgSprite->GetWidth(),
+    float bgScale = std::min((float)Game::GetInstance().GetWidth() / bgSprite->GetWidth(),
      (float)Game::GetInstance().GetHeight() / bgSprite->GetHeight());
+    bgSprite->SetScale(bgScale, bgScale);
     bgGO->AddComponent(bgSprite);
-    
+
+    float blackBarX = (float)Game::GetInstance().GetWidth() - bgSprite->GetWidthS();
+    float blackBarY = (float)Game::GetInstance().GetHeight() - bgSprite->GetHeightS();
+    Camera::pos = {blackBarX / 2, blackBarY / 2};
+
     this->AddObject(bgGO);
 
     // Criar tabuleiro

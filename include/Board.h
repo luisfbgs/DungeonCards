@@ -18,6 +18,8 @@ public:
     void MoveCard(int id, Vec2Int pos, Vec2Int offset = {0, 0});
     Vec2Int GetBoardPos(int id);
     std::shared_ptr<Card> GetCard(int id);
+    float GetCellW();
+    float GetCellH();
     static Board& GetInstance();
     Action* GetAction(ActionNames id);
     std::vector<std::shared_ptr<Card>> cards;
