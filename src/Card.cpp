@@ -7,6 +7,7 @@
 #include "Board.h"
 #include "Vec2.h"
 #include "Vec2Int.h"
+#include "InputManager.h"
 
 Card::Card(GameObject &associated, std::string file, int hp) : Component(associated),
                                                                 sprite(associated, file),
@@ -17,8 +18,21 @@ Card::Card(GameObject &associated, std::string file, int hp) : Component(associa
 }
 
 void Card::Update(int dt) {
+    InputManager &input = InputManager::GetInstance();
+
     this->lifeBar.SetScale(this->lifeBarSize * this->hp / 100,
                            this->lifeBarSize);
+    // Mover a carta
+    int yMove = input.KeyPress('s') - input.KeyPress('w');
+    int xMove = input.KeyPress('d') - input.KeyPress('a');
+    if(xMove || yMove) {
+        Action::Move(this, {xMove, yMove}, this->pos);
+    }
+    
+    // Causar 5 de dano à si mesmo
+    if(input.KeyPress('x')) {
+        Action::Attack(this, 5);
+    }
 }
 
 void Card::Render() {

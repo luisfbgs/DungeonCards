@@ -45,18 +45,6 @@ void StageState::Update(int dt) {
     this->quitRequested = input.IsKeyDown(ESCAPE_KEY);
     // Verificar se o usuário deseja fechar o jogo
     GameData::quitAll = input.QuitRequested();
-    
-    // Mover a carta 0
-    int yMove = input.KeyPress('s') - input.KeyPress('w');
-    int xMove = input.KeyPress('d') - input.KeyPress('a');
-    if(xMove || yMove) {
-        Action::Move(this->board.GetCard(0).get(), {xMove, yMove}, this->board.GetBoardPos(0));
-    }
-    
-    // Causar 5 de dano à carta 0
-    if(input.KeyPress('x')) {
-        Action::Attack(this->board.GetCard(0).get(), 5);
-    }
 }
 
 void StageState::Render() {
