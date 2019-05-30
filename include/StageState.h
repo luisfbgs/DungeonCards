@@ -3,6 +3,8 @@
 
 #include <memory>
 #include <string>
+
+#include "Timer.h"
 #include "State.h"
 #include "Board.h"
 
@@ -20,6 +22,7 @@ public:
     StageState();
 private:
     Board &board;
+    Timer turnTimer;
 };
 
 #endif

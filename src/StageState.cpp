@@ -13,8 +13,11 @@
 #include "Vec2Int.h"
 #include "Camera.h"
 #include "Action.h"
+#include "Timer.h"
 
-StageState::StageState() : board(Board::GetInstance()) {}
+StageState::StageState() : board(Board::GetInstance()) {
+    GameData::turn = 0;
+}
 
 StageState::~StageState() {
     this->board.Reset();
@@ -38,9 +41,12 @@ void StageState::LoadAssets() {
     // Criar tabuleiro
     this->board.Init(2, 4, bgSprite->GetWidthS(), bgSprite->GetHeightS());
 
-    // Cria uma carta de inimigo
-    this->AddCard(std::string("assets/img/player.jpeg"), 0);
-    Action::Move(this->board.GetCard(0).get(), {1, 0});
+    // Cria duas cartas de inimigo
+    this->AddCard(std::string("assets/img/player.jpeg"), -1);
+    Action::Move(this->board.GetCard(-1).get(), {1, 0});
+    this->AddCard(std::string("assets/img/player.jpeg"), -2);
+    Action::Move(this->board.GetCard(-2).get(), {2, 0});
+
 
     // Cria a carta do jogador 1
     this->AddCard(std::string("assets/img/player.jpg"), 1);
@@ -48,6 +54,11 @@ void StageState::LoadAssets() {
 }
 
 void StageState::Update(int dt) {
+    this->turnTimer.Update(dt);
+    if(this->turnTimer.Get() >= 5000) {
+        this->turnTimer.Update(-5000);
+        GameData::turn ^= 1;
+    }
     this->UpdateArray(dt);
     InputManager &input = InputManager::GetInstance();
     

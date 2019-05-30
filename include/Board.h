@@ -25,7 +25,7 @@ public:
 private:
     float cellW, cellH;
     int rows, columns;
-    std::vector<std::shared_ptr<Card>> cards;
+    std::map<int, std::shared_ptr<Card>> cards;
 };
 
 #endif

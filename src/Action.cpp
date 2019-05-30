@@ -20,6 +20,7 @@ void Action::Move(Card* sourcePtr, Vec2Int pos, Vec2Int offSet) {
     sourcePtr->pos = pos;
 }
 
-void Action::Attack(Card* sourcePtr, int damage) {
-    sourcePtr->hp -= damage;
+void Action::Attack(Card* sourcePtr, int damage, int targetId) {
+    Board &board = Board::GetInstance();
+    board.GetCard(targetId)->hp -= damage;
 }

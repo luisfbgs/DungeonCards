@@ -85,6 +85,7 @@ void Game::Run() {
             if(!this->stateStack.empty()) {
                 this->stateStack.top()->Resume();
             }
+            return;
         }
         else {
             this->CalculateDeltaTime();

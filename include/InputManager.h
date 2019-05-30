@@ -2,6 +2,7 @@
 #define INPUTMANAGER
 
 #include <unordered_map>
+#include <unordered_set>
 
 #define INCLUDE_SDL
 #include "SDL_include.h"
@@ -26,9 +27,11 @@ public:
     int GetMouseX();
     int GetMouseY();
     bool QuitRequested();
+    std::unordered_set<int> GetAllKeys();
     static InputManager& GetInstance();
 
 private:
+    std::unordered_set<int> pressedKeys;
     InputManager();
     ~InputManager();
     bool mouseState[6];

@@ -15,9 +15,9 @@ void Board::Init(int rows, int columns, float sizeW, float sizeH) {
 }
 
 int Board::AddCard(std::shared_ptr<Card> card) {
-    this->cards.emplace_back(card);
+    this->cards[card->GetNum()] = card;
     card->SetScale();
-    return int(cards.size() - 1);
+    return cards.size();
 }
 
 Vec2Int Board::GetBoardPos(int id) {

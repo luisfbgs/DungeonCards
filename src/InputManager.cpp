@@ -1,4 +1,6 @@
 #include <unordered_map>
+#include <unordered_set>
+
 #include "InputManager.h"
 
 #define INCLUDE_SDL
@@ -7,7 +9,6 @@
 InputManager::InputManager() {
     this->updateCounter = 0;
     this->quitRequested = false;
-
 }
 
 InputManager::~InputManager() {
@@ -23,6 +24,7 @@ void InputManager::Update() {
     SDL_GetMouseState(&this->mouseX, &this->mouseY);
     this->quitRequested = false;
     this->updateCounter++;
+    this->pressedKeys.clear();
     SDL_Event event;
     if(SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -38,6 +40,7 @@ void InputManager::Update() {
                 break;
             case SDL_KEYDOWN:
                 if(!event.key.repeat) {
+                    this->pressedKeys.insert(event.key.keysym.sym);
                     this->keyState[event.key.keysym.sym] = true;
                     this->keyUpdate[event.key.keysym.sym] = this->updateCounter;
                 }
@@ -83,4 +86,8 @@ int InputManager::GetMouseY() {
 
 bool InputManager::QuitRequested() {
     return this->quitRequested;
+}
+
+std::unordered_set<int> InputManager::GetAllKeys() {
+    return this->pressedKeys;
 }

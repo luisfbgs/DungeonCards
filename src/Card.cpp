@@ -2,6 +2,7 @@
 #include <cstdio>
 
 #include "GameObject.h"
+#include "GameData.h"
 #include "Component.h"
 #include "Card.h"
 #include "Board.h"
@@ -16,25 +17,35 @@ Card::Card(GameObject &associated, std::string file, int num, int hp) : Componen
     this->szW = this->szH = 1;
     this->pos = {0, 0};
     this->playerNum = num;
+    this->hasMoved = false;
 }
 
 void Card::Update(int dt) {
     this->lifeBar.SetScale(this->lifeBarSize * this->hp / 100,
                            this->lifeBarSize);
 
-    if(playerNum) {    
+    if(playerNum > 0 && GameData::turn == 0 && !this->hasMoved) {
         InputManager &input = InputManager::GetInstance();
         // Mover a carta
         int yMove = input.KeyPress('s') - input.KeyPress('w');
         int xMove = input.KeyPress('d') - input.KeyPress('a');
         if(xMove || yMove) {
             Action::Move(this, {xMove, yMove}, this->pos);
+            this->hasMoved = true;
+            return;
         }
-        
-        // Causar 5 de dano à si mesmo
-        if(input.KeyPress('x')) {
-            Action::Attack(this, 5);
+        // Causar 5 de dano a um inimigo
+        for(int key : input.GetAllKeys()) {
+            if(key >= '1' && key <= '9') {
+                Action::Attack(this, 5, -(key - '0'));
+                this->hasMoved = true;
+                return;
+            }
         }
+    }
+    else if(playerNum < 0 && !this->hasMoved){
+        this->hasMoved = true;
+        Action::Attack(this, 2, 1);
     }
 }
 
@@ -64,4 +75,8 @@ void Card::SetScale() {
     this->lifeBarSize = std::min(this->sprite.GetWidthS() / spriteW,
                      this->sprite.GetHeightS() / spriteH);
     this->lifeBar.SetScale(this->lifeBarSize, this->lifeBarSize);
+}
+
+int Card::GetNum() {
+    return this->playerNum;
 }
