@@ -18,6 +18,8 @@ public:
     std::shared_ptr<Card> GetCard(int id);
     float GetCellW();
     float GetCellH();
+    int GetRows();
+    int GetColumns();
     static Board& GetInstance();
     void InitActionMap();
 private:

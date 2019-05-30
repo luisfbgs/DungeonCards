@@ -40,6 +40,15 @@ Board& Board::GetInstance() {
 float Board::GetCellW() {
     return this->cellW;
 }
+
 float Board::GetCellH(){
     return this->cellH;
+}
+
+int Board::GetRows() {
+    return this->rows;
+}
+
+int Board::GetColumns(){
+    return this->columns;
 }
