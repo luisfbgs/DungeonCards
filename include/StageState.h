@@ -12,12 +12,13 @@ public:
     void Update(int dt);
     void Render();
     void Start();
+    int AddCard(std::string file);    
     void Pause();
     void Resume();
-    int AddCard(std::string file);
+    Board* GetBoardPtr();
     StageState();
 private:
-    Board& board;
+    Board board;
 };
 
 #endif

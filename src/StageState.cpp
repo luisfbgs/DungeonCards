@@ -9,8 +9,8 @@
 #include "Board.h"
 #include "Card.h"
 #include "Vec2Int.h"
-
-StageState::StageState() : board(Board::GetInstance()){}
+#include "Action.h"
+StageState::StageState(){}
 
 void StageState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
@@ -41,10 +41,7 @@ void StageState::Update(int dt) {
     int yMove = input.KeyPress('s') - input.KeyPress('w');
     int xMove = input.KeyPress('d') - input.KeyPress('a');
     if(xMove || yMove) {
-        // this->board.MoveCard(0, {xMove, yMove}, this->board.GetBoardPos(0));
-        // printf("[StageState::Update] --> %p\n", this->board.cards[0].get());
-        ActionMove* actionMove = (ActionMove*)this->board.GetAction(ActionNames::MOVE);
-        actionMove->Run( 0, {xMove, yMove}, this->board.GetBoardPos(0) );
+        Action::Move(this->board.GetCard(0).get(), {xMove, yMove}, this->board.GetBoardPos(0));
     }
 }
 

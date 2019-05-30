@@ -1,13 +1,15 @@
-#ifndef ACTION
-#define ACTION
-enum ActionNames {
+#ifndef ACTION_NAMESPACE
+#define ACTION_NAMESPACE
+#include "Card.h"
+
+class Card;
+enum ActionId {
     MOVE
 };
-// Classe base para as acoes a serem executadas pelo tabuleiro
 class Action {
+    // static std::map <Action, *> ActionMap; // Fazer map Action -> funcao correspondente
 public:
-    static void Run(int idSource, int idDest);
-private:
-}; 
+    static void Move(Card* sourcePtr, Vec2Int pos, Vec2Int offSet = {0, 0});
+};
 
 #endif
