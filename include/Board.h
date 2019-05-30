@@ -9,10 +9,9 @@
 #include "Vec2Int.h"
 #include "Action.h"
 
-static std::map <ActionNames, Action*> ActionMap; // funciona
 class Board {
 public:
-// static std::map <char*, Action*> ActionMap;  // nao funciona
+    static std::map <ActionNames, Action*> ActionMap; // funciona
 
     void Init(int rows, int columns);
     int AddCard(std::shared_ptr<Card> card);

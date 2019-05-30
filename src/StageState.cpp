@@ -25,7 +25,7 @@ void StageState::LoadAssets() {
     // Criar tabuleiro
     this->board.Init(2, 4);
 
-    // Cria uma carta
+    // Criar uma carta
     this->AddCard(std::string("assets/img/player.jpeg"));
 }
 
@@ -33,6 +33,7 @@ void StageState::Update(int dt) {
     this->UpdateArray(dt);
     InputManager &input = InputManager::GetInstance();
     
+    // Verificar se o usuário deseja voltar a tela inicial
     this->quitRequested = input.IsKeyDown(ESCAPE_KEY);
     // Verificar se o usuário deseja fechar o jogo
     GameData::quitAll = input.QuitRequested();
@@ -41,8 +42,6 @@ void StageState::Update(int dt) {
     int yMove = input.KeyPress('s') - input.KeyPress('w');
     int xMove = input.KeyPress('d') - input.KeyPress('a');
     if(xMove || yMove) {
-        // this->board.MoveCard(0, {xMove, yMove}, this->board.GetBoardPos(0));
-        // printf("[StageState::Update] --> %p\n", this->board.cards[0].get());
         ActionMove* actionMove = (ActionMove*)this->board.GetAction(ActionNames::MOVE);
         actionMove->Run( 0, {xMove, yMove}, this->board.GetBoardPos(0) );
     }
