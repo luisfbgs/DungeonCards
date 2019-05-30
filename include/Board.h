@@ -4,15 +4,13 @@
 #include <vector>
 #include <memory>
 #include <map>
-#include <string>
 #include "Card.h"
 #include "Vec2Int.h"
 #include "Action.h"
 
 class Board {
 public:
-    static std::map <ActionNames, Action*> ActionMap; // funciona
-
+    Board();
     void Init(int rows, int columns);
     int AddCard(std::shared_ptr<Card> card);
     void MoveCard(int id, Vec2Int pos, Vec2Int offset = {0, 0});
@@ -21,12 +19,11 @@ public:
     float GetCellW();
     float GetCellH();
     static Board& GetInstance();
-    Action* GetAction(ActionNames id);
-    std::vector<std::shared_ptr<Card>> cards;
+    void InitActionMap();
 private:
     float cellW, cellH;
     int rows, columns;
-    void InitActionMap();
+    std::vector<std::shared_ptr<Card>> cards;
 };
 
 #endif

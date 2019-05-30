@@ -7,19 +7,17 @@
 #include "Component.h"
 #include "Vec2Int.h"
 #include "Action.h"
-#include "ActionMove.h"
 class Board;
+class Action;
 
 class Card : public Component {
 friend Board;
 friend Action;
-friend ActionMove;
 public:
     Card(GameObject &associated, std::string file, int hp = 10);
     void Update(int dt);
     void Render();
     bool Is(const std::string &type);
-    void Move(Vec2Int pos);
     void SetScale();
 private:
     int hp;

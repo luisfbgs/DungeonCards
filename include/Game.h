@@ -9,7 +9,7 @@
 #include "SDL_include.h"
 
 #include "State.h"
-
+#include "Board.h"
 class Game {
 public:
 	~Game();

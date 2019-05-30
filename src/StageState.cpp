@@ -11,8 +11,9 @@
 #include "Card.h"
 #include "Vec2Int.h"
 #include "Camera.h"
+#include "Action.h"
 
-StageState::StageState() : board(Board::GetInstance()){}
+StageState::StageState() : board(Board::GetInstance()) {}
 
 void StageState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
@@ -32,7 +33,7 @@ void StageState::LoadAssets() {
     // Criar tabuleiro
     this->board.Init(2, 4);
 
-    // Criar uma carta
+    // Cria uma carta
     this->AddCard(std::string("assets/img/player.jpeg"));
 }
 
@@ -40,7 +41,6 @@ void StageState::Update(int dt) {
     this->UpdateArray(dt);
     InputManager &input = InputManager::GetInstance();
     
-    // Verificar se o usuário deseja voltar a tela inicial
     this->quitRequested = input.IsKeyDown(ESCAPE_KEY);
     // Verificar se o usuário deseja fechar o jogo
     GameData::quitAll = input.QuitRequested();
@@ -49,8 +49,7 @@ void StageState::Update(int dt) {
     int yMove = input.KeyPress('s') - input.KeyPress('w');
     int xMove = input.KeyPress('d') - input.KeyPress('a');
     if(xMove || yMove) {
-        ActionMove* actionMove = (ActionMove*)this->board.GetAction(ActionNames::MOVE);
-        actionMove->Run( 0, {xMove, yMove}, this->board.GetBoardPos(0) );
+        Action::Move(this->board.GetCard(0).get(), {xMove, yMove}, this->board.GetBoardPos(0));
     }
 }
 

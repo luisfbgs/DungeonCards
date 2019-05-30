@@ -1,4 +1,6 @@
 #include <string>
+#include<cstdio>
+
 #include "GameObject.h"
 #include "Component.h"
 #include "Card.h"
@@ -30,10 +32,4 @@ void Card::SetScale() {
     float spriteH = this->sprite.GetHeight();
     float scale = std::min(cellW / spriteW, cellH / spriteH);
     this->sprite.SetScale(this->szW * scale, this->szH * scale);
-}
-
-void Card::Move(Vec2Int pos) {
-    this->pos = pos;
-    Board &board = Board::GetInstance();
-    this->associated.box.lefUp = {(float)pos.x * board.GetCellW(), (float)pos.y * board.GetCellH()};
 }
