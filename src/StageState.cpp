@@ -56,6 +56,8 @@ void StageState::LoadAssets() {
     std::shared_ptr<TurnTimer> turnTimer(new TurnTimer(*timerGO, std::string("assets/img/circle.png")));
     timerGO->AddComponent(turnTimer);
     this->AddObject(timerGO);
+
+    GameData::playersCnt = 1;
 }
 
 void StageState::Update(int dt) {

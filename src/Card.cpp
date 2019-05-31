@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "GameData.h"
 #include "Component.h"
+#include "Common.h"
 #include "Card.h"
 #include "Board.h"
 #include "Vec2.h"
@@ -22,6 +23,12 @@ Card::Card(GameObject &associated, std::string file, int num, int hp) : Componen
 
 void Card::Update(int dt) {
     (void)dt;
+
+    if(this->hp <= 0) {
+        this->associated.RequestDelete();
+        return;
+    }
+
     this->lifeBar.SetScale(this->lifeBarSize * this->hp / 100,
                            this->lifeBarSize);
 
@@ -51,8 +58,9 @@ void Card::Update(int dt) {
         }
     }
     else if(playerNum < 0 && GameData::turn && !this->hasMoved){
-        this->hasMoved = true;
-        Action::Attack(this, 9, 1);
+        if(Action::Attack(this, 9, randInt(1, GameData::playersCnt))) {
+            this->hasMoved = true;
+        }
     }
 }
 

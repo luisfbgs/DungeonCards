@@ -21,12 +21,18 @@ int Board::AddCard(std::shared_ptr<Card> card) {
 }
 
 Vec2Int Board::GetBoardPos(int id) {
-    return cards[id]->pos;
+    if(this->GetCard(id) != nullptr)
+        return this->GetCard(id)->pos;
+    return {0, 0};
 }
 
 std::shared_ptr<Card> Board::GetCard(int id) {
     if(this->cards.count(id)) {
-        return this->cards[id];
+        if(this->cards[id].expired()) {
+            this->cards.erase(id);
+            return nullptr;
+        }
+        return this->cards[id].lock();
     }
     return nullptr;
 }
