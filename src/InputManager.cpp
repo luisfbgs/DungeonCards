@@ -52,7 +52,7 @@ void InputManager::Update() {
     }
 }
 
-bool InputManager::KeyPress(int key) {
+bool InputManager::IsKeyPress(int key) {
     return this->keyState[key] && this->keyUpdate[key] == this->updateCounter;
 }
 

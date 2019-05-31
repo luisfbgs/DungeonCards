@@ -62,7 +62,7 @@ void StageState::Update(int dt) {
     this->UpdateArray(dt);
     InputManager &input = InputManager::GetInstance();
     
-    this->quitRequested = input.IsKeyDown(ESCAPE_KEY);
+    this->quitRequested = input.IsKeyPress(ESCAPE_KEY);
     // Verificar se o usuário deseja fechar o jogo
     GameData::quitAll = input.QuitRequested();
 }

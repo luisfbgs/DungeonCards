@@ -18,7 +18,7 @@
 class InputManager {
 public:
     void Update();
-    bool KeyPress(int key);
+    bool IsKeyPress(int key);
     bool KeyRelease(int key);
     bool IsKeyDown(int key);
     bool MousePress(int button);

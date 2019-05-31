@@ -32,8 +32,8 @@ void Card::Update(int dt) {
     if(playerNum > 0 && !GameData::turn && !this->hasMoved) {
         InputManager &input = InputManager::GetInstance();
         // Mover a carta
-        int yMove = input.KeyPress('s') - input.KeyPress('w');
-        int xMove = input.KeyPress('d') - input.KeyPress('a');
+        int yMove = input.IsKeyPress('s') - input.IsKeyPress('w');
+        int xMove = input.IsKeyPress('d') - input.IsKeyPress('a');
         if(xMove || yMove) {
             Action::Move(this, {xMove, yMove}, this->pos);
             this->hasMoved = true;
