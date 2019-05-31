@@ -16,7 +16,7 @@ class Card : public Component {
 friend Board;
 friend Action;
 public:
-    Card(GameObject &associated, std::string file, int num = 0, int hp = 100);
+    Card(GameObject &associated, std::string file, int num = 0, int hp = 9);
     void Update(int dt);
     void Render();
     bool Is(const std::string &type);
@@ -31,7 +31,6 @@ private:
     Vec2Int pos;
     Sprite sprite;
     Sprite lifeBar;
-    float lifeBarSize;
 };
 
 #endif

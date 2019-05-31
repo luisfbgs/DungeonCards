@@ -13,7 +13,7 @@
 
 Card::Card(GameObject &associated, std::string file, int num, int hp) : Component(associated),
                                                                 sprite(associated, file),
-                                                                lifeBar(associated, std::string("assets/img/lifeBar.png")) {
+                                                                lifeBar(associated, std::string("assets/img/counter9.png")) {
     this->hp = hp;
     this->szW = this->szH = 1;
     this->pos = {0, 0};
@@ -28,9 +28,7 @@ void Card::Update(int dt) {
         this->associated.RequestDelete();
         return;
     }
-
-    this->lifeBar.SetScale(this->lifeBarSize * this->hp / 100,
-                           this->lifeBarSize);
+    this->lifeBar.Open("assets/img/counter" + std::to_string(hp) + ".png");
 
     if((playerNum > 0) == GameData::turn){
         this->hasMoved = false;
@@ -50,7 +48,7 @@ void Card::Update(int dt) {
         // Causar 5 de dano a um inimigo
         for(int key : input.GetAllKeys()) {
             if(key >= '1' && key <= '9') {
-                if(Action::Attack(this, 20, -(key - '0'))) {
+                if(Action::Attack(this, 3, -(key - '0'))) {
                     this->hasMoved = true;
                     return;
                 }
@@ -58,7 +56,7 @@ void Card::Update(int dt) {
         }
     }
     else if(playerNum < 0 && GameData::turn && !this->hasMoved){
-        if(Action::Attack(this, 9, randInt(1, GameData::playersCnt))) {
+        if(Action::Attack(this, 1, randInt(1, GameData::playersCnt))) {
             this->hasMoved = true;
         }
     }
@@ -87,9 +85,8 @@ void Card::SetScale() {
     // Ajusta o tamanho da barra de vida
     spriteW = this->lifeBar.GetWidth();
     spriteH = this->lifeBar.GetHeight();
-    this->lifeBarSize = std::min(this->sprite.GetWidthS() / spriteW,
-                     this->sprite.GetHeightS() / spriteH);
-    this->lifeBar.SetScale(this->lifeBarSize, this->lifeBarSize);
+    scale = this->sprite.GetWidthS() / 2.3 / spriteW;
+    this->lifeBar.SetScale(scale, scale);
 }
 
 int Card::GetNum() {
