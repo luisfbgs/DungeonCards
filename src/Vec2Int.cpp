@@ -74,7 +74,7 @@ bool Vec2Int::operator==(const Vec2Int &o) const {
 }
 
 bool Vec2Int::operator!=(const Vec2Int &o) const {
-    return !(x == o.x);
+    return !(*this == o);
 }
 
 bool Vec2Int::operator<(const Vec2Int &o) const {
