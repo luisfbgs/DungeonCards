@@ -22,6 +22,7 @@ public:
 	int Length() const;
 	int Angle() const;
     bool operator==(const Vec2Int &o) const;
+    bool operator!=(const Vec2Int &o) const;
 	bool operator<(const Vec2Int &o) const;
 };
 

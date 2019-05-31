@@ -22,6 +22,7 @@ public:
 	float Length() const;
 	float Angle() const;
     bool operator==(const Vec2 &o) const;
+    bool operator!=(const Vec2 &o) const;
 	bool operator<(const Vec2 &o) const;
 };
 

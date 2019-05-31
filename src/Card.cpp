@@ -35,16 +35,18 @@ void Card::Update(int dt) {
         int yMove = input.IsKeyPress('s') - input.IsKeyPress('w');
         int xMove = input.IsKeyPress('d') - input.IsKeyPress('a');
         if(xMove || yMove) {
-            Action::Move(this, {xMove, yMove}, this->pos);
-            this->hasMoved = true;
-            return;
+            if(Action::Move(this, {xMove, yMove}, this->pos)) {
+                this->hasMoved = true;
+                return;
+            }
         }
         // Causar 5 de dano a um inimigo
         for(int key : input.GetAllKeys()) {
             if(key >= '1' && key <= '9') {
-                Action::Attack(this, 20, -(key - '0'));
-                this->hasMoved = true;
-                return;
+                if(Action::Attack(this, 20, -(key - '0'))) {
+                    this->hasMoved = true;
+                    return;
+                }
             }
         }
     }

@@ -70,7 +70,11 @@ int Vec2Int::Dist(const Vec2Int &a) const {
 }
 
 bool Vec2Int::operator==(const Vec2Int &o) const {
-    return equals(x, o.x) && equals(y, o.y);
+    return (x == o.x) && (y == o.y);
+}
+
+bool Vec2Int::operator!=(const Vec2Int &o) const {
+    return !(x == o.x);
 }
 
 bool Vec2Int::operator<(const Vec2Int &o) const {

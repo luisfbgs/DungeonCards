@@ -73,6 +73,10 @@ bool Vec2::operator==(const Vec2 &o) const {
     return equals(x, o.x) && equals(y, o.y);
 }
 
+bool Vec2::operator!=(const Vec2 &o) const {
+    return !(x == o.x);
+}
+
 bool Vec2::operator<(const Vec2 &o) const {
     if(!equals(x, o.x)) return x < o.x;
     return y < o.y;

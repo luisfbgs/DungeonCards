@@ -25,7 +25,10 @@ Vec2Int Board::GetBoardPos(int id) {
 }
 
 std::shared_ptr<Card> Board::GetCard(int id) {
-    return this->cards[id];
+    if(this->cards.count(id)) {
+        return this->cards[id];
+    }
+    return nullptr;
 }
 
 Board& Board::GetInstance() {

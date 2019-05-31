@@ -26,7 +26,7 @@ void TurnTimer::Update(int dt) {
     this->timer.Update(dt);
     if(this->timer.Get() >= 3000) {
         this->ResetScale();
-        this->timer.Update(-3000);
+        this->timer.Restart();
         GameData::turn ^= 1;
     }
     float scale = this->timerSprite.GetScale().x - dt * this->baseScale / 3000;

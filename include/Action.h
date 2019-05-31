@@ -10,8 +10,8 @@ enum ActionId {
 class Action {
     // static std::map <Action, *> ActionMap; // Fazer map Action -> funcao correspondente
 public:
-    static void Move(Card* sourcePtr, Vec2Int pos, Vec2Int offSet = {0, 0});
-    static void Attack(Card* sourcePtr, int damage, int targetId);
+    static bool Move(Card* sourcePtr, Vec2Int pos, Vec2Int offSet = {0, 0});
+    static bool Attack(Card* sourcePtr, int damage, int targetId);
 };
 
 #endif
