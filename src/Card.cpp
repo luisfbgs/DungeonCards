@@ -21,10 +21,15 @@ Card::Card(GameObject &associated, std::string file, int num, int hp) : Componen
 }
 
 void Card::Update(int dt) {
+    (void)dt;
     this->lifeBar.SetScale(this->lifeBarSize * this->hp / 100,
                            this->lifeBarSize);
 
-    if(playerNum > 0 && GameData::turn == 0 && !this->hasMoved) {
+    if((playerNum > 0) == GameData::turn){
+        this->hasMoved = false;
+    }
+
+    if(playerNum > 0 && !GameData::turn && !this->hasMoved) {
         InputManager &input = InputManager::GetInstance();
         // Mover a carta
         int yMove = input.KeyPress('s') - input.KeyPress('w');
@@ -37,15 +42,15 @@ void Card::Update(int dt) {
         // Causar 5 de dano a um inimigo
         for(int key : input.GetAllKeys()) {
             if(key >= '1' && key <= '9') {
-                Action::Attack(this, 5, -(key - '0'));
+                Action::Attack(this, 20, -(key - '0'));
                 this->hasMoved = true;
                 return;
             }
         }
     }
-    else if(playerNum < 0 && !this->hasMoved){
+    else if(playerNum < 0 && GameData::turn && !this->hasMoved){
         this->hasMoved = true;
-        Action::Attack(this, 2, 1);
+        Action::Attack(this, 9, 1);
     }
 }
 

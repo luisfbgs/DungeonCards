@@ -26,8 +26,8 @@ public:
     bool Is(const std::string &type);
     int GetWidth();
     int GetHeight();
-    int GetWidthS();
-    int GetHeightS();
+    float GetWidthS();
+    float GetHeightS();
     bool IsOpen();
     void SetFrame(int frame);
     void SetFrameCount(int frameCount);

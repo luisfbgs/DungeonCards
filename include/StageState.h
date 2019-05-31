@@ -22,7 +22,6 @@ public:
     StageState();
 private:
     Board &board;
-    Timer turnTimer;
 };
 
 #endif

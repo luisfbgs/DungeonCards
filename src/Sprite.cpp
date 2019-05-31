@@ -85,11 +85,11 @@ int Sprite::GetHeight() {
     return this->height;
 }
 
-int Sprite::GetWidthS() {
+float Sprite::GetWidthS() {
     return this->width * this->scale.x;
 }
 
-int Sprite::GetHeightS() {
+float Sprite::GetHeightS() {
     return this->height * this->scale.y;
 }
 

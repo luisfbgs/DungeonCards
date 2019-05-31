@@ -13,7 +13,7 @@
 #include "Vec2Int.h"
 #include "Camera.h"
 #include "Action.h"
-#include "Timer.h"
+#include "TurnTimer.h"
 
 StageState::StageState() : board(Board::GetInstance()) {
     GameData::turn = 0;
@@ -47,18 +47,18 @@ void StageState::LoadAssets() {
     this->AddCard(std::string("assets/img/player.jpeg"), -2);
     Action::Move(this->board.GetCard(-2).get(), {2, 0});
 
-
     // Cria a carta do jogador 1
     this->AddCard(std::string("assets/img/player.jpg"), 1);
     Action::Move(this->board.GetCard(1).get(), {1, 1});
+
+    // Cria um circulo para representar o timer
+    GameObject *timerGO = new GameObject();
+    std::shared_ptr<TurnTimer> turnTimer(new TurnTimer(*timerGO, std::string("assets/img/circle.png")));
+    timerGO->AddComponent(turnTimer);
+    this->AddObject(timerGO);
 }
 
 void StageState::Update(int dt) {
-    this->turnTimer.Update(dt);
-    if(this->turnTimer.Get() >= 5000) {
-        this->turnTimer.Update(-5000);
-        GameData::turn ^= 1;
-    }
     this->UpdateArray(dt);
     InputManager &input = InputManager::GetInstance();
     
