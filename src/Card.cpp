@@ -76,7 +76,7 @@ bool Card::Is(const std::string &type) {
 // Coloca o tamanho do sprite pra ser igual o da célula
 void Card::SetScale() {
     Board &board = Board::GetInstance();
-    float cellW = board.GetCellW(), cellH = board.GetCellW();
+    float cellW = board.GetCellW(), cellH = board.GetCellH();
 
     // Ajusta o tamanho da carta
     float spriteW = this->sprite.GetWidth();
