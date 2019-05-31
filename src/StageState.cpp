@@ -26,7 +26,7 @@ StageState::~StageState() {
 void StageState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
     GameObject *bgGO = new GameObject();
-    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, std::string("assets/img/board.jpeg")));
+    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, std::string("assets/img/board.png")));
     float bgScale = std::min((float)Game::GetInstance().GetWidth() / bgSprite->GetWidth(),
      (float)Game::GetInstance().GetHeight() / bgSprite->GetHeight());
     bgSprite->SetScale(bgScale, bgScale);
