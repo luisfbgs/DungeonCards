@@ -9,6 +9,16 @@
 #define INCLUDE_SDL_IMAGE
 #include "SDL_include.h"
 
+Sprite::Sprite(GameObject& associated, int frameCount, int frameTime, int msToSelfDestruct) : Component(associated) {
+    this->scale = {1, 1};
+    this->angle = 0;
+    this->frameCount = frameCount;
+    this->frameTime = frameTime;
+    this->timeElapsed = 0;
+    this->currentFrame = 0;
+    this->msToSelfDestruct = msToSelfDestruct;
+}
+
 Sprite::Sprite(GameObject& associated, const std::string &file, int frameCount, int frameTime, int msToSelfDestruct) : Component(associated) {
     this->scale = {1, 1};
     this->angle = 0;

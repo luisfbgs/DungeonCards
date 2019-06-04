@@ -9,13 +9,14 @@
 
 class TurnTimer : public Component {
 public:
-    TurnTimer(GameObject &associated, std::string file);
+    TurnTimer(GameObject &associated);
     void Render();
-    void ResetScale();
+    void SetScale();
     void Update(int dt);
     bool Is(const std::string &type);
 
 private:
+    const int kTurnLength = 3000;
     Sprite timerSprite;
     Timer timer;
     float baseScale;

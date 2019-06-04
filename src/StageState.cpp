@@ -53,7 +53,7 @@ void StageState::LoadAssets() {
 
     // Cria um circulo para representar o timer
     GameObject *timerGO = new GameObject();
-    std::shared_ptr<TurnTimer> turnTimer(new TurnTimer(*timerGO, std::string("assets/img/circle.png")));
+    std::shared_ptr<TurnTimer> turnTimer(new TurnTimer(*timerGO));
     timerGO->AddComponent(turnTimer);
     this->AddObject(timerGO);
 

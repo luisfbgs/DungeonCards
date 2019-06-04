@@ -7,12 +7,10 @@
 #include "GameData.h"
 #include "Game.h"
 
-TurnTimer::TurnTimer(GameObject &associated, std::string file) : Component(associated), timerSprite(associated, file) {
-    this->ResetScale();
-}
+TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprite(associated) {}
 
-void TurnTimer::ResetScale() {
-    float scale = (Game::GetInstance().GetWidth() / 5.0) / this->timerSprite.GetWidth();
+void TurnTimer::SetScale() {
+    float scale = (Game::GetInstance().GetWidth() / 7.0) / this->timerSprite.GetWidth();
     this->timerSprite.SetScale(scale, scale);
     this->baseScale = scale;
 }
@@ -24,13 +22,16 @@ void TurnTimer::Update(int dt) {
         return;
     }
     this->timer.Update(dt);
-    if(this->timer.Get() >= 3000) {
-        this->ResetScale();
+    if(this->timer.Get() >= this->kTurnLength) {
+        this->SetScale();
         this->timer.Restart();
         GameData::turn ^= 1;
     }
-    float scale = this->timerSprite.GetScale().x - dt * this->baseScale / 3000;
-    this->timerSprite.SetScale(scale, scale);
+
+    int clockNum = this->timer.Get()  / (this->kTurnLength / 12.0);
+    clockNum++;
+    this->timerSprite.Open(std::string("assets/img/Timer") + std::to_string(clockNum) + ".png");
+    this->SetScale();
 }
 
 void TurnTimer::Render() {
