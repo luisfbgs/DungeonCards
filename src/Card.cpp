@@ -18,7 +18,7 @@ Card::Card(GameObject &associated, std::string file, int num, int hp) : Componen
     this->szW = this->szH = 1;
     this->pos = {0, 0};
     this->playerNum = num;
-    this->hasMoved = false;
+    this->acted = false;
 }
 
 void Card::Update(int dt) {
@@ -32,17 +32,17 @@ void Card::Update(int dt) {
     this->SetScale();
 
     if((playerNum > 0) == GameData::turn){
-        this->hasMoved = false;
+        this->acted = false;
     }
 
-    if(playerNum > 0 && !GameData::turn && !this->hasMoved) {
+    if(playerNum > 0 && !GameData::turn && !this->acted) {
         InputManager &input = InputManager::GetInstance();
         // Mover a carta
         int yMove = input.IsKeyPress('s') - input.IsKeyPress('w');
         int xMove = input.IsKeyPress('d') - input.IsKeyPress('a');
         if(xMove || yMove) {
             if(Action::Move(this, {xMove, yMove}, this->pos)) {
-                this->hasMoved = true;
+                this->acted = true;
                 return;
             }
         }
@@ -50,15 +50,15 @@ void Card::Update(int dt) {
         for(int key : input.GetAllKeys()) {
             if(key >= '1' && key <= '9') {
                 if(Action::Attack(this, 3, -(key - '0'))) {
-                    this->hasMoved = true;
+                    this->acted = true;
                     return;
                 }
             }
         }
     }
-    else if(playerNum < 0 && GameData::turn && !this->hasMoved){
+    else if(playerNum < 0 && GameData::turn && !this->acted){
         if(Action::Attack(this, 1, randInt(1, GameData::playersCnt))) {
-            this->hasMoved = true;
+            this->acted = true;
         }
     }
 }

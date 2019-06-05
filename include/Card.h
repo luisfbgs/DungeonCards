@@ -25,7 +25,7 @@ private:
     // playerNum é positivo para jogadores e negativo para inimigos
     int playerNum;
     int hp;
-    bool hasMoved;
+    bool acted;
     int szW, szH;
     Vec2Int pos;
     Sprite sprite;
