@@ -13,7 +13,7 @@
 
 Card::Card(GameObject &associated, std::string file, int num, int hp) : Component(associated),
                                                                 sprite(associated, file),
-                                                                lifeBar(associated, std::string("assets/img/counter9.png")) {
+                                                                lifeBar(associated) {
     this->hp = hp;
     this->szW = this->szH = 1;
     this->pos = {0, 0};
@@ -83,10 +83,12 @@ void Card::SetScale() {
     this->sprite.SetScale(this->szW * scale, this->szH * scale);
     
     // Ajusta o tamanho da barra de vida
-    spriteW = this->lifeBar.GetWidth();
-    spriteH = this->lifeBar.GetHeight();
-    scale = this->sprite.GetWidthS() / 2.3 / spriteW;
-    this->lifeBar.SetScale(scale, scale);
+    if(this->lifeBar.IsOpen()) {
+        spriteW = this->lifeBar.GetWidth();
+        spriteH = this->lifeBar.GetHeight();
+        scale = this->sprite.GetWidthS() / 2.3 / spriteW;
+        this->lifeBar.SetScale(scale, scale);
+    }
 }
 
 int Card::GetNum() {

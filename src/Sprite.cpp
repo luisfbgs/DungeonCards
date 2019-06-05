@@ -31,11 +31,12 @@ Sprite::Sprite(GameObject& associated, const std::string &file, int frameCount, 
 }
 
 void Sprite::Open(const std::string &file) {
+    this->scale = {1, 1};
     this->texture = Resources::GetImage(file.c_str());
     SDL_QueryTexture(this->texture.get(), nullptr, nullptr, &this->width, &this->height);
     this->width /= this->frameCount;
     this->SetClip(0, 0, this->width, this->height);
-    this->associated.box = {this->associated.box.lefUp, (float)this->width, (float)this->height};
+    this->associated.box = {this->associated.box.leftUp, (float)this->width, (float)this->height};
 }
 
 bool Sprite::IsOpen() {
@@ -63,7 +64,7 @@ void Sprite::Render(float x, float y) {
 }
 
 void Sprite::Render() {
-    this->Render(associated.box.lefUp.x, associated.box.lefUp.y);
+    this->Render(associated.box.leftUp.x, associated.box.leftUp.y);
 }
 
 void Sprite::Update(int dt) {
