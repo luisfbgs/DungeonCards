@@ -1,5 +1,5 @@
-#ifndef ACTION_NAMESPACE
-#define ACTION_NAMESPACE
+#pragma once
+
 #include "Card.h"
 
 class Card;
@@ -14,4 +14,3 @@ public:
     static bool Attack(Card* sourcePtr, int damage, int targetId);
 };
 
-#endif

@@ -1,5 +1,4 @@
-#ifndef SPRITE
-#define SPRITE
+#pragma once
 
 #include <string>
 #include <memory>
@@ -49,4 +48,3 @@ private:
     Timer selfDestructCount;
 };
 
-#endif

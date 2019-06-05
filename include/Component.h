@@ -1,5 +1,4 @@
-#ifndef COMPONENT
-#define COMPONENT
+#pragma once
 
 #include <string>
 
@@ -18,4 +17,3 @@ protected:
     GameObject& associated;
 };
 
-#endif

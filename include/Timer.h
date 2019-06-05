@@ -1,5 +1,4 @@
-#ifndef TIMER
-#define TIMER
+#pragma once
 
 class Timer {
 public:
@@ -11,4 +10,3 @@ private:
     int time;
 };
 
-#endif

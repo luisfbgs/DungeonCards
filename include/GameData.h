@@ -1,11 +1,9 @@
-#ifndef GAMEDATA
-#define GAMEDATA
+#pragma once
 
 namespace GameData {
     extern bool playerVictory;
     extern bool quitAll;
     extern int turn;
-    extern int playersCnt;
+    extern int playersCnt; 
 };
 
-#endif

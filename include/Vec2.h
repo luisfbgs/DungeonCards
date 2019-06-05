@@ -1,5 +1,4 @@
-#ifndef VEC2
-#define VEC2
+#pragma once
 
 class Vec2 {
 public:
@@ -26,4 +25,3 @@ public:
 	bool operator<(const Vec2 &o) const;
 };
 
-#endif

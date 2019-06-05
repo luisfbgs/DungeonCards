@@ -1,5 +1,4 @@
-#ifndef TEXT
-#define TEXT
+#pragma once
 
 #include <string>
 #include <memory>
@@ -34,4 +33,3 @@ private:
     SDL_Color color;
 };
 
-#endif

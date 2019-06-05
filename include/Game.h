@@ -1,5 +1,4 @@
-#ifndef GAME
-#define GAME
+#pragma once
 
 #include <string>
 #include <memory>
@@ -36,4 +35,3 @@ private:
 	std::stack<std::unique_ptr<State>> stateStack;
 };
 
-#endif

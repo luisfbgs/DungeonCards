@@ -1,5 +1,4 @@
-#ifndef TURNTIMER
-#define TURNTIMER
+#pragma once
 
 #include <string>
 
@@ -22,4 +21,3 @@ private:
     float baseScale;
 };
 
-#endif

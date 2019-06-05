@@ -1,5 +1,4 @@
-#ifndef RECT
-#define RECT
+#pragma once
 
 #include "Vec2.h"
 
@@ -20,4 +19,3 @@ public:
 };
 
 
-#endif

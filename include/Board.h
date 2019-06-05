@@ -1,5 +1,4 @@
-#ifndef BOARD
-#define BOARD
+#pragma once
 
 #include <vector>
 #include <memory>
@@ -28,4 +27,3 @@ private:
     std::map<int, std::weak_ptr<Card>> cards;
 };
 
-#endif

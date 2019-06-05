@@ -1,5 +1,4 @@
-#ifndef SOUND
-#define SOUND
+#pragma once
 
 #include <string>
 #include <memory>
@@ -25,4 +24,3 @@ private:
     int channel;
 };
 
-#endif

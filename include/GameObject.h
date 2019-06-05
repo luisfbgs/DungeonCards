@@ -1,5 +1,4 @@
-#ifndef GAMEOBJECT
-#define GAMEOBJECT
+#pragma once
 
 #include <vector>
 #include <memory>
@@ -31,4 +30,3 @@ private:
     float angle;
 };
 
-#endif

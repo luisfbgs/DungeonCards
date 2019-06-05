@@ -29,6 +29,7 @@ void Card::Update(int dt) {
         return;
     }
     this->lifeBar.Open("assets/img/counter" + std::to_string(hp) + ".png");
+    this->SetScale();
 
     if((playerNum > 0) == GameData::turn){
         this->hasMoved = false;

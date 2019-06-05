@@ -1,5 +1,4 @@
-#ifndef CAMERAFOLLOWER
-#define CAMERAFOLLOWER
+#pragma once
 
 #include <string>
 #include "Component.h"
@@ -13,4 +12,3 @@ public:
     bool Is(const std::string& type);
 };
 
-#endif

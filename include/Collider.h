@@ -1,5 +1,4 @@
-#ifndef COLLIDER
-#define COLLIDER
+#pragma once
 
 #include <string>
 #include "Component.h"
@@ -21,4 +20,3 @@ private:
     Vec2 offset;
 };
 
-#endif

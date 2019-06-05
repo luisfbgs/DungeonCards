@@ -1,5 +1,4 @@
-#ifndef STATE
-#define STATE
+#pragma once
 
 #include <memory>
 #include <vector>
@@ -30,4 +29,3 @@ protected:
     std::vector<std::shared_ptr<GameObject>> objectArray;
 };
 
-#endif

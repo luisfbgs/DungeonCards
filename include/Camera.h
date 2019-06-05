@@ -1,5 +1,4 @@
-#ifndef CAMERA
-#define CAMERA
+#pragma once
 
 #include "GameObject.h"
 #include "Vec2.h"
@@ -16,4 +15,3 @@ private:
     static GameObject* focus;
 };
 
-#endif

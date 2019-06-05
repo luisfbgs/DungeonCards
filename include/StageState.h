@@ -1,5 +1,4 @@
-#ifndef STAGESTATE
-#define STAGESTATE
+#pragma once
 
 #include <memory>
 #include <string>
@@ -24,4 +23,4 @@ private:
     Board &board;
 };
 
-#endif
+

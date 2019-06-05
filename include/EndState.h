@@ -1,5 +1,4 @@
-#ifndef ENDSTATE
-#define ENDSTATE
+#pragma once
 
 #include "State.h"
 
@@ -17,4 +16,3 @@ public:
 private:
 };
 
-#endif

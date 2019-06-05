@@ -1,5 +1,4 @@
-#ifndef MUSIC
-#define MUSIC
+#pragma once
 
 #include <string>
 #include <memory>
@@ -21,5 +20,5 @@ private:
     std::shared_ptr<Mix_Music> music;
 };
 
-#endif
+
 

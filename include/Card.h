@@ -1,5 +1,4 @@
-#ifndef CARD
-#define CARD
+#pragma once
 
 #include <string>
 
@@ -32,5 +31,3 @@ private:
     Sprite sprite;
     Sprite lifeBar;
 };
-
-#endif

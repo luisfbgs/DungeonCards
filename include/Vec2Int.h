@@ -1,5 +1,4 @@
-#ifndef VEC2I
-#define VEC2I
+#pragma once
 
 class Vec2Int {
 public:
@@ -26,4 +25,3 @@ public:
 	bool operator<(const Vec2Int &o) const;
 };
 
-#endif

@@ -1,5 +1,4 @@
-#ifndef TITLESTATE
-#define TITLESTATE
+#pragma once
 
 #include "State.h"
 
@@ -15,4 +14,3 @@ public:
 private:
 };
 
-#endif

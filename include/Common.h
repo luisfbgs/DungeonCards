@@ -1,5 +1,4 @@
-#ifndef COMMON
-#define COMMON
+#pragma once
 
 #include <cmath>
 
@@ -16,4 +15,3 @@ float radToDeg(float rad);
 
 float degToRad(float deg);
 
-#endif

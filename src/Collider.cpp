@@ -49,7 +49,7 @@ void Collider::Render() {
 
 	SDL_SetRenderDrawColor(Game::GetInstance().GetRenderer(), 255, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderDrawLines(Game::GetInstance().GetRenderer(), points, 5);
-#endif // DEBUG
+#endif// DEBUG
 }
 
 
