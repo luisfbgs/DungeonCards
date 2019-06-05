@@ -46,7 +46,7 @@ void Card::Update(int dt) {
                 return;
             }
         }
-        // Causar 5 de dano a um inimigo
+        // Causar 3 de dano a um inimigo
         for(int key : input.GetAllKeys()) {
             if(key >= '1' && key <= '9') {
                 if(Action::Attack(this, 3, -(key - '0'))) {
