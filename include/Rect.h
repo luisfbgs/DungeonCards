@@ -6,8 +6,8 @@
 class Rect {
 public:
     Rect(float x = 0, float y = 0, float w = 0, float h = 0);
-    Rect(Vec2 lefUp, float w = 0, float h = 0);
-    Vec2 lefUp; 
+    Rect(Vec2 leftUp, float w = 0, float h = 0);
+    Vec2 leftUp; 
     float w, h;
     float angle;
 

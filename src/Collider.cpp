@@ -30,20 +30,20 @@ void Collider::Render() {
 	Vec2 center(this->box.Center());
 	SDL_Point points[5];
 
-	Vec2 point = (this->box.lefUp - center).Rotate(this->associated.GetAngle())
+	Vec2 point = (this->box.leftUp - center).Rotate(this->associated.GetAngle())
 					+ center - Camera::pos;
 	points[0] = {(int)point.x, (int)point.y};
 	points[4] = {(int)point.x, (int)point.y};
 	
-	point = (Vec2(this->box.lefUp.x + this->box.w, this->box.lefUp.y) - center).Rotate(this->associated.GetAngle())
+	point = (Vec2(this->box.leftUp.x + this->box.w, this->box.leftUp.y) - center).Rotate(this->associated.GetAngle())
 					+ center - Camera::pos;
 	points[1] = {(int)point.x, (int)point.y};
 	
-	point = (Vec2(this->box.lefUp.x + this->box.w, this->box.lefUp.y + this->box.h) - center).Rotate(this->associated.GetAngle())
+	point = (Vec2(this->box.leftUp.x + this->box.w, this->box.leftUp.y + this->box.h) - center).Rotate(this->associated.GetAngle())
 					+ center - Camera::pos;
 	points[2] = {(int)point.x, (int)point.y};
 	
-	point = (Vec2(this->box.lefUp.x, this->box.lefUp.y + this->box.h) - center).Rotate(this->associated.GetAngle())
+	point = (Vec2(this->box.leftUp.x, this->box.leftUp.y + this->box.h) - center).Rotate(this->associated.GetAngle())
 					+ center - Camera::pos;
 	points[3] = {(int)point.x, (int)point.y};
 

@@ -7,7 +7,7 @@ GameObject::GameObject() {
     this->isDead = false;
     this->started = false;
     this->angle = 0;
-    this->box.lefUp = {0, 0};
+    this->box.leftUp = {0, 0};
 }
 
 GameObject::~GameObject() {

@@ -9,15 +9,15 @@ class Collision {
 
 public:
     static inline bool IsColliding(Rect& a, Rect& b, float angleOfA, float angleOfB) {
-        Vec2 A[] = {Vec2(a.lefUp.x, a.lefUp.y + a.h),
-                        Vec2(a.lefUp.x + a.w, a.lefUp.y + a.h),
-                        Vec2(a.lefUp.x + a.w, a.lefUp.y),
-                        Vec2(a.lefUp.x, a.lefUp.y)
+        Vec2 A[] = {Vec2(a.leftUp.x, a.leftUp.y + a.h),
+                        Vec2(a.leftUp.x + a.w, a.leftUp.y + a.h),
+                        Vec2(a.leftUp.x + a.w, a.leftUp.y),
+                        Vec2(a.leftUp.x, a.leftUp.y)
                     };
-        Vec2 B[] = {Vec2(b.lefUp.x, b.lefUp.y + b.h),
-                        Vec2(b.lefUp.x + b.w, b.lefUp.y + b.h),
-                        Vec2(b.lefUp.x + b.w, b.lefUp.y),
-                        Vec2(b.lefUp.x, b.lefUp.y)
+        Vec2 B[] = {Vec2(b.leftUp.x, b.leftUp.y + b.h),
+                        Vec2(b.leftUp.x + b.w, b.leftUp.y + b.h),
+                        Vec2(b.leftUp.x + b.w, b.leftUp.y),
+                        Vec2(b.leftUp.x, b.leftUp.y)
                     };
 
         for(Vec2& v : A) {

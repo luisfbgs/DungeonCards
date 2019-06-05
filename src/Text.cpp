@@ -36,8 +36,8 @@ void Text::Render() {
     clipRect.w = this->associated.box.w;
     clipRect.h = this->associated.box.h;
     SDL_Rect dstrect;
-    dstrect.x = this->associated.box.lefUp.x;
-    dstrect.y = this->associated.box.lefUp.y;
+    dstrect.x = this->associated.box.leftUp.x;
+    dstrect.y = this->associated.box.leftUp.y;
     dstrect.w = clipRect.w;
     dstrect.h = clipRect.h;
     SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), this->texture, &clipRect, &dstrect, 0, nullptr, SDL_FLIP_NONE);

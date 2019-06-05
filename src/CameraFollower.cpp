@@ -7,7 +7,7 @@ CameraFollower::CameraFollower(GameObject& go) : Component(go) {}
 
 void CameraFollower::Update(int dt) {
     (void)dt;
-    this->associated.box.lefUp = Camera::pos;
+    this->associated.box.leftUp = Camera::pos;
 }
 
 void CameraFollower::Render() {}
