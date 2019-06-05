@@ -16,6 +16,7 @@ PlayerHand::PlayerHand(GameObject &associated, int num)
     this->szW = this->szH = 1;
     this->pos = {0, 0};
     this->playerNum = num;
+    this->SetScale();
 }
 
 void PlayerHand::Update(int dt) {

@@ -14,6 +14,7 @@
 #include "Camera.h"
 #include "Action.h"
 #include "TurnTimer.h"
+#include "PlayerHand.h"
 
 StageState::StageState() : board(Board::GetInstance()) {
     GameData::turn = 0;
@@ -56,6 +57,12 @@ void StageState::LoadAssets() {
     std::shared_ptr<TurnTimer> turnTimer(new TurnTimer(*timerGO));
     timerGO->AddComponent(turnTimer);
     this->AddObject(timerGO);
+
+    GameObject *playerHandGO = new GameObject();
+    std::shared_ptr<PlayerHand> playerHand(new PlayerHand(*playerHandGO, 1));
+    playerHandGO->AddComponent(playerHand);
+    this->AddObject(playerHandGO);
+
 
     GameData::playersCnt = 1;
 }
