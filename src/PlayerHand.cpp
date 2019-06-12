@@ -9,6 +9,7 @@
 #include "Board.h"
 #include "Vec2.h"
 #include "Vec2Int.h"
+#include "Action.h"
 #include "InputManager.h"
 
 PlayerHand::PlayerHand(GameObject &associated, int num) 
@@ -23,11 +24,19 @@ void PlayerHand::Update(int dt) {
     (void)dt;
 
     InputManager &input = InputManager::GetInstance();
-    // Mover a carta
+    // Mover a mão
     int yMove = input.IsKeyPress('s') - input.IsKeyPress('w');
     int xMove = input.IsKeyPress('d') - input.IsKeyPress('a');
     if(xMove || yMove) {
         ActionHand::Move(this, {xMove, yMove}, this->pos);
+    }
+
+    // Ataca a posição atual
+    if(input.IsKeyPress('k')) {
+        auto target = Board::GetInstance().GetCard(this->pos.x, this->pos.y);
+        if(target) {
+            Action::Attack(nullptr, 3, target->GetNum());
+        }
     }
 }
 

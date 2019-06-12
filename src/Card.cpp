@@ -95,3 +95,7 @@ void Card::SetScale() {
 int Card::GetNum() {
     return this->playerNum;
 }
+
+Vec2Int Card::GetPos() {
+    return this->pos;
+}

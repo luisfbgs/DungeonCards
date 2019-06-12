@@ -14,6 +14,7 @@ public:
     void MoveCard(int id, Vec2Int pos, Vec2Int offset = {0, 0});
     Vec2Int GetBoardPos(int id);
     std::shared_ptr<Card> GetCard(int id);
+    std::shared_ptr<Card> GetCard(int x, int y);
     float GetCellW();
     float GetCellH();
     int GetRows();
@@ -26,4 +27,3 @@ private:
     int rows, columns;
     std::map<int, std::weak_ptr<Card>> cards;
 };
-

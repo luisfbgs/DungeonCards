@@ -28,11 +28,27 @@ Vec2Int Board::GetBoardPos(int id) {
 
 std::shared_ptr<Card> Board::GetCard(int id) {
     if(this->cards.count(id)) {
-        if(this->cards[id].expired()) {
-            this->cards.erase(id);
-            return nullptr;
+        if(!this->cards[id].expired()) {
+            return this->cards[id].lock();
         }
-        return this->cards[id].lock();
+        this->cards.erase(id);
+    }
+    return nullptr;
+}
+
+std::shared_ptr<Card> Board::GetCard(int x, int y) {
+    Vec2Int pos = {x, y};
+    auto card = this->cards.begin();
+    while(card != this->cards.end()) {
+        if(card->second.expired()) {
+            card = this->cards.erase(card);
+        }
+        else {
+            if(card->second.lock()->GetPos() == pos) {
+                return card->second.lock();
+            }
+            card++;
+        }
     }
     return nullptr;
 }

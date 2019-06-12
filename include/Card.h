@@ -21,6 +21,7 @@ public:
     bool Is(const std::string &type);
     void SetScale();
     int GetNum();
+    Vec2Int GetPos();
 private:
     // playerNum é positivo para jogadores e negativo para inimigos
     int playerNum;
