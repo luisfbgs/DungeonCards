@@ -37,24 +37,6 @@ void Card::Update(int dt) {
 
     if(playerNum > 0 && !GameData::turn && !this->acted) {
         InputManager &input = InputManager::GetInstance();
-        // Mover a carta
-        int yMove = input.IsKeyPress('s') - input.IsKeyPress('w');
-        int xMove = input.IsKeyPress('d') - input.IsKeyPress('a');
-        if(xMove || yMove) {
-            if(Action::Move(this, {xMove, yMove}, this->pos)) {
-                this->acted = true;
-                return;
-            }
-        }
-        // Causar 3 de dano a um inimigo
-        for(int key : input.GetAllKeys()) {
-            if(key >= '1' && key <= '9') {
-                if(Action::Attack(this, 3, -(key - '0'))) {
-                    this->acted = true;
-                    return;
-                }
-            }
-        }
     }
     else if(playerNum < 0 && GameData::turn && !this->acted){
         if(Action::Attack(this, 1, randInt(1, GameData::playersCnt))) {

@@ -24,9 +24,13 @@ bool Action::Move(Card* sourcePtr, Vec2Int pos, Vec2Int offSet) {
 }
 
 bool Action::Attack(Card* sourcePtr, int damage, int targetId) {
+    if(sourcePtr->acted) {
+        return false;
+    }
     Board &board = Board::GetInstance();
     if(board.GetCard(targetId) != nullptr) {
         board.GetCard(targetId)->hp -= damage;
+        sourcePtr->acted = true;
         return true;
     }
     return false;

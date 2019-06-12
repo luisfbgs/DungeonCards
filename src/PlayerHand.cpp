@@ -22,7 +22,11 @@ PlayerHand::PlayerHand(GameObject &associated, int num)
 
 void PlayerHand::Update(int dt) {
     (void)dt;
-
+    Card *myCard = Board::GetInstance().GetCard(this->playerNum).get();
+    if(!myCard) {
+        this->associated.RequestDelete();
+        return;
+    }
     InputManager &input = InputManager::GetInstance();
     // Mover a mão
     int yMove = input.IsKeyPress('s') - input.IsKeyPress('w');
@@ -35,7 +39,7 @@ void PlayerHand::Update(int dt) {
     if(input.IsKeyPress('k')) {
         auto target = Board::GetInstance().GetCard(this->pos.x, this->pos.y);
         if(target) {
-            Action::Attack(nullptr, 3, target->GetNum());
+            Action::Attack(myCard, 3, target->GetNum());
         }
     }
 }
