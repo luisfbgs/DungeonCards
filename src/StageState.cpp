@@ -43,14 +43,13 @@ void StageState::LoadAssets() {
     this->board.Init(2, 4, bgSprite->GetWidthS(), bgSprite->GetHeightS());
 
     // Cria duas cartas de inimigo
-    this->AddCard(std::string(IMG_PATH  "lucario.jpg"), -1);
-    Action::Move(this->board.GetCard(-1).get(), {1, 0});
-    this->AddCard(std::string("assets/img/lucario.jpg"), -2);
-    Action::Move(this->board.GetCard(-2).get(), {2, 0});
+    this->AddCard(std::string(IMG_PATH "lucario.jpg"), -1); Action::Move(this->board.GetCard(-1).get(), {1, 0});
+    this->AddCard(std::string(IMG_PATH "lucario.jpg"), -2); Action::Move(this->board.GetCard(-2).get(), {2, 0});
 
     // Cria a carta do jogador 1
-    this->AddCard(std::string(IMG_PATH "player.jpg"), 1);
-    Action::Move(this->board.GetCard(1).get(), {1, 1});
+    this->AddCard(std::string(PLAYER_PATH "1.jpg"), 1); Action::Move(this->board.GetCard(1).get(), {1, 1});
+
+    this->AddCard(std::string(PLAYER_PATH "2.jpg"), 2);Action::Move(this->board.GetCard(2).get(), {2, 2});
 
     // Cria um circulo para representar o timer
     GameObject *timerGO = new GameObject();
@@ -58,12 +57,9 @@ void StageState::LoadAssets() {
     timerGO->AddComponent(turnTimer);
     this->AddObject(timerGO);
 
-    GameObject *playerHandGO = new GameObject();
-    std::shared_ptr<PlayerHand> playerHand(new PlayerHand(*playerHandGO, 1, std::string(IMG_PATH "circle.png")));
-    playerHandGO->AddComponent(playerHand);
-    this->AddObject(playerHandGO);
-
-
+    // Adiciona cursores aos jogadores
+    this->AddPlayerHand(1, std::string(IMG_PATH "circle.png"));
+    this->AddPlayerHand(2, std::string(IMG_PATH "square.png"));
     GameData::playersCnt = 1;
 }
 
@@ -98,4 +94,11 @@ void StageState::Pause() {
 }
 
 void StageState::Resume() {
+}
+
+int StageState::AddPlayerHand(int num, std::string file) {
+    GameObject *playerHandGO = new GameObject();
+    std::shared_ptr<PlayerHand> playerHand(new PlayerHand(*playerHandGO, num, file));
+    playerHandGO->AddComponent(playerHand);
+    this->AddObject(playerHandGO);
 }
