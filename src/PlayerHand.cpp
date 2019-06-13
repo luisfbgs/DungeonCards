@@ -11,16 +11,20 @@
 #include "Vec2Int.h"
 #include "Action.h"
 #include "InputManager.h"
-
-PlayerHand::PlayerHand(GameObject &associated, int num, std::string file) 
+;
+PlayerHand::PlayerHand(GameObject &associated, int num, std::string file,
+    char leftMove, char rightMove, char upMove, char downMove) 
     : Component(associated), sprite(associated, file) {
     this->sizeW = this->sizeH = 1;
     this->pos = {0, 0};
     this->playerNum = num;
     this->SetScale();
+    this->leftMove = leftMove;  this->rightMove = rightMove;
+    this->upMove = upMove;  this->downMove = downMove;
 }
 
 void PlayerHand::Update(int dt) {
+    printf("me! ===> %d\n", this->playerNum);
     (void)dt;
     Card *myCard = Board::GetInstance().GetCard(this->playerNum).get();
     if(!myCard) {
@@ -29,8 +33,8 @@ void PlayerHand::Update(int dt) {
     }
     InputManager &input = InputManager::GetInstance();
     // Mover a mão
-    int yMove = input.IsKeyPress('s') - input.IsKeyPress('w');
-    int xMove = input.IsKeyPress('d') - input.IsKeyPress('a');
+    int yMove = input.IsKeyPress(this->downMove) - input.IsKeyPress(upMove);
+    int xMove = input.IsKeyPress(this->rightMove) - input.IsKeyPress(this->leftMove);
     if(xMove || yMove) {
         ActionHand::Move(this, {xMove, yMove}, this->pos);
     }
