@@ -27,7 +27,7 @@ StageState::~StageState() {
 void StageState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
     GameObject *bgGO = new GameObject();
-    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, std::string("assets/img/board.png")));
+    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, std::string(IMG_PATH "board.png")));
     float bgScale = std::min((float)Game::GetInstance().GetWidth() / bgSprite->GetWidth(),
      (float)Game::GetInstance().GetHeight() / bgSprite->GetHeight());
     bgSprite->SetScale(bgScale, bgScale);
@@ -43,13 +43,13 @@ void StageState::LoadAssets() {
     this->board.Init(2, 4, bgSprite->GetWidthS(), bgSprite->GetHeightS());
 
     // Cria duas cartas de inimigo
-    this->AddCard(std::string("assets/img/player.jpeg"), -1);
+    this->AddCard(std::string(IMG_PATH  "lucario.jpg"), -1);
     Action::Move(this->board.GetCard(-1).get(), {1, 0});
-    this->AddCard(std::string("assets/img/player.jpeg"), -2);
+    this->AddCard(std::string("assets/img/lucario.jpg"), -2);
     Action::Move(this->board.GetCard(-2).get(), {2, 0});
 
     // Cria a carta do jogador 1
-    this->AddCard(std::string("assets/img/player.jpg"), 1);
+    this->AddCard(std::string(IMG_PATH "player.jpg"), 1);
     Action::Move(this->board.GetCard(1).get(), {1, 1});
 
     // Cria um circulo para representar o timer
@@ -59,7 +59,7 @@ void StageState::LoadAssets() {
     this->AddObject(timerGO);
 
     GameObject *playerHandGO = new GameObject();
-    std::shared_ptr<PlayerHand> playerHand(new PlayerHand(*playerHandGO, 1));
+    std::shared_ptr<PlayerHand> playerHand(new PlayerHand(*playerHandGO, 1, std::string(IMG_PATH "circle.png")));
     playerHandGO->AddComponent(playerHand);
     this->AddObject(playerHandGO);
 

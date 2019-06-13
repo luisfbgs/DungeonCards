@@ -36,7 +36,7 @@ void Card::Update(int dt) {
     }
 
     if(playerNum > 0 && !GameData::turn && !this->acted) {
-        InputManager &input = InputManager::GetInstance();
+        // InputManager &input = InputManager::GetInstance();
     }
     else if(playerNum < 0 && GameData::turn && !this->acted){
         if(Action::Attack(this, 1, randInt(1, GameData::playersCnt))) {

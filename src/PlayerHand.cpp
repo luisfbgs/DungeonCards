@@ -12,8 +12,8 @@
 #include "Action.h"
 #include "InputManager.h"
 
-PlayerHand::PlayerHand(GameObject &associated, int num) 
-    : Component(associated), sprite(associated, std::string("assets/img/circle.png")) {
+PlayerHand::PlayerHand(GameObject &associated, int num, std::string file) 
+    : Component(associated), sprite(associated, file) {
     this->szW = this->szH = 1;
     this->pos = {0, 0};
     this->playerNum = num;

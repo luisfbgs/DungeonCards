@@ -9,6 +9,7 @@
 
 #define INCLUDE_SDL
 #include "SDL_include.h"
+#define IMG_PATH "assets/img/"
 
 class Sprite : public Component{
 public:

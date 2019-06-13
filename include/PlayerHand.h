@@ -15,7 +15,7 @@ class PlayerHand : public Component {
 friend Board;
 friend ActionHand;
 public:
-    PlayerHand(GameObject &associated, int num);
+    PlayerHand(GameObject &associated, int num, std::string file);
     void Update(int dt);
     void Render();
     bool Is(const std::string &type);
