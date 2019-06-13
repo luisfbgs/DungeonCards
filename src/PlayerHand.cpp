@@ -37,7 +37,7 @@ void PlayerHand::Update(int dt) {
 
     // Ataca a posição atual
     if(input.IsKeyPress('k')) {
-        auto target = Board::GetInstance().GetCard(this->pos.x, this->pos.y);
+        auto target = Board::GetInstance().GetCard(this->pos);
         if(target) {
             Action::Attack(myCard, 3, target->GetNum());
         }

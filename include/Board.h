@@ -15,6 +15,7 @@ public:
     Vec2Int GetBoardPos(int id);
     std::shared_ptr<Card> GetCard(int id);
     std::shared_ptr<Card> GetCard(int x, int y);
+    std::shared_ptr<Card> GetCard(Vec2Int vec);
     float GetCellW();
     float GetCellH();
     int GetRows();

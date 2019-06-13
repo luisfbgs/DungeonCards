@@ -53,6 +53,10 @@ std::shared_ptr<Card> Board::GetCard(int x, int y) {
     return nullptr;
 }
 
+std::shared_ptr<Card> Board::GetCard(Vec2Int vec) {
+    return this->GetCard(vec.x, vec.y);
+}
+
 Board& Board::GetInstance() {
     static Board instance;
     return instance;
