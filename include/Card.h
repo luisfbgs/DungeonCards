@@ -27,7 +27,7 @@ private:
     int playerNum;
     int hp;
     bool acted;
-    int szW, szH;
+    int sizeW, sizeH;
     Vec2Int pos;
     Sprite sprite;
     Sprite lifeBar;

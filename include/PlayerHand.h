@@ -24,7 +24,7 @@ public:
 private:
     // playerNum é positivo para jogadores e negativo para inimigos
     int playerNum;
-    int szW, szH;
+    int sizeW, sizeH;
     Vec2Int pos;
     Sprite sprite;
 };

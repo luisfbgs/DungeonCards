@@ -15,7 +15,7 @@ Card::Card(GameObject &associated, std::string file, int num, int hp) : Componen
                                                                 sprite(associated, file),
                                                                 lifeBar(associated) {
     this->hp = hp;
-    this->szW = this->szH = 1;
+    this->sizeW = this->sizeH = 1;
     this->pos = {0, 0};
     this->playerNum = num;
     this->acted = false;
@@ -63,7 +63,7 @@ void Card::SetScale() {
     float spriteW = this->sprite.GetWidth();
     float spriteH = this->sprite.GetHeight();
     float scale = std::min(cellW / spriteW, cellH / spriteH);
-    this->sprite.SetScale(this->szW * scale, this->szH * scale);
+    this->sprite.SetScale(this->sizeW * scale, this->sizeH * scale);
     
     // Ajusta o tamanho da barra de vida
     if(this->lifeBar.IsOpen()) {

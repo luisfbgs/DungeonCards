@@ -14,7 +14,7 @@
 
 PlayerHand::PlayerHand(GameObject &associated, int num, std::string file) 
     : Component(associated), sprite(associated, file) {
-    this->szW = this->szH = 1;
+    this->sizeW = this->sizeH = 1;
     this->pos = {0, 0};
     this->playerNum = num;
     this->SetScale();
@@ -61,7 +61,7 @@ void PlayerHand::SetScale() {
     float spriteW = this->sprite.GetWidth();
     float spriteH = this->sprite.GetHeight();
     float scale = std::min(cellW / spriteW, cellH / spriteH);
-    this->sprite.SetScale(this->szW * scale, this->szH * scale);
+    this->sprite.SetScale(this->sizeW * scale, this->sizeH * scale);
 
 }
 
