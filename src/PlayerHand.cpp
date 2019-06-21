@@ -22,7 +22,6 @@ PlayerHand::PlayerHand(GameObject &associated, int num, std::string file)
 }
 
 void PlayerHand::Update(int dt) {
-    printf("me! ===> %d\n", this->playerNum);
     (void)dt;
     // Indíce do controle
     int cId = this->playerNum - 1;

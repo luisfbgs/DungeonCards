@@ -81,6 +81,7 @@ void Game::Run() {
         }
         if(this->stateStack.top()->QuitRequested()) {
             this->stateStack.pop();
+            this->stateStack.top()->Pause();
             Resources::Free();
             if(!this->stateStack.empty()) {
                 this->stateStack.top()->Resume();
