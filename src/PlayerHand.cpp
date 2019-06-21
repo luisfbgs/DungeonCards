@@ -11,21 +11,21 @@
 #include "Vec2Int.h"
 #include "Action.h"
 #include "InputManager.h"
+#include "Control.h"
 ;
-PlayerHand::PlayerHand(GameObject &associated, int num, std::string file,
-    char leftMove, char rightMove, char upMove, char downMove) 
+PlayerHand::PlayerHand(GameObject &associated, int num, std::string file) 
     : Component(associated), sprite(associated, file) {
     this->sizeW = this->sizeH = 1;
     this->pos = {0, 0};
     this->playerNum = num;
     this->SetScale();
-    this->leftMove = leftMove;  this->rightMove = rightMove;
-    this->upMove = upMove;  this->downMove = downMove;
 }
 
 void PlayerHand::Update(int dt) {
     printf("me! ===> %d\n", this->playerNum);
     (void)dt;
+    // Indíce do controle
+    int cId = this->playerNum - 1;
     Card *myCard = Board::GetInstance().GetCard(this->playerNum).get();
     if(!myCard) {
         this->associated.RequestDelete();
@@ -33,14 +33,14 @@ void PlayerHand::Update(int dt) {
     }
     InputManager &input = InputManager::GetInstance();
     // Mover a mão
-    int yMove = input.IsKeyPress(this->downMove) - input.IsKeyPress(upMove);
-    int xMove = input.IsKeyPress(this->rightMove) - input.IsKeyPress(this->leftMove);
+    int yMove = input.IsKeyPress(bDown[cId]) - input.IsKeyPress(bUp[cId]);
+    int xMove = input.IsKeyPress(bRight[cId]) - input.IsKeyPress(bLeft[cId]);
     if(xMove || yMove) {
         ActionHand::Move(this, {xMove, yMove}, this->pos);
     }
 
     // Ataca a posição atual
-    if(input.IsKeyPress('k')) {
+    if(input.IsKeyPress(bAttack[cId])) {
         auto target = Board::GetInstance().GetCard(this->pos);
         if(target) {
             Action::Attack(myCard, 3, target->GetNum());

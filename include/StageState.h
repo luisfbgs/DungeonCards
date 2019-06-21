@@ -20,8 +20,7 @@ public:
     Board* GetBoardPtr();
     StageState();
 private:
-    int AddPlayerHand(int num, std::string file,
-        char leftMove, char rightMove, char upMove, char downMove);
+    int AddPlayerHand(int num, std::string file);
     Board &board;
 };
 

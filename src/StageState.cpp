@@ -58,12 +58,8 @@ void StageState::LoadAssets() {
     this->AddObject(timerGO);
 
     // Adiciona cursores aos jogadores
-    this->AddPlayerHand(1, std::string(IMG_PATH "circle.png"), 'a', 'd', 'w', 's');
-    this->AddPlayerHand(2, std::string(IMG_PATH "square.png"), 
-        'f',
-        'h',
-        't',
-        'g');
+    this->AddPlayerHand(1, std::string(IMG_PATH "circle.png"));
+    this->AddPlayerHand(2, std::string(IMG_PATH "square.png"));
     GameData::playersCnt = 1;
 }
 
@@ -100,10 +96,9 @@ void StageState::Pause() {
 void StageState::Resume() {
 }
 
-int StageState::AddPlayerHand(int num, std::string file, char leftMove, char rightMove, char upMove, char downMove) {
+int StageState::AddPlayerHand(int num, std::string file) {
     GameObject *playerHandGO = new GameObject();
-    std::shared_ptr<PlayerHand> playerHand(new PlayerHand(*playerHandGO, num, file,
-        leftMove, rightMove, upMove, downMove));
+    std::shared_ptr<PlayerHand> playerHand(new PlayerHand(*playerHandGO, num, file));
     playerHandGO->AddComponent(playerHand);
     this->AddObject(playerHandGO);
 }

@@ -15,8 +15,7 @@ class PlayerHand : public Component {
 friend Board;
 friend ActionHand;
 public:
-    PlayerHand(GameObject &associated, int num, std::string file,
-        char leftMove, char rightMove, char upMove, char downMove);
+    PlayerHand(GameObject &associated, int num, std::string file);
     void Update(int dt);
     void Render();
     bool Is(const std::string &type);
@@ -28,5 +27,4 @@ private:
     int sizeW, sizeH;
     Vec2Int pos;
     Sprite sprite;
-    char leftMove, rightMove, upMove, downMove;
 };
