@@ -1,5 +1,7 @@
 #include <string>
 #include <cstdio>
+#include <chrono>
+#include <thread>
 
 #include "TurnTimer.h"
 #include "Component.h"
@@ -21,12 +23,6 @@ void TurnTimer::SetScale() {
 }
 
 void TurnTimer::Update(int dt) {
-    if(TurnState::current == EnemyAttack) {
-        this->timer.Restart();
-        TurnState::Next();
-        printf("%s\n", turnName[TurnState::current].c_str());
-        return;
-    }
     this->timer.Update(dt);
     if(this->timer.Get() >= this->kTurnLength) {
         this->SetScale();
