@@ -11,6 +11,7 @@
 #include "SDL_include.h"
 #define IMG_PATH "assets/img/"
 #define PLAYER_PATH "assets/img/player/"
+#define TURN_PATH "assets/img/turn/"
 
 class Sprite : public Component{
 public:

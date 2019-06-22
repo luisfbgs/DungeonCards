@@ -15,7 +15,7 @@ TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprit
 }
 
 void TurnTimer::SetScale() {
-    float scale = (Game::GetInstance().GetWidth() / 7.0) / this->timerSprite.GetWidth();
+    float scale = (Game::GetInstance().GetHeight() / 2.0) / this->timerSprite.GetHeight();
     this->timerSprite.SetScale(scale, scale);
     this->baseScale = scale;
 }
@@ -43,6 +43,7 @@ void TurnTimer::Update(int dt) {
 
 void TurnTimer::Render() {
     this->timerSprite.Render();
+    TurnState::Render();
 }
 
 bool TurnTimer::Is(const std::string &type) {
