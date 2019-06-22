@@ -37,8 +37,8 @@ Vec2Int Vec2Int::operator/(int t) const {
 
 Vec2Int Vec2Int::Rotate(int ang) const {
     int rad = degToRad(ang);
-    return {this->x * cosf(rad) - this->y * sinf(rad),
-            this->y * cosf(rad) + this->x * sinf(rad)};
+    return {int(this->x * cosf(rad) - this->y * sinf(rad)),
+            int(this->y * cosf(rad) + this->x * sinf(rad))};
 }
 
 Vec2Int Vec2Int::Norm() const {
