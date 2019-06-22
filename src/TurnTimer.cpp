@@ -6,8 +6,11 @@
 #include "Timer.h"
 #include "GameData.h"
 #include "Game.h"
+#include "TurnState.h"
 
-TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprite(associated) {}
+TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprite(associated) {
+    TurnState::Init();
+}
 
 void TurnTimer::SetScale() {
     float scale = (Game::GetInstance().GetWidth() / 7.0) / this->timerSprite.GetWidth();
@@ -16,16 +19,16 @@ void TurnTimer::SetScale() {
 }
 
 void TurnTimer::Update(int dt) {
-    if(GameData::turn) {
+    if(TurnState::current == EnemyAttack) {
         this->timer.Restart();
-        GameData::turn ^= 1;
+        TurnState::Next();
         return;
     }
     this->timer.Update(dt);
     if(this->timer.Get() >= this->kTurnLength) {
         this->SetScale();
         this->timer.Restart();
-        GameData::turn ^= 1;
+        TurnState::Next();
     }
 
     int clockNum = this->timer.Get()  / (this->kTurnLength / 12.0);

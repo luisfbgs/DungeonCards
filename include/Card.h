@@ -7,6 +7,7 @@
 #include "Component.h"
 #include "Vec2Int.h"
 #include "Action.h"
+#include "TurnState.h"
 
 class Board;
 class Action;
@@ -26,6 +27,7 @@ private:
     // playerNum é positivo para jogadores e negativo para inimigos
     int playerNum;
     int hp;
+    Turn lastActed;
     bool acted;
     int sizeW, sizeH;
     Vec2Int pos;

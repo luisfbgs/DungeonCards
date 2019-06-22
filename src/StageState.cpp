@@ -17,7 +17,6 @@
 #include "PlayerHand.h"
 
 StageState::StageState() : board(Board::GetInstance()) {
-    GameData::turn = 0;
 }
 
 StageState::~StageState() {

@@ -1,5 +1,6 @@
 #include "Action.h"
 #include "Board.h"
+#include "TurnState.h"
 
 bool Action::Move(Card* sourcePtr, Vec2Int pos, Vec2Int offSet) {
     pos += offSet;
@@ -31,6 +32,7 @@ bool Action::Attack(Card* sourcePtr, int damage, int targetId) {
     if(board.GetCard(targetId) != nullptr) {
         board.GetCard(targetId)->hp -= damage;
         sourcePtr->acted = true;
+        sourcePtr->lastActed = TurnState::current;
         return true;
     }
     return false;

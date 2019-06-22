@@ -1,4 +1,5 @@
 #pragma once
+
 #include <InputManager.h>
 
 int bUp[4] = {'w', UP_ARROW_KEY};

@@ -7,6 +7,7 @@
 #include "Component.h"
 #include "Vec2Int.h"
 #include "ActionHand.h"
+#include "Card.h"
 
 class Board;
 class ActionHand;
@@ -22,6 +23,8 @@ public:
     void SetScale();
     int GetNum();
 private:
+    void Attack(Card* myCard);
+    void MoveOnBoard();
     // playerNum é positivo para jogadores e negativo para inimigos
     int playerNum;
     int sizeW, sizeH;

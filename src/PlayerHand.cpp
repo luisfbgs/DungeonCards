@@ -12,7 +12,8 @@
 #include "Action.h"
 #include "InputManager.h"
 #include "Control.h"
-;
+#include "TurnState.h"
+
 PlayerHand::PlayerHand(GameObject &associated, int num, std::string file) 
     : Component(associated), sprite(associated, file) {
     this->sizeW = this->sizeH = 1;
@@ -23,13 +24,25 @@ PlayerHand::PlayerHand(GameObject &associated, int num, std::string file)
 
 void PlayerHand::Update(int dt) {
     (void)dt;
-    // Indíce do controle
-    int cId = this->playerNum - 1;
     Card *myCard = Board::GetInstance().GetCard(this->playerNum).get();
     if(!myCard) {
         this->associated.RequestDelete();
         return;
     }
+    switch (TurnState::current) {
+        case PlayerAttack:
+            MoveOnBoard(); 
+            Attack(myCard); 
+            break;
+        
+        default:
+            break;
+    }
+}
+
+void PlayerHand::MoveOnBoard() {
+    // Indíce do controle
+    int cId = this->playerNum - 1;
     InputManager &input = InputManager::GetInstance();
     // Mover a mão
     int yMove = input.IsKeyPress(bDown[cId]) - input.IsKeyPress(bUp[cId]);
@@ -37,7 +50,12 @@ void PlayerHand::Update(int dt) {
     if(xMove || yMove) {
         ActionHand::Move(this, {xMove, yMove}, this->pos);
     }
+}
 
+void PlayerHand::Attack(Card* myCard){
+    // Indíce do controle
+    int cId = this->playerNum - 1;
+    InputManager &input = InputManager::GetInstance();
     // Ataca a posição atual
     if(input.IsKeyPress(bAttack[cId])) {
         auto target = Board::GetInstance().GetCard(this->pos);

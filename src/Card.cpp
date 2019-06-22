@@ -10,6 +10,7 @@
 #include "Vec2.h"
 #include "Vec2Int.h"
 #include "InputManager.h"
+#include "TurnState.h"
 
 Card::Card(GameObject &associated, std::string file, int num, int hp) : Component(associated),
                                                                 sprite(associated, file),
@@ -31,16 +32,14 @@ void Card::Update(int dt) {
     this->lifeBar.Open("assets/img/counter" + std::to_string(hp) + ".png");
     this->SetScale();
 
-    if((playerNum > 0) == GameData::turn){
+    if(TurnState::current != this->lastActed ){
         this->acted = false;
     }
 
-    if(playerNum > 0 && !GameData::turn && !this->acted) {
-        // InputManager &input = InputManager::GetInstance();
-    }
-    else if(playerNum < 0 && GameData::turn && !this->acted){
+    if(playerNum < 0 && TurnState::current == EnemyAttack && !this->acted){
         if(Action::Attack(this, 1, randInt(1, GameData::playersCnt))) {
             this->acted = true;
+            this->lastActed = TurnState::current;
         }
     }
 }
