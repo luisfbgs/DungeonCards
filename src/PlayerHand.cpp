@@ -20,6 +20,11 @@ PlayerHand::PlayerHand(GameObject &associated, int num, std::string file)
     this->pos = {0, 0};
     this->playerNum = num;
     this->SetScale();
+
+    this->associated.box.leftUp = {
+        Board::GetInstance().GetOffset().y,
+        Board::GetInstance().GetOffset().x
+    };
 }
 
 void PlayerHand::Update(int dt) {

@@ -10,8 +10,10 @@
 void Board::Init(int rows, int columns, float sizeW, float sizeH) {
     this->rows = rows;
     this->columns = columns;
-    this->cellH = sizeH / rows;
-    this->cellW = sizeW / columns;
+    this->offset.x = 0;
+    this->offset.y = sizeW / 5;
+    this->cellH = (sizeH - 2 * this->offset.x) / rows;
+    this->cellW = (sizeW - 2 * this->offset.y) / columns;
 }
 
 int Board::AddCard(std::shared_ptr<Card> card) {
@@ -80,4 +82,8 @@ int Board::GetColumns(){
 
 void Board::Reset() {
     cards.clear();
+}
+
+Vec2 Board::GetOffset() {
+    return this->offset;
 }

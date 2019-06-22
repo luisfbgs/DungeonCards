@@ -5,6 +5,7 @@
 #include <map>
 #include "Card.h"
 #include "Vec2Int.h"
+#include "Vec2.h"
 #include "Action.h"
 
 class Board {
@@ -23,8 +24,10 @@ public:
     static Board& GetInstance();
     void InitActionMap();
     void Reset();
+    Vec2 GetOffset();
 private:
     float cellW, cellH;
+    Vec2 offset;
     int rows, columns;
     std::map<int, std::weak_ptr<Card>> cards;
 };
