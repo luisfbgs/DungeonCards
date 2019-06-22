@@ -10,7 +10,8 @@
 
 TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprite(associated) {
     TurnState::Init();
-    printf("%s\n", TurnState::current == PlayerAttack ? "PlayerAttack" : TurnState::current == EnemyAttack ? "EnemyAttack" : TurnState::current == PlayerSkill ? "PlayerSkill" : "Event");
+    printf("\nInit\n");
+    printf("%s\n", turnName[TurnState::current].c_str());
 }
 
 void TurnTimer::SetScale() {
@@ -23,7 +24,7 @@ void TurnTimer::Update(int dt) {
     if(TurnState::current == EnemyAttack) {
         this->timer.Restart();
         TurnState::Next();
-        printf("%s\n", TurnState::current == PlayerAttack ? "PlayerAttack" : TurnState::current == EnemyAttack ? "EnemyAttack" : TurnState::current == PlayerSkill ? "PlayerSkill" : "Event");
+        printf("%s\n", turnName[TurnState::current].c_str());
         return;
     }
     this->timer.Update(dt);
@@ -31,7 +32,7 @@ void TurnTimer::Update(int dt) {
         this->SetScale();
         this->timer.Restart();
         TurnState::Next();
-        printf("%s\n", TurnState::current == PlayerAttack ? "PlayerAttack" : TurnState::current == EnemyAttack ? "EnemyAttack" : TurnState::current == PlayerSkill ? "PlayerSkill" : "Event");
+        printf("%s\n", turnName[TurnState::current].c_str());
     }
 
     int clockNum = this->timer.Get()  / (this->kTurnLength / 12.0);
