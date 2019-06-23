@@ -19,7 +19,8 @@ void TurnState::Init() {
 }
 
 void TurnState::SetScale() {
-    float scale = (Game::GetInstance().GetHeight() / 2.0) / this->turnSprite.GetHeight();
+    float scale = (Game::GetInstance().GetHeight() / 2.0f) / this->turnSprite.GetHeight();
+    scale = std::min(scale, Game::GetInstance().GetWidth() * 9 / 32.0f / this->turnSprite.GetHeight());
     this->turnSprite.SetScale(scale, scale);
 }
 

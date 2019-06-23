@@ -18,6 +18,5 @@ private:
     const int kTurnLength = 3000;
     Sprite timerSprite;
     Timer timer;
-    float baseScale;
 };
 
