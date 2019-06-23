@@ -8,6 +8,17 @@ O turno dos inimigos ocorre instantaneamente após cada turno do jogador.
 O turno do jogador é resetado cada ver que o ponteiro do relógio aponta para 12.
 
 ## Controles
-1 ou 2 - Ataca um inimigo
+### Menu inicial
 
-w, a, s, d - Movimenta a carta P1 no tabuleiro
+#### w, s - Altera entre opções, para cima e para baixo
+
+#### barra de espaço - Escolhe a opção selecionada
+
+### Durante a fase de ataque:
+
+#### w, a, s, d - Movimenta o cursor do P1 no tabuleiro
+
+#### direcionais - Movimenta o cursor do P2 no tabuleiro
+
+#### k - P1 ataca a carta que o cursos aponta
+
