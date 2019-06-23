@@ -20,5 +20,6 @@ O turno do jogador é resetado cada ver que o ponteiro do relógio aponta para 1
 
 #### direcionais - Movimenta o cursor do P2 no tabuleiro
 
-#### k - P1 ataca a carta que o cursos aponta
+#### k - P1 ataca a carta que o cursor aponta
 
+#### barra de espaço - P2 ataca a carta que o cursor aponta
