@@ -16,6 +16,7 @@
 
 class Sprite : public Component{
 public:
+    Sprite();
     Sprite(GameObject& associated, const std::string &file, int frameCount = 1, int frameTime = 1, int msToSelfDestruct = 0);
     Sprite(GameObject& associated, int frameCount = 1, int frameTime = 1, int msToSelfDestruct = 0);
     void SetScale(float scaleX, float scaleY); 

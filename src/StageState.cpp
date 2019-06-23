@@ -32,10 +32,6 @@ void StageState::LoadAssets() {
     bgSprite->SetScale(bgScale, bgScale);
     bgGO->AddComponent(bgSprite);
 
-    float blackBarX = (float)Game::GetInstance().GetWidth() - bgSprite->GetWidthS();
-    float blackBarY = (float)Game::GetInstance().GetHeight() - bgSprite->GetHeightS();
-    Camera::pos = {-blackBarX / 2, -blackBarY / 2};
-
     this->AddObject(bgGO);
 
     // Criar tabuleiro
@@ -65,9 +61,8 @@ void StageState::Update(int dt) {
     this->UpdateArray(dt);
     InputManager &input = InputManager::GetInstance();
     
-    this->quitRequested = input.IsKeyPress(ESCAPE_KEY);
     // Verificar se o usuário deseja fechar o jogo
-    GameData::quitAll = input.QuitRequested();
+    this->quitRequested = input.QuitRequested() || input.IsKeyPress(ESCAPE_KEY);
 }
 
 void StageState::Render() {

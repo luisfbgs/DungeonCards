@@ -13,7 +13,6 @@ public:
     bool virtual Is(const std::string& type) = 0;
     void virtual NotifyCollision(GameObject& other);
     void virtual Start();
-protected:
     GameObject& associated;
 };
 
