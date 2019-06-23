@@ -57,8 +57,8 @@ void StageState::LoadAssets() {
     this->AddObject(timerGO);
 
     // Adiciona cursores aos jogadores
-    this->AddPlayerHand(1, std::string(IMG_PATH "circle.png"));
-    this->AddPlayerHand(2, std::string(IMG_PATH "square.png"));
+    this->AddPlayerHand(1, std::string(CURSOR_PATH "1.png"));
+    this->AddPlayerHand(2, std::string(CURSOR_PATH "2.png"));
 }
 
 void StageState::Update(int dt) {
