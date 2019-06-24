@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "TitleState.h"
+#include "GameData.h"
 
 int main (int argc, char** argv) {
     (void)argc;
@@ -7,8 +8,13 @@ int main (int argc, char** argv) {
     
     Game::width = 1600;
     Game::height = 900;
-    Game::GetInstance().Push(new TitleState());
-    Game::GetInstance().Run();
+    do {
+        GameData::restart = false;
+        GameData::quitAll = false;
+        Game::GetInstance().Push(new TitleState());
+        Game::GetInstance().Run();
+        Game::GetInstance().~Game();
+    } while(GameData::restart);
 
     return 0;
 }

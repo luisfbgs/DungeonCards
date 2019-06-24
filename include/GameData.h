@@ -3,6 +3,7 @@
 namespace GameData {
     extern bool playerVictory;
     extern bool quitAll;
+    extern bool restart; 
     extern int playersCnt; 
 };
 

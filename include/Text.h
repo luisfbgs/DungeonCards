@@ -18,6 +18,7 @@ public:
     void Render();
     bool Is(const std::string& type);
     void SetText(std::string text);
+    std::string GetText();
     void SetColor(SDL_Color color);
     void SetStyle(TextStyle style);
     void SetFontFile(std::string fontFile);

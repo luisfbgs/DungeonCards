@@ -2,4 +2,5 @@
 
 bool GameData::playerVictory = false;
 bool GameData::quitAll = false;
+bool GameData::restart = false;
 int GameData::playersCnt = 0;

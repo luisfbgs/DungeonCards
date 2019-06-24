@@ -55,6 +55,10 @@ void Text::SetText(std::string text) {
     this->RemakeTexture();
 }
 
+std::string Text::GetText() {
+    return this->text;
+}
+
 void Text::SetColor(SDL_Color color) {
     this->color = color;
     this->RemakeTexture();

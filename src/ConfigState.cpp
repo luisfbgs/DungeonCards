@@ -7,6 +7,7 @@
 #include "ConfigState.h"
 #include "Text.h"
 #include "InputManager.h"
+#include "GameData.h"
 
 void ConfigState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
@@ -32,9 +33,29 @@ void ConfigState::LoadAssets() {
 }
 
 void ConfigState::Update(int dt) {
+    (void)dt;
     InputManager &input = InputManager::GetInstance();
     if(input.QuitRequested() || input.IsKeyPress(ESCAPE_KEY)) {
         this->quitRequested = true;
+    }
+
+    if(input.MousePress(LEFT_MOUSE_BUTTON)) {
+        int mouseX = input.GetMouseX();
+        int mouseY = input.GetMouseY();
+        for(auto object : this->objectArray) {
+            Text* text = dynamic_cast<Text*>(object->GetComponent("Text").get());
+            if(object->GetComponent("Text") != nullptr) {
+                if(object->box.Contains(mouseX, mouseY)){
+                    std::string newRes = text->GetText();
+                    Game::width = stoi(newRes.substr(0, newRes.find('x')));
+                    Game::height = stoi(newRes.substr(newRes.find('x') + 1, newRes.size()));
+                    GameData::restart = true;
+                    GameData::quitAll = true;
+                    return;
+                }
+            }
+        }
+
     }
 }
 
