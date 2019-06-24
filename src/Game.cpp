@@ -14,6 +14,8 @@
 #include "GameData.h"
 
 Game* Game::instance = nullptr;
+int Game::width;
+int Game::height;
 
 Game::Game(const std::string &title, int width, int height) {
     assert(instance == nullptr);
@@ -57,7 +59,7 @@ Game::~Game() {
 
 Game& Game::GetInstance() {
 	if(instance == nullptr) {
-		new Game("Carnivalle of the End Times", 1600, 900);
+		new Game("Carnivalle of the End Times", Game::width, Game::height);
     }
 	return *instance;
 }

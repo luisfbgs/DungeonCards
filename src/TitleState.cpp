@@ -8,6 +8,7 @@
 #include "Sprite.h"
 #include "GameObject.h"
 #include "StageState.h"
+#include "ConfigState.h"
 #include "GameData.h"
 
 void TitleState::Update(int dt) {
@@ -31,6 +32,7 @@ void TitleState::Update(int dt) {
                 Game::GetInstance().Push(new StageState());
                 break;
             case Options:
+                Game::GetInstance().Push(new ConfigState());
                 break;
             case Quit:
                 this->quitRequested = true;

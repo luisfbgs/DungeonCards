@@ -9,6 +9,7 @@
 
 #include "State.h"
 #include "Board.h"
+
 class Game {
 public:
 	~Game();
@@ -20,6 +21,8 @@ public:
 	SDL_Renderer* GetRenderer();
 	State& GetCurrentState();
 	void Push (State* state);
+	static int width;
+	static int height;
 
 private:
 	Game(const std::string &title, int width, int height);
@@ -27,8 +30,6 @@ private:
 	static Game* instance;
 	int frameStart;
 	int dt;
-	int width;
-	int height;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 	State* storedState;

@@ -1,6 +1,8 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
+#include <cstdio>
+
 #include "Resources.h"
 #include "Game.h"
 
@@ -69,7 +71,7 @@ std::shared_ptr<TTF_Font> Resources::GetFont(std::string file, int size) {
         TTF_CloseFont(font);
     };
     if(!fontTable.count(file + std::to_string(size))){
-        fontTable[file+ std::to_string(size)] = std::shared_ptr<TTF_Font>(TTF_OpenFont(file.c_str(), size), deleter);
+        fontTable[file + std::to_string(size)] = std::shared_ptr<TTF_Font>(TTF_OpenFont(file.c_str(), size), deleter);
     }
     return fontTable[file + std::to_string(size)];
 }

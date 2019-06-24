@@ -71,7 +71,9 @@ void PlayerHand::Attack(Card* myCard){
 }
 
 void PlayerHand::Render() {
-    this->sprite.Render();
+    if(TurnState::current == PlayerAttack || TurnState::current == PlayerSkill) {
+        this->sprite.Render();
+    }
 }
 
 bool PlayerHand::Is(const std::string &type) {

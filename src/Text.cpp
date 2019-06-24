@@ -1,4 +1,7 @@
 #include <string>
+#include <memory>
+#include <cstdio>
+
 #include "Text.h"
 #include "Component.h"
 #include "GameObject.h"
