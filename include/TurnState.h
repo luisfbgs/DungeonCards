@@ -20,15 +20,16 @@ const std::string turnName[4] = {
 };
 
 class TurnState {
+public:
+    static const float PROPORCAO;
+    static Turn current;
+    static void Init();
+    static void Next();
+    static void Render();
 private:
     TurnState();
     Sprite turnSprite;
     GameObject turnSpriteGO;
     static TurnState *instance;
     void SetScale();
-public:
-    static Turn current;
-    static void Init();
-    static void Next();
-    static void Render();
 };

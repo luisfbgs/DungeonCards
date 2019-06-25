@@ -10,6 +10,8 @@
 #include "Game.h"
 #include "TurnState.h"
 
+const float TurnTimer:: PROPORCAO = 9 / 32.0f;
+
 TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprite(associated) {
     TurnState::Init();
     printf("\nInit\n");
