@@ -36,8 +36,8 @@ void PlayerHand::Update(int dt) {
     }
     switch (TurnState::current) {
         case PlayerAttack:
-            MoveOnBoard(); 
-            Attack(myCard); 
+            this->MoveOnBoard(); 
+            this->Attack(myCard); 
             break;
         
         default:
