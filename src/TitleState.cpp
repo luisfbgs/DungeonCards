@@ -7,7 +7,7 @@
 #include "Camera.h"
 #include "Sprite.h"
 #include "GameObject.h"
-#include "StageState.h"
+#include "MapState.h"
 #include "ConfigState.h"
 #include "GameData.h"
 #include "Music.h"
@@ -30,7 +30,7 @@ void TitleState::Update(int dt) {
     if(input.IsKeyPress(' ')) {
         switch(this->selectedOption) {
             case Play:
-                Game::GetInstance().Push(new StageState());
+                Game::GetInstance().Push(new MapState());
                 break;
             case Options:
                 Game::GetInstance().Push(new ConfigState());

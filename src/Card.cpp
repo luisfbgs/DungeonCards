@@ -87,6 +87,7 @@ int Card::_Damage(int damage) {
   }
   return this->hp;
 }
+
 int Card::_Heal(int hp) {
   if(hp < 0) {
     return this->_Damage(hp);
