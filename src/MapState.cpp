@@ -14,11 +14,26 @@ void MapState::LoadAssets() {
     bgSprite->SetScale(bgScale, bgScale);
     bgGO->AddComponent(bgSprite);
     this->AddObject(bgGO);
+
+    this->cursor = new GameObject();
+    std::shared_ptr<Sprite> cursorSprite(new Sprite(*this->cursor, CURSOR_PATH "map.png"));
+    float cursorScale = std::min((float)Game::GetInstance().GetWidth() / 10.0 / cursorSprite->GetWidth(),
+     (float)Game::GetInstance().GetHeight() / 10.0 / cursorSprite->GetHeight());
+    cursorSprite->SetScale(cursorScale, cursorScale);
+    this->cursor->AddComponent(cursorSprite);
+    this->AddObject(this->cursor);
 }
 
 void MapState::Start() {
-    this->pos = 1;
+    this->stages = {
+        {3, 8},
+        {6, 7}
+    };
+    this->pos = 0;
     this->LoadAssets();
+    this->cursor->box.leftUp = stages[0];
+    this->cursor->box.leftUp.x *= this->cursor->box.w;
+    this->cursor->box.leftUp.y *= this->cursor->box.h;
 }
 
 void MapState::Update(int dt) {

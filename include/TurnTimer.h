@@ -16,7 +16,7 @@ public:
     bool Is(const std::string &type);
 
 private:
-    const int kTurnLength = 3000;
+    const int kTurnLength = 1000;
     Sprite timerSprite;
     Timer timer;
     static const float PROPORCAO;

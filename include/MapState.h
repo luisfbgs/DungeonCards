@@ -1,8 +1,11 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 
 #include "State.h"
+#include "GameObject.h"
+#include "Vec2.h"
 
 class MapState : public State {
 public:
@@ -14,5 +17,7 @@ public:
     void Resume();
 private:
     int pos;
+    GameObject *cursor;
+    std::vector<Vec2> stages;
 };
 
