@@ -20,6 +20,7 @@ PlayerHand::PlayerHand(GameObject &associated, int num, std::string file)
     this->sizeW = this->sizeH = 1;
     this->pos = {0, 0};
     this->playerNum = num;
+    this->actedSkill = false;
     this->SetScale();
 
     this->associated.box.leftUp = {
@@ -41,19 +42,22 @@ void PlayerHand::Update(int dt) {
             this->Attack(myCard); 
             break;
         case PlayerSkill: {
-            // gambiarra: player 1 dano em dobro, e o outro heala a si mesmo
-            Card* playerCard = Board::GetInstance().GetCard(this->playerNum).get();
-            if (this->playerNum == 1) {
-                if( playerCard->HasActed()) {
-                    CardSkill::DoubleDamage(playerCard->GetLastHitCard().get(), playerCard);
+            if (myCard->acted){
+                // gambiarra: player 1 dano em dobro, e o outro heala a si mesmo
+                if (this->playerNum == 1) {
+                    CardSkill::DoubleDamage(myCard->GetLastHitCard().get(), myCard);
+                    myCard->acted = true;
+                } 
+                else if (this->playerNum == 2) {
+                    CardSkill::HealCard(myCard);
+                    myCard->acted = true;
                 }
-            } 
-            else if (this->playerNum == 2) {
-                CardSkill::HealCard(playerCard);
             }
-        }
-        default:
             break;
+        }
+        default:{
+            break;
+        }
     }
 }
 

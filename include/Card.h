@@ -35,12 +35,12 @@ public:
     int GetAttackPower();
     Vec2Int GetPos();
     static const int MAX_LIFE = 10;
+    bool acted;
 private:
     // playerNum é positivo para jogadores e negativo para inimigos
     int playerNum;
     int hp, attackPower;
     Turn lastActed;
-    bool acted;
     int sizeW, sizeH;
     Vec2Int pos;
     Sprite sprite;
