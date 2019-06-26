@@ -12,7 +12,6 @@
 
 class Board;
 class Action;
-// class CardSkill;
 
 class Card : public Component {
 friend Board;
@@ -36,11 +35,11 @@ public:
     Vec2Int GetPos();
     static const int MAX_LIFE = 9;
     bool acted;
+    Turn lastActed;
 private:
     // playerNum é positivo para jogadores e negativo para inimigos
     int playerNum;
     int hp, attackPower;
-    Turn lastActed;
     int sizeW, sizeH;
     Vec2Int pos;
     Sprite sprite;

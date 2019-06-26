@@ -46,10 +46,12 @@ void PlayerHand::Update(int dt) {
                 if (this->playerNum == 1) {
                     CardSkill::DoubleDamage(this->lastTarget.get(), myCard);
                     myCard->acted = true;
+                    myCard->lastActed = TurnState::current;
                 } 
                 else if (this->playerNum == 2) {
                     CardSkill::HealCard(myCard);
                     myCard->acted = true;
+                    myCard->lastActed = TurnState::current;
                 }
             }
             break;
@@ -105,7 +107,6 @@ void PlayerHand::SetScale() {
     float spriteH = this->sprite.GetHeight();
     float scale = std::min(cellW / spriteW, cellH / spriteH);
     this->sprite.SetScale(this->sizeW * scale, this->sizeH * scale);
-
 }
 
 int PlayerHand::GetNum() {

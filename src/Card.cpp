@@ -101,8 +101,6 @@ int Card::_Heal(int hp) {
           this->hp = aux;
       }
   }
-  this->lastActed = TurnState::current;
-  printf("hp: %d\n", this->hp);
   return this->hp;
 }
 
