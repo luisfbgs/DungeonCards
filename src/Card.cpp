@@ -89,11 +89,19 @@ int Card::_Damage(int damage) {
 }
 int Card::_Heal(int hp) {
   if(hp < 0) {
-    return this->_Damage(hp);
+    return this->_Damage(-hp);
   }
   else {
-    this->hp = ((this->hp + hp) % MAX_LIFE + this->MAX_LIFE) % this->MAX_LIFE;
+      auto aux = this->hp+hp;
+      if (aux > Card::MAX_LIFE) {
+          this->hp = MAX_LIFE;
+      }
+      else {
+          this->hp = aux;
+      }
   }
+  this->lastActed = TurnState::current;
+  printf("hp: %d\n", this->hp);
   return this->hp;
 }
 

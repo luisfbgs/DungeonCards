@@ -34,7 +34,7 @@ public:
     bool HasActed(){return this->acted;}
     int GetAttackPower();
     Vec2Int GetPos();
-    static const int MAX_LIFE = 10;
+    static const int MAX_LIFE = 9;
     bool acted;
 private:
     // playerNum é positivo para jogadores e negativo para inimigos
