@@ -20,7 +20,7 @@ TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprit
 
 void TurnTimer::SetScale() {
     float scale = (Game::GetInstance().GetHeight() / 2.0) / this->timerSprite.GetHeight();
-    scale = std::min(scale, Game::GetInstance().GetWidth() * 9 / 32.0f / this->timerSprite.GetHeight());
+    scale = std::min(scale, Game::GetInstance().GetWidth() * (this->PROPORCAO) / this->timerSprite.GetHeight());
     this->timerSprite.SetScale(scale, scale);
 }
 

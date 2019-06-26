@@ -10,6 +10,7 @@
 #include "StageState.h"
 #include "ConfigState.h"
 #include "GameData.h"
+#include "Music.h"
 
 void TitleState::Update(int dt) {
     (void)dt;
@@ -65,6 +66,9 @@ void TitleState::LoadAssets() {
     selectGO->box.leftUp = {bgSprite->GetWidthS() / 5.3f, bgSprite->GetHeightS() / 1.9f};
     selectGO->AddComponent(this->selectSprite);
     this->AddObject(selectGO);
+    // Toca musica do menu.
+    this->music.Open(AUDIO_PATH "menu.ogg");
+    this->music.Play(-1);
 }
 
 void TitleState::Render() {
@@ -77,7 +81,10 @@ void TitleState::Start() {
     this->UpdateArray(0);
 }
 
-void TitleState::Pause() {}
+void TitleState::Pause() {
+    this->music.Stop();
+}
 
 void TitleState::Resume() {
+    this->music.Play(-1);
 }

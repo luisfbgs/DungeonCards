@@ -4,6 +4,7 @@
 
 #include "State.h"
 #include "Sprite.h"
+#include "Music.h"
 
 class TitleState : public State {
 public:
@@ -13,7 +14,7 @@ public:
     void Start();
     void Pause();
     void Resume();
-
+    Music music;
 private:
     enum Option {
         Play,

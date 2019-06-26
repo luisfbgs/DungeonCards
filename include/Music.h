@@ -6,6 +6,8 @@
 #define INCLUDE_SDL_MIXER
 #include "SDL_include.h"
 
+#define AUDIO_PATH "assets/audio/"
+
 class Music {
 public:
     Music();
