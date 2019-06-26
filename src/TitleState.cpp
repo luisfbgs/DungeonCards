@@ -68,7 +68,7 @@ void TitleState::LoadAssets() {
     this->AddObject(selectGO);
     // Toca musica do menu.
     this->music.Open(AUDIO_PATH "menu.ogg");
-    // this->music.Play(-1);
+    this->music.Play(-1);
 }
 
 void TitleState::Render() {
@@ -82,7 +82,7 @@ void TitleState::Start() {
 }
 
 void TitleState::Pause() {
-    //this->music.Stop();
+    this->music.Stop();
 }
 
 void TitleState::Resume() {
