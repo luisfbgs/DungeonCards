@@ -39,7 +39,6 @@ void PlayerHand::Update(int dt) {
             this->MoveOnBoard(); 
             this->Attack(myCard); 
             break;
-        
         default:
             break;
     }
@@ -50,8 +49,8 @@ void PlayerHand::MoveOnBoard() {
     int cId = this->playerNum - 1;
     InputManager &input = InputManager::GetInstance();
     // Mover a mão
-    int yMove = input.IsKeyPress(bDown[cId]) - input.IsKeyPress(bUp[cId]);
-    int xMove = input.IsKeyPress(bRight[cId]) - input.IsKeyPress(bLeft[cId]);
+    int yMove = input.IsKeyPress(buttonDown[cId]) - input.IsKeyPress(buttonUp[cId]);
+    int xMove = input.IsKeyPress(buttonRight[cId]) - input.IsKeyPress(buttonLeft[cId]);
     if(xMove || yMove) {
         ActionHand::Move(this, {xMove, yMove}, this->pos);
     }

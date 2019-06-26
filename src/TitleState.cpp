@@ -68,7 +68,7 @@ void TitleState::LoadAssets() {
     this->AddObject(selectGO);
     // Toca musica do menu.
     this->music.Open(AUDIO_PATH "menu.ogg");
-    this->music.Play(-1);
+    // this->music.Play(-1);
 }
 
 void TitleState::Render() {
