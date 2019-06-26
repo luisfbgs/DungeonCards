@@ -24,7 +24,8 @@ public:
     void SetScale();
     int GetNum();
 private:
-    void Attack(Card* myCard);
+    void Attack();
+    Card *myCard;
     void MoveOnBoard();
     // playerNum é positivo para jogadores e negativo para inimigos
     int playerNum;

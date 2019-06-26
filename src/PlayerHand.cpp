@@ -21,6 +21,7 @@ PlayerHand::PlayerHand(GameObject &associated, int num, std::string file)
     this->pos = {0, 0};
     this->playerNum = num;
     this->SetScale();
+    this->myCard = Board::GetInstance().GetCard(this->playerNum).get();
 
     this->associated.box.leftUp = {
         Board::GetInstance().GetOffset().y,
@@ -30,28 +31,27 @@ PlayerHand::PlayerHand(GameObject &associated, int num, std::string file)
 
 void PlayerHand::Update(int dt) {
     (void)dt;
-    Card *myCard = Board::GetInstance().GetCard(this->playerNum).get();
-    if(!myCard) {
+    if(!this->myCard) {
         this->associated.RequestDelete();
         return;
     }
     switch (TurnState::current) {
         case PlayerAttack:
             this->MoveOnBoard(); 
-            this->Attack(myCard);
+            this->Attack();
             break;
         case PlayerSkill: {
-            if (!myCard->acted){
+            if (!this->myCard->acted){
                 // gambiarra: player 1 dano em dobro, e o outro heala a si mesmo
                 if (this->playerNum == 1) {
-                    CardSkill::DoubleDamage(this->lastTarget.get(), myCard);
-                    myCard->acted = true;
-                    myCard->lastActed = TurnState::current;
+                    CardSkill::DoubleDamage(this->lastTarget.get(), this->myCard);
+                    this->myCard->acted = true;
+                    this->myCard->lastActed = TurnState::current;
                 } 
                 else if (this->playerNum == 2) {
-                    CardSkill::HealCard(myCard);
-                    myCard->acted = true;
-                    myCard->lastActed = TurnState::current;
+                    CardSkill::HealCard(this->myCard);
+                    this->myCard->acted = true;
+                    this->myCard->lastActed = TurnState::current;
                 }
             }
             break;
@@ -74,7 +74,7 @@ void PlayerHand::MoveOnBoard() {
     }
 }
 
-void PlayerHand::Attack(Card* myCard){
+void PlayerHand::Attack(){
     // Indíce do controle
     int cId = this->playerNum - 1;
     InputManager &input = InputManager::GetInstance();
@@ -82,7 +82,7 @@ void PlayerHand::Attack(Card* myCard){
     if(input.IsKeyPress(bAttack[cId])) {
         this->lastTarget = Board::GetInstance().GetCard(this->pos);
         if(this->lastTarget) {
-            Action::Attack(myCard, 3, this->lastTarget->GetNum());
+            Action::Attack(this->myCard, 3, this->lastTarget->GetNum());
         }
     }
 }
