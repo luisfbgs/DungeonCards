@@ -43,6 +43,7 @@ void PlayerHand::Update(int dt) {
             Event::occured = false;
             break;
         case PlayerSkill: {
+            this->MoveOnBoard(); 
             if (!this->myCard->acted){
                 // gambiarra: player 1 dano em dobro, e o outro heala a si mesmo
                 if (this->playerNum == 1) {
@@ -53,9 +54,7 @@ void PlayerHand::Update(int dt) {
                     this->myCard->lastActed = TurnState::current;
                 } 
                 else if (this->playerNum == 2) {
-                    CardSkill::HealCard(this->myCard);
-                    this->myCard->acted = true;
-                    this->myCard->lastActed = TurnState::current;
+                    this->Heal();
                 }
             }
             break;
@@ -94,6 +93,22 @@ void PlayerHand::Attack(){
         this->lastTarget = Board::GetInstance().GetCard(this->pos);
         if(this->lastTarget) {
             Action::Attack(this->myCard, 3, this->lastTarget->GetNum());
+            
+        }
+    }
+}
+
+void PlayerHand::Heal(){
+    // Indíce do controle
+    int cId = this->playerNum - 1;
+    InputManager &input = InputManager::GetInstance();
+    // Ataca a posição atual
+    if(input.IsKeyPress(bAttack[cId])) {
+        this->lastTarget = Board::GetInstance().GetCard(this->pos);
+        if(this->lastTarget) {
+            CardSkill::HealCard(this->lastTarget.get());
+            this->myCard->acted = true;
+            this->myCard->lastActed = TurnState::current;
         }
     }
 }

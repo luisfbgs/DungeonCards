@@ -25,6 +25,7 @@ public:
     int GetNum();
 private:
     void Attack();
+    void Heal();
     Card *myCard;
     void MoveOnBoard();
     // playerNum é positivo para jogadores e negativo para inimigos
