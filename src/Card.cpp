@@ -12,7 +12,7 @@
 #include "InputManager.h"
 #include "TurnState.h"
 
-Card::Card(GameObject &associated, std::string file, int num, int hp) : Component(associated),
+Card::Card(GameObject &associated, std::string file, int num, int hp, int attackPower) : Component(associated),
                                                                 sprite(associated, file),
                                                                 lifeBar(associated) {
     this->hp = hp;
@@ -20,6 +20,7 @@ Card::Card(GameObject &associated, std::string file, int num, int hp) : Componen
     this->pos = {0, 0};
     this->playerNum = num;
     this->acted = false;
+    this->attackPower = attackPower;
 }
 
 void Card::Update(int dt) {
@@ -38,7 +39,7 @@ void Card::Update(int dt) {
 
     // Caso a carta seja inimigo, causa 3 de dano a um player aleatório
     if(playerNum < 0 && TurnState::current == EnemyAttack && !this->acted){
-        if(Action::Attack(this, 3, randInt(1, GameData::playersCnt))) {
+        if(Action::Attack(this, this->attackPower, randInt(1, GameData::playersCnt))) {
             this->acted = true;
             this->lastActed = TurnState::current;
         }
@@ -76,6 +77,28 @@ void Card::SetScale() {
 
 int Card::GetNum() {
     return this->playerNum;
+}
+
+int Card::_Damage(int damage) {
+  if (damage < 0)
+      return this->_Heal(-damage);
+  else {
+      this->hp -= damage;
+  }
+  return this->hp;
+}
+int Card::_Heal(int hp) {
+  if(hp < 0) {
+    return this->_Damage(hp);
+  }
+  else {
+    this->hp = ((this->hp + hp) % MAX_LIFE + this->MAX_LIFE) % this->MAX_LIFE;
+  }
+  return this->hp;
+}
+
+int Card::GetAttackPower() {
+    return this->attackPower;
 }
 
 Vec2Int Card::GetPos() {
