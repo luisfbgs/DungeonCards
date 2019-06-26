@@ -20,7 +20,6 @@ PlayerHand::PlayerHand(GameObject &associated, int num, std::string file)
     this->sizeW = this->sizeH = 1;
     this->pos = {0, 0};
     this->playerNum = num;
-    this->actedSkill = false;
     this->SetScale();
 
     this->associated.box.leftUp = {
@@ -39,13 +38,13 @@ void PlayerHand::Update(int dt) {
     switch (TurnState::current) {
         case PlayerAttack:
             this->MoveOnBoard(); 
-            this->Attack(myCard); 
+            this->Attack(myCard);
             break;
         case PlayerSkill: {
-            if (myCard->acted){
+            if (!myCard->acted){
                 // gambiarra: player 1 dano em dobro, e o outro heala a si mesmo
                 if (this->playerNum == 1) {
-                    CardSkill::DoubleDamage(myCard->GetLastHitCard().get(), myCard);
+                    CardSkill::DoubleDamage(this->lastTarget.get(), myCard);
                     myCard->acted = true;
                 } 
                 else if (this->playerNum == 2) {
