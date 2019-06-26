@@ -30,7 +30,7 @@ public:
     // especificas. Melhorar isso.
     int _Damage(int damage);
     int _Heal(int hp);
-    std::shared_ptr<Card> GetLastHitCard(){return this->lastHitCard;}
+    // std::shared_ptr<Card> GetLastHitCard(){return this->lastHitCard;}
     bool HasActed(){return this->acted;}
     int GetAttackPower();
     Vec2Int GetPos();
@@ -45,5 +45,5 @@ private:
     Vec2Int pos;
     Sprite sprite;
     Sprite lifeBar;
-    std::shared_ptr<Card> lastHitCard;
+    // std::shared_ptr<Card> lastHitCard;
 };

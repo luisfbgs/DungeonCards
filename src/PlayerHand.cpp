@@ -44,8 +44,8 @@ void PlayerHand::Update(int dt) {
             if (!myCard->acted){
                 // gambiarra: player 1 dano em dobro, e o outro heala a si mesmo
                 if (this->playerNum == 1) {
-                    // CardSkill::DoubleDamage(myCard->GetLastHitCard().get(), myCard);
-                    // myCard->acted = true;
+                    CardSkill::DoubleDamage(this->lastTarget.get(), myCard);
+                    myCard->acted = true;
                 } 
                 else if (this->playerNum == 2) {
                     CardSkill::HealCard(myCard);
