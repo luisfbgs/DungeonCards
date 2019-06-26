@@ -1,8 +1,10 @@
 #include "Game.h"
+#include "GameData.h"
 #include "GameObject.h"
 #include "Sprite.h"
 #include "MapState.h"
 #include "StageState.h"
+#include "StageState2.h"
 #include "InputManager.h"
 
 void MapState::LoadAssets() {
@@ -40,8 +42,24 @@ void MapState::Update(int dt) {
     (void)dt;
     InputManager &input = InputManager::GetInstance();
     if(input.IsKeyPress(' ')) {
-        Game::GetInstance().Push(new StageState());
+        if(pos == 0) {
+            Game::GetInstance().Push(new StageState());
+        }
+        else if(GameData::stagesBeated >= 1){
+            Game::GetInstance().Push(new StageState2());
+        }
     }
+    if(input.IsKeyPress('d')){
+        this->pos = std::min((int)this->stages.size() - 1, pos + 1);
+    }
+    if(input.IsKeyPress('a')){
+        this->pos = std::max(0, pos - 1);
+    }
+
+    this->cursor->box.leftUp = stages[this->pos];
+    this->cursor->box.leftUp.x *= this->cursor->box.w;
+    this->cursor->box.leftUp.y *= this->cursor->box.h;
+
     this->quitRequested |= input.IsKeyPress(ESCAPE_KEY) || input.QuitRequested();
 }
 

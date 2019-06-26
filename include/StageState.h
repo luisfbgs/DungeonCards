@@ -22,6 +22,7 @@ public:
 private:
     int AddPlayerHand(int num, std::string file);
     Board &board;
+    int enemyCount;
 };
 
 

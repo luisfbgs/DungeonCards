@@ -27,6 +27,9 @@ void Card::Update(int dt) {
     (void)dt;
 
     if(this->hp <= 0) {
+        if(this->playerNum < 0) {
+            GameData::enemyCount--;
+        }
         this->associated.RequestDelete();
         return;
     }

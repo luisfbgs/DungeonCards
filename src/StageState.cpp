@@ -17,6 +17,7 @@
 #include "PlayerHand.h" 
 
 StageState::StageState() : board(Board::GetInstance()) {
+    GameData::enemyCount = 2;
 }
 
 StageState::~StageState() {
@@ -62,7 +63,11 @@ void StageState::Update(int dt) {
     InputManager &input = InputManager::GetInstance();
     
     // Verificar se o usuário deseja fechar o jogo
-    this->quitRequested = input.QuitRequested() || input.IsKeyPress(ESCAPE_KEY);
+    this->quitRequested |= input.QuitRequested() || input.IsKeyPress(ESCAPE_KEY);
+    if(GameData::enemyCount == 0) {
+        this->quitRequested = true;
+        GameData::stagesBeated++;
+    }
 }
 
 void StageState::Render() {
