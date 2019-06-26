@@ -8,7 +8,7 @@
 enum Turn{
     PlayerAttack,
     EnemyAttack,
-    Event,
+    _Event,
     PlayerSkill
 };
 

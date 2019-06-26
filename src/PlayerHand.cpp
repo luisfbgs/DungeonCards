@@ -14,6 +14,7 @@
 #include "Control.h"
 #include "TurnState.h"
 #include "CardSkill.h"
+#include "Event.h"
 
 PlayerHand::PlayerHand(GameObject &associated, int num, std::string file) 
     : Component(associated), sprite(associated, file) {
@@ -39,6 +40,7 @@ void PlayerHand::Update(int dt) {
         case PlayerAttack:
             this->MoveOnBoard(); 
             this->Attack();
+            Event::occured = false;
             break;
         case PlayerSkill: {
             if (!this->myCard->acted){
@@ -55,6 +57,13 @@ void PlayerHand::Update(int dt) {
                     this->myCard->acted = true;
                     this->myCard->lastActed = TurnState::current;
                 }
+            }
+            break;
+        }
+        case _Event: {
+            if(not Event::occured) {
+                Event::Run();
+                Event::occured = true;
             }
             break;
         }
