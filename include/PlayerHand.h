@@ -8,6 +8,7 @@
 #include "Vec2Int.h"
 #include "ActionHand.h"
 #include "Card.h"
+#include <memory>
 
 class Board;
 class ActionHand;
@@ -30,4 +31,5 @@ private:
     int sizeW, sizeH;
     Vec2Int pos;
     Sprite sprite;
+    std::shared_ptr<Card> lastTarget;
 };

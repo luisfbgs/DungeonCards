@@ -13,6 +13,7 @@
 #include "InputManager.h"
 #include "Control.h"
 #include "TurnState.h"
+#include "CardSkill.h"
 
 PlayerHand::PlayerHand(GameObject &associated, int num, std::string file) 
     : Component(associated), sprite(associated, file) {
@@ -39,6 +40,18 @@ void PlayerHand::Update(int dt) {
             this->MoveOnBoard(); 
             this->Attack(myCard); 
             break;
+        case PlayerSkill: {
+            // gambiarra: player 1 dano em dobro, e o outro heala a si mesmo
+            Card* playerCard = Board::GetInstance().GetCard(this->playerNum).get();
+            if (this->playerNum == 1) {
+                if( playerCard->HasActed()) {
+                    CardSkill::DoubleDamage(playerCard->GetLastHitCard().get(), playerCard);
+                }
+            } 
+            else if (this->playerNum == 2) {
+                CardSkill::HealCard(playerCard);
+            }
+        }
         default:
             break;
     }
@@ -62,9 +75,9 @@ void PlayerHand::Attack(Card* myCard){
     InputManager &input = InputManager::GetInstance();
     // Ataca a posição atual
     if(input.IsKeyPress(bAttack[cId])) {
-        auto target = Board::GetInstance().GetCard(this->pos);
-        if(target) {
-            Action::Attack(myCard, 3, target->GetNum());
+        this->lastTarget = Board::GetInstance().GetCard(this->pos);
+        if(this->lastTarget) {
+            Action::Attack(myCard, 3, this->lastTarget->GetNum());
         }
     }
 }

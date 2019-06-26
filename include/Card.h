@@ -8,7 +8,7 @@
 #include "Vec2Int.h"
 #include "Action.h"
 #include "TurnState.h"
-// #include "CardSkill.h"
+#include <memory>
 
 class Board;
 class Action;
@@ -30,7 +30,8 @@ public:
     // especificas. Melhorar isso.
     int _Damage(int damage);
     int _Heal(int hp);
-    
+    std::shared_ptr<Card> GetLastHitCard(){return this->lastHitCard;}
+    bool HasActed(){return this->acted;}
     int GetAttackPower();
     Vec2Int GetPos();
     static const int MAX_LIFE = 10;
@@ -44,4 +45,5 @@ private:
     Vec2Int pos;
     Sprite sprite;
     Sprite lifeBar;
+    std::shared_ptr<Card> lastHitCard;
 };
