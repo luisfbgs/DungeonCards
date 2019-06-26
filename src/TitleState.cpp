@@ -22,7 +22,7 @@ void TitleState::Update(int dt) {
         }
     }
     if(input.IsKeyPress('s')) {
-        if(this->selectedOption != 3) {
+        if(this->selectedOption != 2) {
             this->selectedOption = Option(selectedOption + 1);
             this->selectSprite->associated.box.leftUp.y += this->selectSprite->GetHeightS();
         }
@@ -82,7 +82,7 @@ void TitleState::Start() {
 }
 
 void TitleState::Pause() {
-    this->music.Stop();
+    //this->music.Stop();
 }
 
 void TitleState::Resume() {

@@ -27,7 +27,7 @@ void ConfigState::LoadAssets() {
          bgSprite->GetHeightS() / 10, Text::TextStyle::SOLID, std::to_string(res.first) + "x" + std::to_string(res.second), color));
         resolutionGO->AddComponent(resText);
         resolutionGO->box.leftUp = {0.0f, posY};
-        posY += Game::height / 10.0;
+        posY += bgSprite->GetHeightS() / 10.0;
         this->AddObject(resolutionGO);
     }
 }
@@ -44,7 +44,7 @@ void ConfigState::Update(int dt) {
         int mouseY = input.GetMouseY();
         for(auto object : this->objectArray) {
             Text* text = dynamic_cast<Text*>(object->GetComponent("Text").get());
-            if(object->GetComponent("Text") != nullptr) {
+            if(text != nullptr) {
                 if(object->box.Contains(mouseX, mouseY)){
                     std::string newRes = text->GetText();
                     Game::width = stoi(newRes.substr(0, newRes.find('x')));
