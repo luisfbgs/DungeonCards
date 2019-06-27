@@ -18,18 +18,18 @@ void TitleState::Update(int dt) {
     if(input.IsKeyPress('w')) {
         if(this->selectedOption != 0) {
             this->selectedOption = Option(selectedOption - 1);
-            this->selectSprite->associated.box.leftUp.y -= this->selectSprite->GetHeightS();
         }
     }
     if(input.IsKeyPress('s')) {
-        if(this->selectedOption != 2) {
+        if(this->selectedOption != 3) {
             this->selectedOption = Option(selectedOption + 1);
-            this->selectSprite->associated.box.leftUp.y += this->selectSprite->GetHeightS();
         }
     }
     if(input.IsKeyPress(' ')) {
         switch(this->selectedOption) {
-            case Play:
+            case Continue:
+                break;
+            case NewGame:
                 Game::GetInstance().Push(new MapState());
                 break;
             case Options:
@@ -47,7 +47,7 @@ void TitleState::Update(int dt) {
 void TitleState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
     GameObject *bgGO = new GameObject();
-    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, IMG_PATH "title.png"));
+    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, IMG_PATH "/menu/fundo.png"));
     float bgScale = std::min((float)Game::GetInstance().GetWidth() / bgSprite->GetWidth(),
      (float)Game::GetInstance().GetHeight() / bgSprite->GetHeight());
     bgSprite->SetScale(bgScale, bgScale);
@@ -59,13 +59,49 @@ void TitleState::LoadAssets() {
     float blackBarY = (float)Game::GetInstance().GetHeight() - bgSprite->GetHeightS();
     Camera::pos = {-blackBarX / 2, -blackBarY / 2};
 
-    GameObject *selectGO = new GameObject();
-    this->selectSprite = std::shared_ptr<Sprite>(new Sprite(*selectGO, IMG_PATH "circle.png"));
-    float selectScale = bgSprite->GetWidthS() / 11 / this->selectSprite->GetWidth();
-    this->selectSprite->SetScale(selectScale, selectScale);
-    selectGO->box.leftUp = {bgSprite->GetWidthS() / 5.3f, bgSprite->GetHeightS() / 1.9f};
-    selectGO->AddComponent(this->selectSprite);
-    this->AddObject(selectGO);
+    GameObject *logoGO = new GameObject();
+    std::shared_ptr<Sprite> logoSprite = std::shared_ptr<Sprite>(new Sprite(*logoGO, IMG_PATH "menu/logo.png"));
+    float logoScale = bgSprite->GetWidthS() / 3.7f / logoSprite->GetWidth();
+    logoSprite->SetScale(logoScale, logoScale);
+    logoSprite->SetAngle(-10);
+    logoGO->box.leftUp = {bgSprite->GetWidthS() / 10.0f, bgSprite->GetHeightS() / 10.0f};
+    logoGO->AddComponent(logoSprite);
+    this->AddObject(logoGO);
+
+    GameObject *exitGO = new GameObject();
+    std::shared_ptr<Sprite> exitSprite = std::shared_ptr<Sprite>(new Sprite(*exitGO, IMG_PATH "menu/exit.png"));
+    float optionScale = bgSprite->GetWidthS() / 5 / exitSprite->GetWidth();
+    exitSprite->SetScale(optionScale, optionScale);
+    exitSprite->SetAngle(86);
+    exitGO->AddComponent(exitSprite);
+    exitGO->box.leftUp = {6.9f * bgSprite->GetWidthS() / 10.0f, 3.7 * bgSprite->GetHeightS() / 10.0f};
+    this->AddObject(exitGO);
+
+    GameObject *setupGO = new GameObject();
+    std::shared_ptr<Sprite> setupSprite = std::shared_ptr<Sprite>(new Sprite(*setupGO, IMG_PATH "menu/setup.png"));
+    setupSprite->SetScale(optionScale, optionScale);
+    setupSprite->SetAngle(38);
+    setupGO->AddComponent(setupSprite);
+    setupGO->box.leftUp = {6.3f * bgSprite->GetWidthS() / 10.0f, 2 * bgSprite->GetHeightS() / 10.0f};
+    this->AddObject(setupGO);
+  
+    GameObject *newGameGO = new GameObject();
+    std::shared_ptr<Sprite> newGameSprite = std::shared_ptr<Sprite>(new Sprite(*newGameGO, IMG_PATH "menu/newGame.png"));
+    newGameSprite->SetScale(optionScale, optionScale);
+    newGameSprite->SetAngle(22);
+    newGameGO->box.leftUp = {5 * bgSprite->GetWidthS() / 10.0f, bgSprite->GetHeightS() / 10.0f};
+    newGameGO->AddComponent(newGameSprite);
+    this->AddObject(newGameGO);
+
+    GameObject *continueGO = new GameObject();
+    std::shared_ptr<Sprite> continueSprite = std::shared_ptr<Sprite>(new Sprite(*continueGO, IMG_PATH "menu/continue.png"));
+    continueSprite->SetScale(optionScale, optionScale);
+    continueSprite->SetAngle(-10);
+    continueGO->box.leftUp = {4 * bgSprite->GetWidthS() / 10.0f, bgSprite->GetHeightS() / 10.0f};
+    continueGO->AddComponent(continueSprite);
+    this->AddObject(continueGO);
+    
+    this->lastOption = this->objectArray.size() - 1;
     // Toca musica do menu.
     this->music.Open(AUDIO_PATH "menu.ogg");
     this->music.Play(-1);
@@ -73,10 +109,11 @@ void TitleState::LoadAssets() {
 
 void TitleState::Render() {
     this->RenderArray();
+    this->objectArray[this->lastOption - this->selectedOption]->Render();
 }
 
 void TitleState::Start() {
-    this->selectedOption = Play;
+    this->selectedOption = Continue;
     this->LoadAssets();
     this->UpdateArray(0);
 }

@@ -16,7 +16,6 @@ void Event::Meteor(int qtd, int damage) {
 
 void Event::Run() {
   int whichEvent = randInt(1, 1);
-  printf("evento : %d\n", whichEvent);
   switch (whichEvent) {
   case 1:
       Event::Meteor(randInt(1, 2), randInt(0, 3));

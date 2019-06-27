@@ -5,6 +5,7 @@
 #include "State.h"
 #include "Sprite.h"
 #include "Music.h"
+#include "Vec2.h"
 
 class TitleState : public State {
 public:
@@ -17,11 +18,12 @@ public:
     Music music;
 private:
     enum Option {
-        Play,
+        Continue,
+        NewGame,
         Options,
         Quit
     };
     Option selectedOption;
-    std::shared_ptr<Sprite> selectSprite;
+    int lastOption;
 };
 
