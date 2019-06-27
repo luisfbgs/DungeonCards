@@ -21,6 +21,7 @@ Card::Card(GameObject &associated, std::string file, int num, int hp, int attack
     this->playerNum = num;
     this->acted = false;
     this->attackPower = attackPower;
+    this->sprite.SetAngle(randReal(-5.0f, 5.0f));
 }
 
 void Card::Update(int dt) {
@@ -66,7 +67,7 @@ void Card::SetScale() {
     // Ajusta o tamanho da carta
     float spriteW = this->sprite.GetWidth();
     float spriteH = this->sprite.GetHeight();
-    float scale = std::min(cellW / spriteW, cellH / spriteH);
+    float scale = std::min(cellW / 1.3f / spriteW, cellH / 1.3f / spriteH);
     this->sprite.SetScale(this->sizeW * scale, this->sizeH * scale);
     
     // Ajusta o tamanho da barra de vida
