@@ -32,7 +32,7 @@ PlayerHand::PlayerHand(GameObject &associated, int num, std::string file)
 
 void PlayerHand::Update(int dt) {
     (void)dt;
-    if(!this->myCard) {
+    if(!Board::GetInstance().GetCard(this->playerNum).get()) {
         this->associated.RequestDelete();
         return;
     }
@@ -115,7 +115,9 @@ void PlayerHand::Heal(){
 
 void PlayerHand::Render() {
     if(TurnState::current == PlayerAttack || TurnState::current == PlayerSkill) {
-        this->sprite.Render();
+        if(!this->myCard->acted) {
+            this->sprite.Render();
+        }
     }
 }
 

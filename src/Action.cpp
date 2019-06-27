@@ -29,8 +29,9 @@ bool Action::Attack(Card* sourcePtr, int damage, int targetId) {
         return false;
     }
     Board &board = Board::GetInstance();
-    if(board.GetCard(targetId) != nullptr) {
-        board.GetCard(targetId)->hp -= damage;
+    Card* target = board.GetCard(targetId).get();
+    if(target != nullptr) {
+        target->_Damage(damage);
         sourcePtr->acted = true;
         sourcePtr->lastActed = TurnState::current;
         return true;

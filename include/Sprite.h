@@ -13,6 +13,8 @@
 #define PLAYER_PATH "assets/img/player/"
 #define CURSOR_PATH "assets/img/cursor/"
 #define TURN_PATH "assets/img/turn/"
+#define MENU_PATH "assets/img/menu/"
+#define COUNTER_PATH "assets/img/counter/"
 
 class Sprite : public Component{
 public:

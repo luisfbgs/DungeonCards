@@ -33,7 +33,7 @@ void Card::Update(int dt) {
         this->associated.RequestDelete();
         return;
     }
-    this->lifeBar.Open("assets/img/counter" + std::to_string(hp) + ".png");
+    this->lifeBar.Open(COUNTER_PATH + std::to_string(hp) + ".png");
     this->SetScale();
 
     if(TurnState::current != this->lastActed ){
