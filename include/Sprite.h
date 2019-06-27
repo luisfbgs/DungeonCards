@@ -15,6 +15,7 @@
 #define TURN_PATH "assets/img/turn/"
 #define MENU_PATH "assets/img/menu/"
 #define COUNTER_PATH "assets/img/counter/"
+#define STAGE_PATH "assets/img/stage/"
 
 class Sprite : public Component{
 public:
