@@ -44,9 +44,9 @@ void StageState2::LoadAssets() {
     this->AddCard(std::string(IMG_PATH "lucario.jpg"), -3); Action::Move(this->board.GetCard(-3).get(), {3, 0});
 
     // Cria a carta do jogador 1
-    this->AddCard(std::string(PLAYER_PATH "1.jpg"), 1); Action::Move(this->board.GetCard(1).get(), {1, 1});
+    this->AddCard(std::string(PLAYER_PATH "1.png"), 1); Action::Move(this->board.GetCard(1).get(), {1, 1});
 
-    this->AddCard(std::string(PLAYER_PATH "2.jpg"), 2);Action::Move(this->board.GetCard(2).get(), {2, 2});
+    this->AddCard(std::string(PLAYER_PATH "2.png"), 2);Action::Move(this->board.GetCard(2).get(), {2, 2});
 
     // Cria um circulo para representar o timer
     GameObject *timerGO = new GameObject();
