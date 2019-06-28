@@ -21,8 +21,8 @@ public:
 	SDL_Renderer* GetRenderer();
 	State& GetCurrentState();
 	void Push (State* state);
-	static int width;
-	static int height;
+	static int width, height;
+	static float widthS, heightS;
 
 private:
 	Game(const std::string &title, int width, int height);

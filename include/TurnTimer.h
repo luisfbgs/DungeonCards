@@ -19,6 +19,5 @@ private:
     const int kTurnLength = 1000;
     Sprite timerSprite;
     Timer timer;
-    static const float PROPORCAO;
 };
 

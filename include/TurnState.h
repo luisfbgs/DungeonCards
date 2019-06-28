@@ -21,7 +21,6 @@ const std::string turnName[4] = {
 
 class TurnState {
 public:
-    static const float PROPORCAO;
     static Turn current;
     static void Init();
     static void Next();

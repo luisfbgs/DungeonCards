@@ -15,12 +15,12 @@
 void TitleState::Update(int dt) {
     (void)dt;
     InputManager &input = InputManager::GetInstance();
-    if(input.IsKeyPress('w')) {
+    if(input.IsKeyPress('w') || input.IsKeyPress('a')) {
         if(this->selectedOption != 0) {
             this->selectedOption = Option(selectedOption - 1);
         }
     }
-    if(input.IsKeyPress('s')) {
+    if(input.IsKeyPress('s') || input.IsKeyPress('d')) {
         if(this->selectedOption != 3) {
             this->selectedOption = Option(selectedOption + 1);
         }
@@ -48,33 +48,35 @@ void TitleState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
     GameObject *bgGO = new GameObject();
     std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, IMG_PATH "/menu/fundo.png"));
-    float bgScale = std::min((float)Game::GetInstance().GetWidth() / bgSprite->GetWidth(),
-     (float)Game::GetInstance().GetHeight() / bgSprite->GetHeight());
+    float bgScale = std::min((float)Game::width / bgSprite->GetWidth(),
+     (float)Game::height / bgSprite->GetHeight());
     bgSprite->SetScale(bgScale, bgScale);
+    Game::widthS = bgSprite->GetWidthS();
+    Game::heightS = bgSprite->GetHeightS();
     bgGO->AddComponent(bgSprite);
     this->AddObject(bgGO);
 
     // Centraliza a camera no centro do fundo 
-    float blackBarX = (float)Game::GetInstance().GetWidth() - bgSprite->GetWidthS();
-    float blackBarY = (float)Game::GetInstance().GetHeight() - bgSprite->GetHeightS();
+    float blackBarX = (float)Game::width - Game::widthS;
+    float blackBarY = (float)Game::height - Game::heightS;
     Camera::pos = {-blackBarX / 2, -blackBarY / 2};
 
     GameObject *logoGO = new GameObject();
     std::shared_ptr<Sprite> logoSprite = std::shared_ptr<Sprite>(new Sprite(*logoGO, MENU_PATH "logo.png"));
-    float logoScale = bgSprite->GetWidthS() / 3.7f / logoSprite->GetWidth();
+    float logoScale = Game::widthS / 3.7f / logoSprite->GetWidth();
     logoSprite->SetScale(logoScale, logoScale);
     logoSprite->SetAngle(-10);
-    logoGO->box.leftUp = {bgSprite->GetWidthS() / 10.0f, bgSprite->GetHeightS() / 10.0f};
+    logoGO->box.leftUp = {Game::widthS / 10.0f, Game::heightS / 10.0f};
     logoGO->AddComponent(logoSprite);
     this->AddObject(logoGO);
 
     GameObject *exitGO = new GameObject();
     std::shared_ptr<Sprite> exitSprite = std::shared_ptr<Sprite>(new Sprite(*exitGO, MENU_PATH "exit.png"));
-    float optionScale = bgSprite->GetWidthS() / 5 / exitSprite->GetWidth();
+    float optionScale = Game::widthS / 5 / exitSprite->GetWidth();
     exitSprite->SetScale(optionScale, optionScale);
     exitSprite->SetAngle(86);
     exitGO->AddComponent(exitSprite);
-    exitGO->box.leftUp = {6.9f * bgSprite->GetWidthS() / 10.0f, 3.7f * bgSprite->GetHeightS() / 10.0f};
+    exitGO->box.leftUp = {6.9f * Game::widthS / 10.0f, 3.7f * Game::heightS / 10.0f};
     this->AddObject(exitGO);
 
     GameObject *setupGO = new GameObject();
@@ -82,14 +84,14 @@ void TitleState::LoadAssets() {
     setupSprite->SetScale(optionScale, optionScale);
     setupSprite->SetAngle(38);
     setupGO->AddComponent(setupSprite);
-    setupGO->box.leftUp = {6.3f * bgSprite->GetWidthS() / 10.0f, 2 * bgSprite->GetHeightS() / 10.0f};
+    setupGO->box.leftUp = {6.3f * Game::widthS / 10.0f, 2 * Game::heightS / 10.0f};
     this->AddObject(setupGO);
   
     GameObject *newGameGO = new GameObject();
     std::shared_ptr<Sprite> newGameSprite = std::shared_ptr<Sprite>(new Sprite(*newGameGO, MENU_PATH "newGame.png"));
     newGameSprite->SetScale(optionScale, optionScale);
     newGameSprite->SetAngle(22);
-    newGameGO->box.leftUp = {5 * bgSprite->GetWidthS() / 10.0f, bgSprite->GetHeightS() / 10.0f};
+    newGameGO->box.leftUp = {5 * Game::widthS / 10.0f, Game::heightS / 10.0f};
     newGameGO->AddComponent(newGameSprite);
     this->AddObject(newGameGO);
 
@@ -97,7 +99,7 @@ void TitleState::LoadAssets() {
     std::shared_ptr<Sprite> continueSprite = std::shared_ptr<Sprite>(new Sprite(*continueGO, MENU_PATH "continue.png"));
     continueSprite->SetScale(optionScale, optionScale);
     continueSprite->SetAngle(-10);
-    continueGO->box.leftUp = {4 * bgSprite->GetWidthS() / 10.0f, bgSprite->GetHeightS() / 10.0f};
+    continueGO->box.leftUp = {4 * Game::widthS / 10.0f, Game::heightS / 10.0f};
     continueGO->AddComponent(continueSprite);
     this->AddObject(continueGO);
     

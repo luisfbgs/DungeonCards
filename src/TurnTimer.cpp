@@ -10,8 +10,6 @@
 #include "Game.h"
 #include "TurnState.h"
 
-const float TurnTimer:: PROPORCAO = 9 / 32.0f;
-
 TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprite(associated) {
     TurnState::Init();
     printf("\nInit\n");
@@ -19,8 +17,7 @@ TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprit
 }
 
 void TurnTimer::SetScale() {
-    float scale = (Game::GetInstance().GetHeight() / 2.0) / this->timerSprite.GetHeight();
-    scale = std::min(scale, Game::GetInstance().GetWidth() * (this->PROPORCAO) / this->timerSprite.GetHeight());
+    float scale = (Game::heightS / 2.0) / this->timerSprite.GetHeight();
     this->timerSprite.SetScale(scale, scale);
 }
 

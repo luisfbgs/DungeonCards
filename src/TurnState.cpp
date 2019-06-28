@@ -5,7 +5,6 @@
 Turn TurnState::current;
 TurnState *TurnState::instance = nullptr;
 
-const float TurnState::PROPORCAO = 9 / 32.0f;
 TurnState::TurnState() : turnSprite(turnSpriteGO) {
 
 }
@@ -20,8 +19,7 @@ void TurnState::Init() {
 }
 
 void TurnState::SetScale() {
-    float scale = (Game::GetInstance().GetHeight() / 2.0f) / this->turnSprite.GetHeight();
-    scale = std::min(scale, Game::GetInstance().GetWidth() * this->PROPORCAO / this->turnSprite.GetHeight());
+    float scale = (Game::heightS / 2.0f) / this->turnSprite.GetHeight();
     this->turnSprite.SetScale(scale, scale);
 }
 
