@@ -38,10 +38,10 @@ void StageState2::LoadAssets() {
     // Criar tabuleiro
     this->board.Init(2, 4, bgSprite->GetWidthS(), bgSprite->GetHeightS());
 
-    // Cria duas cartas de inimigo
-    this->AddCard(std::string(IMG_PATH "lucario.jpg"), -1); Action::Move(this->board.GetCard(-1).get(), {1, 0});
-    this->AddCard(std::string(IMG_PATH "lucario.jpg"), -2); Action::Move(this->board.GetCard(-2).get(), {2, 0});
-    this->AddCard(std::string(IMG_PATH "lucario.jpg"), -3); Action::Move(this->board.GetCard(-3).get(), {3, 0});
+    // Cria três cartas de inimigo
+    this->AddCard(std::string(ENEMY_PATH "3.png"), -1); Action::Move(this->board.GetCard(-1).get(), {1, 0});
+    this->AddCard(std::string(ENEMY_PATH "4.png"), -2); Action::Move(this->board.GetCard(-2).get(), {2, 0});
+    this->AddCard(std::string(ENEMY_PATH "5.png"), -3); Action::Move(this->board.GetCard(-3).get(), {3, 0});
 
     // Cria a carta do jogador 1
     this->AddCard(std::string(PLAYER_PATH "1.png"), 1); Action::Move(this->board.GetCard(1).get(), {1, 1});
