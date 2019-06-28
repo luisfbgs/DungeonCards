@@ -19,15 +19,11 @@
 PlayerHand::PlayerHand(GameObject &associated, int num, std::string file) 
     : Component(associated), sprite(associated, file) {
     this->sizeW = this->sizeH = 1;
-    this->pos = {0, 0};
+    this->pos = {0, 1};
     this->playerNum = num;
     this->SetScale();
     this->myCard = Board::GetInstance().GetCard(this->playerNum).get();
-
-    this->associated.box.leftUp = {
-        Board::GetInstance().GetOffset().y,
-        Board::GetInstance().GetOffset().x
-    };
+    ActionHand::Move(this, {0, -1}, this->pos);
 }
 
 void PlayerHand::Update(int dt) {

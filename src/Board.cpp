@@ -10,10 +10,10 @@
 void Board::Init(int rows, int columns, float sizeW, float sizeH) {
     this->rows = rows;
     this->columns = columns;
-    this->offset.x = 0;
-    this->offset.y = sizeW / 5;
-    this->cellH = (sizeH - 2 * this->offset.x) / rows;
-    this->cellW = (sizeW - 2 * this->offset.y) / columns;
+    this->offset.x = sizeW / 5;
+    this->offset.y = 0;
+    this->cellH = (sizeH - 2 * this->offset.y) / rows;
+    this->cellW = (sizeW - 2 * this->offset.x) / columns;
 }
 
 int Board::AddCard(std::shared_ptr<Card> card) {

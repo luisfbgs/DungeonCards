@@ -11,8 +11,8 @@ bool Action::Move(Card* sourcePtr, Vec2Int pos, Vec2Int offSet) {
     pos.y = std::max(pos.y, 0);
     if(sourcePtr->pos != pos) {
         sourcePtr->associated.box.leftUp = {
-            (float)pos.x * board.GetCellW() + board.GetOffset().y,
-            (float)pos.y * board.GetCellH() + board.GetOffset().x
+            (float)pos.x * board.GetCellW() + board.GetOffset().x,
+            (float)pos.y * board.GetCellH() + board.GetOffset().y
         };
         sourcePtr->associated.box.leftUp += {
             (board.GetCellW() - sourcePtr->sprite.GetWidthS()) / 2,

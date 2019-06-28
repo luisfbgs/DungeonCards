@@ -104,6 +104,7 @@ void TitleState::LoadAssets() {
     this->AddObject(continueGO);
     
     this->lastOption = this->objectArray.size() - 1;
+    
     // Toca musica do menu.
     this->music.Open(AUDIO_PATH "menu.ogg");
     this->music.Play(-1);

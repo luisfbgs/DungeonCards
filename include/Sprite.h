@@ -10,8 +10,9 @@
 #define INCLUDE_SDL
 #include "SDL_include.h"
 #define IMG_PATH "assets/img/"
-#define PLAYER_PATH "assets/img/player/"
-#define ENEMY_PATH "assets/img/enemy/"
+#define PLAYER_PATH "assets/img/player/player"
+#define ENEMY_PATH "assets/img/enemy/enemy"
+#define EVENT_PATH "assets/img/event/event"
 #define CURSOR_PATH "assets/img/cursor/"
 #define TURN_PATH "assets/img/turn/"
 #define MENU_PATH "assets/img/menu/"

@@ -13,10 +13,10 @@ enum Turn{
 };
 
 const std::string turnName[4] = {
-    "PlayerAttack",
-    "EnemyAttack",
-    "Event",
-    "PlayerSkill"
+    "playerAttack",
+    "enemyAttack",
+    "event",
+    "playerSkill"
 };
 
 class TurnState {
