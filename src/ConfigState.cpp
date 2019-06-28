@@ -12,9 +12,8 @@
 void ConfigState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
     GameObject *bgGO = new GameObject();
-    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, IMG_PATH "blank.png"));
-    float bgScale = std::min((float)Game::GetInstance().GetWidth() / bgSprite->GetWidth(),
-     (float)Game::GetInstance().GetHeight() / bgSprite->GetHeight());
+    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, MENU_PATH "fundo.png"));
+    float bgScale = Game::widthS / bgSprite->GetWidth();
     bgSprite->SetScale(bgScale, bgScale);
     bgGO->AddComponent(bgSprite);
     this->AddObject(bgGO);

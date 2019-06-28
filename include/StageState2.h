@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "State.h"
 #include "Board.h"
+#include "Music.h"
 
 class StageState2 : public State {
 public:
@@ -22,6 +23,7 @@ public:
 private:
     int AddPlayerHand(int num, std::string file);
     Board &board;
+    Music music;
 };
 
 

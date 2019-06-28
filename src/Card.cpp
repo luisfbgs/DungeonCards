@@ -21,8 +21,7 @@ Card::Card(GameObject &associated, std::string file, int num, int hp, int attack
     this->playerNum = num;
     this->acted = false;
     this->attackPower = attackPower;
-    printf("rand %d\n", randInt(-1, 1));
-    this->sprite.SetAngle(randInt(-1, 1) * 5.0f);
+    this->sprite.SetAngle(randReal(-2.0f, 2.0f));
 }
 
 void Card::Update(int dt) {

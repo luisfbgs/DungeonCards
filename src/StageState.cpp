@@ -14,7 +14,8 @@
 #include "Camera.h"
 #include "Action.h"
 #include "TurnTimer.h"
-#include "PlayerHand.h" 
+#include "PlayerHand.h"
+#include "Music.h"
 
 StageState::StageState() : board(Board::GetInstance()) {
     GameData::enemyCount = 2;
@@ -55,6 +56,10 @@ void StageState::LoadAssets() {
     // Adiciona cursores aos jogadores
     this->AddPlayerHand(1, std::string(CURSOR_PATH "1.png"));
     this->AddPlayerHand(2, std::string(CURSOR_PATH "2.png"));
+
+    // Toca musica de batalha.
+    this->music.Open(AUDIO_PATH "battle.mpeg");
+    this->music.Play(-1);
 }
 
 void StageState::Update(int dt) {
@@ -88,10 +93,11 @@ int StageState::AddCard(std::string file, int num) {
 }
 
 void StageState::Pause() {
-    GameData::playersCnt = 0;
+    this->music.Stop();
 }
 
 void StageState::Resume() {
+    this->music.Play(-1);
 }
 
 int StageState::AddPlayerHand(int num, std::string file) {
