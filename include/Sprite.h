@@ -20,6 +20,7 @@
 #define COUNTER_PATH "assets/img/counter/"
 #define STAGE_PATH "assets/img/stage/"
 #define ANIMATION_PATH "assets/img/animation/"
+#define LIFE_PATH "assets/img/life/life"
 
 class Sprite : public Component{
 public:

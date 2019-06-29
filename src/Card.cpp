@@ -44,7 +44,7 @@ void Card::Update(int dt) {
         this->associated.RequestDelete();
         return;
     }
-    this->lifeBar.Open(COUNTER_PATH + std::to_string(hp) + ".png");
+    this->lifeBar.Open(LIFE_PATH + std::to_string(hp) + ".png");
     this->SetScale();
 
     if(TurnState::current != this->lastActed ){
@@ -77,9 +77,8 @@ void Card::SetScale() {
     
     // Ajusta o tamanho da barra de vida
     if(this->lifeBar.IsOpen()) {
-        float spriteW = this->lifeBar.GetWidth();
-        float scale = this->sprite.GetWidthS() / 3.0f / spriteW;
-        this->lifeBar.SetScale(scale, scale);
+        this->lifeBar.SetScale(this->sizeW * this->scale, this->sizeH * this->scale);
+        this->lifeBar.SetAngle(this->angle);
     }
 }
 

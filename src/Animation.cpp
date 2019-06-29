@@ -31,7 +31,7 @@ namespace Animation {
             this->damageSprite->hidden ^= 1;
         }
         // Acaba após 1s
-        if(this->animationTimer.Get() > 1000) {
+        if(this->animationTimer.Get() > 800) {
             this->associated.RequestDelete();
         }
     }
