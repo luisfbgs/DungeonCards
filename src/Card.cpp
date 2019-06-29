@@ -57,7 +57,7 @@ void Card::Update(int dt) {
     }
 
     // Caso a carta seja inimigo, causa 3 de dano a um player aleatório
-    if(playerNum < 0 && TurnState::current == EnemyAttack && !this->acted){
+    if(this->playerNum < 0 && TurnState::current == EnemyAttack && !this->acted){
         if(Action::Attack(this, this->attackPower, randInt(1, GameData::playersCnt))) {
             this->acted = true;
             this->lastActed = TurnState::current;

@@ -15,9 +15,10 @@ public:
     bool Is(const std::string &type);
 
 private:
-    const int kTurnLength = 3000;
-    GameObject pointerGO;
+    const int kTurnLength = 1000;
+    GameObject timerGO;
     Sprite timerSprite;
+    GameObject pointerGO;
     Sprite pointerSprite;
     Timer timer;
 };

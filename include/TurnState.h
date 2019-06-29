@@ -26,6 +26,7 @@ public:
     static void Next();
     static void Render();
     static bool turnEnded;
+    ~TurnState();
 
 private:
     TurnState();

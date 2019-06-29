@@ -10,6 +10,10 @@ TurnState::TurnState() : turnSprite(turnSpriteGO) {
 
 }
 
+TurnState::~TurnState() {
+    instance = nullptr;
+}
+
 void TurnState::Init() {
     static TurnState instance;
     TurnState::instance = &instance;

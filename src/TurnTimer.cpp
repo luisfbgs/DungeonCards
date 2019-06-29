@@ -10,7 +10,7 @@
 #include "Game.h"
 #include "TurnState.h"
 
-TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprite(associated), pointerSprite(pointerGO) {
+TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprite(timerGO), pointerSprite(pointerGO) {
     TurnState::Init();
     printf("\nInit\n");
     printf("%s\n", turnName[TurnState::current].c_str());
