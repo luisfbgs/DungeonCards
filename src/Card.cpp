@@ -38,10 +38,12 @@ void Card::Update(int dt) {
     (void)dt;
 
     if(this->hp <= 0) {
-        if(this->playerNum < 0) {
-            GameData::enemyCount--;
+        if(GameData::runningAnimations == 0) {
+            if(this->playerNum < 0) {
+                GameData::enemyCount--;
+            }
+            this->associated.RequestDelete();
         }
-        this->associated.RequestDelete();
         return;
     }
     this->lifeBar.Open(LIFE_PATH + std::to_string(hp) + ".png");

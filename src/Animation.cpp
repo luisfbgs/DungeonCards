@@ -5,9 +5,11 @@
 #include "Card.h"
 #include "Sprite.h"
 #include "Animation.h"
+#include "GameData.h"
 
 namespace Animation {
     Damage::Damage(GameObject &associated, Card *target) : Component(associated) {
+        GameData::runningAnimations++;
         this->damageSprite = std::shared_ptr<Sprite>(new Sprite(associated, ANIMATION_PATH + std::string("damage.png")));
         this->damageSprite->SetAngle(target->angle);
         this->damageSprite->SetScale(target->scale, target->scale);
@@ -15,6 +17,10 @@ namespace Animation {
         this->associated.AddComponent(damageSprite);
         
         this->animationTimer.Restart();
+    }
+
+    Damage::~Damage() {
+        GameData::runningAnimations--;
     }
 
     bool Damage::Is(const std::string &type) {

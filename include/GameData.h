@@ -6,5 +6,6 @@ namespace GameData {
     extern bool restart; 
     extern int playersCnt; 
     extern int enemyCount; 
-    extern int stagesBeated; 
+    extern int stagesBeated;
+    extern int runningAnimations;
 };

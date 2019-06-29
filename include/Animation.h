@@ -12,6 +12,7 @@ namespace Animation {
     class Damage : public Component {
     public:
         Damage(GameObject &associated, Card *target);
+        ~Damage();
         void Update(int dt);
         bool Is(const std::string &type);
         void Render();

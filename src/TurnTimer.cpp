@@ -24,7 +24,9 @@ void TurnTimer::SetScale() {
 void TurnTimer::Update(int dt) {
     this->timer.Update(dt);
     if(this->timer.Get() >= this->kTurnLength) {
-        this->SetScale();
+        if(GameData::runningAnimations) {
+            return;
+        }
         this->timer.Restart();
         TurnState::Next();
         printf("%s\n", turnName[TurnState::current].c_str());

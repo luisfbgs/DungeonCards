@@ -44,7 +44,7 @@ bool Action::AnonymousAttack(int damage, int targetId) {
     if(board.GetCard(targetId) != nullptr) {
         printf("Meteoro [da paixao] em %d\n", targetId);
         printf("Old hp: %d\n", board.GetCard(targetId)->hp);
-        board.GetCard(targetId)->hp -= damage;
+        board.GetCard(targetId)->_Damage(damage);
         printf("New hp: %d\n", board.GetCard(targetId)->hp);
         return true;
     }
