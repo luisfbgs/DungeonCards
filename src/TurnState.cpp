@@ -4,6 +4,7 @@
 
 Turn TurnState::current;
 TurnState *TurnState::instance = nullptr;
+bool TurnState::turnEnded = false;
 
 TurnState::TurnState() : turnSprite(turnSpriteGO) {
 

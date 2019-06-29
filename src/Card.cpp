@@ -48,7 +48,10 @@ void Card::Update(int dt) {
     }
     this->lifeBar.Open(LIFE_PATH + std::to_string(hp) + ".png");
     this->SetScale();
-
+    
+    if(TurnState::turnEnded) {
+        return;
+    }
     if(TurnState::current != this->lastActed ){
         this->acted = false;
     }

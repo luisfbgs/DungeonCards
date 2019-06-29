@@ -14,6 +14,7 @@ TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprit
     TurnState::Init();
     printf("\nInit\n");
     printf("%s\n", turnName[TurnState::current].c_str());
+    TurnState::turnEnded = false;
 }
 
 void TurnTimer::SetScale() {
@@ -25,8 +26,10 @@ void TurnTimer::Update(int dt) {
     this->timer.Update(dt);
     if(this->timer.Get() >= this->kTurnLength) {
         if(GameData::runningAnimations) {
+            TurnState::turnEnded = true;
             return;
         }
+        TurnState::turnEnded = false;
         this->timer.Restart();
         TurnState::Next();
         printf("%s\n", turnName[TurnState::current].c_str());

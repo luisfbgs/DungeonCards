@@ -25,6 +25,8 @@ public:
     static void Init();
     static void Next();
     static void Render();
+    static bool turnEnded;
+
 private:
     TurnState();
     Sprite turnSprite;

@@ -32,6 +32,9 @@ void PlayerHand::Update(int dt) {
         this->associated.RequestDelete();
         return;
     }
+    if(TurnState::turnEnded) {
+        return;
+    }
     switch (TurnState::current) {
         case PlayerAttack:
             this->MoveOnBoard(); 
@@ -110,7 +113,7 @@ void PlayerHand::Heal(){
 
 void PlayerHand::Render() {
     if(TurnState::current == PlayerAttack || TurnState::current == PlayerSkill) {
-        if(!this->myCard->acted) {
+        if(!this->myCard->acted && !TurnState::turnEnded) {
             this->sprite.Render();
         }
     }
