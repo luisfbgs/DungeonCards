@@ -10,16 +10,17 @@
 #include "Game.h"
 #include "TurnState.h"
 
-TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprite(associated) {
+TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprite(associated), pointerSprite(pointerGO) {
     TurnState::Init();
     printf("\nInit\n");
     printf("%s\n", turnName[TurnState::current].c_str());
     TurnState::turnEnded = false;
-}
-
-void TurnTimer::SetScale() {
+    this->timerSprite.Open(TIMER_PATH + std::string("timert.png"));
     float scale = (Game::heightS / 2.0) / this->timerSprite.GetHeight();
     this->timerSprite.SetScale(scale, scale);
+    this->pointerSprite.Open(TIMER_PATH + std::string("pointer.png"));
+    this->pointerSprite.SetScale(scale, scale);
+    this->pointerGO.box.leftUp = {this->timerSprite.GetWidthS() / 2.235f, this->timerSprite.GetHeightS() / 3.29f};
 }
 
 void TurnTimer::Update(int dt) {
@@ -35,14 +36,13 @@ void TurnTimer::Update(int dt) {
         printf("%s\n", turnName[TurnState::current].c_str());
     }
 
-    int clockNum = this->timer.Get()  / (this->kTurnLength / 12.0);
-    clockNum++;
-    this->timerSprite.Open(std::string("assets/img/Timer") + std::to_string(clockNum) + ".png");
-    this->SetScale();
+    float clockNum = 360.0f * this->timer.Get() / this->kTurnLength;
+    this->pointerSprite.SetAngle(clockNum);
 }
 
 void TurnTimer::Render() {
     this->timerSprite.Render();
+    this->pointerSprite.Render();
     TurnState::Render();
 }
 

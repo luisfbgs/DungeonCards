@@ -6,7 +6,6 @@
 #include "Timer.h"
 #include "Sprite.h"
 
-
 class TurnTimer : public Component {
 public:
     TurnTimer(GameObject &associated);
@@ -17,7 +16,9 @@ public:
 
 private:
     const int kTurnLength = 3000;
+    GameObject pointerGO;
     Sprite timerSprite;
+    Sprite pointerSprite;
     Timer timer;
 };
 
