@@ -9,6 +9,7 @@
 
 #define INCLUDE_SDL
 #include "SDL_include.h"
+
 #define IMG_PATH "assets/img/"
 #define PLAYER_PATH "assets/img/player/player"
 #define ENEMY_PATH "assets/img/enemy/enemy"
@@ -18,6 +19,7 @@
 #define MENU_PATH "assets/img/menu/"
 #define COUNTER_PATH "assets/img/counter/"
 #define STAGE_PATH "assets/img/stage/"
+#define ANIMATION_PATH "assets/img/animation/"
 
 class Sprite : public Component{
 public:

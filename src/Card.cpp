@@ -1,6 +1,7 @@
 #include <string>
 #include <cstdio>
 
+#include "Game.h"
 #include "GameObject.h"
 #include "GameData.h"
 #include "Component.h"
@@ -11,6 +12,7 @@
 #include "Vec2Int.h"
 #include "InputManager.h"
 #include "TurnState.h"
+#include "Animation.h"
 
 Card::Card(GameObject &associated, std::string file, int num, int hp, int attackPower) : Component(associated),
                                                                 sprite(associated, file),
@@ -21,7 +23,15 @@ Card::Card(GameObject &associated, std::string file, int num, int hp, int attack
     this->playerNum = num;
     this->acted = false;
     this->attackPower = attackPower;
-    this->sprite.SetAngle(randReal(-2.0f, 2.0f));
+    this->angle = randReal(-2.0f, 2.0f);
+    this->sprite.SetAngle(this->angle);
+
+    // Calcula escala para carta se ajustar ao tabuleiro
+    Board &board = Board::GetInstance();
+    float cellW = board.GetCellW(), cellH = board.GetCellH();
+    float spriteW = this->sprite.GetWidth();
+    float spriteH = this->sprite.GetHeight();
+    this->scale = std::min(cellW / 1.13f / spriteW, cellH / 1.13f / spriteH);
 }
 
 void Card::Update(int dt) {
@@ -61,20 +71,14 @@ bool Card::Is(const std::string &type) {
 
 // Coloca o tamanho do sprite pra ser igual o da célula
 void Card::SetScale() {
-    Board &board = Board::GetInstance();
-    float cellW = board.GetCellW(), cellH = board.GetCellH();
 
     // Ajusta o tamanho da carta
-    float spriteW = this->sprite.GetWidth();
-    float spriteH = this->sprite.GetHeight();
-    float scale = std::min(cellW / 1.13f / spriteW, cellH / 1.13f / spriteH);
-    this->sprite.SetScale(this->sizeW * scale, this->sizeH * scale);
+    this->sprite.SetScale(this->sizeW * this->scale, this->sizeH * this->scale);
     
     // Ajusta o tamanho da barra de vida
     if(this->lifeBar.IsOpen()) {
-        spriteW = this->lifeBar.GetWidth();
-        spriteH = this->lifeBar.GetHeight();
-        scale = this->sprite.GetWidthS() / 3.0f / spriteW;
+        float spriteW = this->lifeBar.GetWidth();
+        float scale = this->sprite.GetWidthS() / 3.0f / spriteW;
         this->lifeBar.SetScale(scale, scale);
     }
 }
@@ -84,28 +88,33 @@ int Card::GetNum() {
 }
 
 int Card::_Damage(int damage) {
-  if (damage < 0)
-      return this->_Heal(-damage);
-  else {
-      this->hp -= damage;
-  }
-  return this->hp;
+    if (damage < 0) {
+        return this->_Heal(-damage);
+    }
+    else {
+        this->hp -= damage;
+        GameObject *damageAniGO = new GameObject();
+        std::shared_ptr<Animation::Damage> damageAni(new Animation::Damage(*damageAniGO, this));
+        damageAniGO->AddComponent(damageAni);
+        Game::GetInstance().GetCurrentState().AddObject(damageAniGO);
+    }
+    return this->hp;
 }
 
 int Card::_Heal(int hp) {
-  if(hp < 0) {
-    return this->_Damage(-hp);
-  }
-  else {
-      auto aux = this->hp+hp;
-      if (aux > Card::MAX_LIFE) {
-          this->hp = MAX_LIFE;
-      }
-      else {
-          this->hp = aux;
-      }
-  }
-  return this->hp;
+    if(hp < 0) {
+        return this->_Damage(-hp);
+    }
+    else {
+        auto aux = this->hp+hp;
+        if (aux > Card::MAX_LIFE) {
+            this->hp = MAX_LIFE;
+        }
+        else {
+            this->hp = aux;
+        }
+    }
+    return this->hp;
 }
 
 int Card::GetAttackPower() {

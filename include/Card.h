@@ -14,8 +14,6 @@ class Board;
 class Action;
 
 class Card : public Component {
-friend Board;
-friend Action;
 // friend CardSkill;
 public:
     Card(GameObject &associated, std::string file, int num = 0,
@@ -36,7 +34,6 @@ public:
     static const int MAX_LIFE = 9;
     bool acted;
     Turn lastActed;
-private:
     // playerNum é positivo para jogadores e negativo para inimigos
     int playerNum;
     int hp, attackPower;
@@ -44,5 +41,6 @@ private:
     Vec2Int pos;
     Sprite sprite;
     Sprite lifeBar;
+    float angle, scale;
     // std::shared_ptr<Card> lastHitCard;
 };

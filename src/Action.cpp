@@ -38,6 +38,7 @@ bool Action::Attack(Card* sourcePtr, int damage, int targetId) {
     }
     return false;
 }
+
 bool Action::AnonymousAttack(int damage, int targetId) {
     Board &board = Board::GetInstance();
     if(board.GetCard(targetId) != nullptr) {
