@@ -17,6 +17,7 @@ Sprite::Sprite(GameObject& associated, int frameCount, int frameTime, int msToSe
     this->timeElapsed = 0;
     this->currentFrame = 0;
     this->msToSelfDestruct = msToSelfDestruct;
+    this->hidden = false;
 }
 
 Sprite::Sprite(GameObject& associated, const std::string &file, int frameCount, int frameTime, int msToSelfDestruct) : Component(associated) {
@@ -27,6 +28,7 @@ Sprite::Sprite(GameObject& associated, const std::string &file, int frameCount, 
     this->timeElapsed = 0;
     this->currentFrame = 0;
     this->msToSelfDestruct = msToSelfDestruct;
+    this->hidden = false;
     this->Open(file);
 }
 
@@ -51,7 +53,7 @@ void Sprite::SetClip(int x, int y, int w, int h) {
 }
 
 void Sprite::Render(float x, float y) {
-    if(this->IsOpen()) {
+    if(this->IsOpen() && !this->hidden) {
         x -= Camera::pos.x;
         y -= Camera::pos.y;
         SDL_Rect dstrect;

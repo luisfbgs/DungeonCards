@@ -44,6 +44,7 @@ public:
     void SetFrame(int frame);
     void SetFrameCount(int frameCount);
     void SetFrameTime(int frameTime);
+    bool hidden;
 
 private:
     std::shared_ptr<SDL_Texture> texture;  
