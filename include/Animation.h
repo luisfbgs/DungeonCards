@@ -19,4 +19,15 @@ namespace Animation {
         std::shared_ptr<Sprite> damageSprite;
         Timer animationTimer;
     };
+
+    class Heal : public Component {
+    public:
+        Heal(GameObject &associated, Card *target);
+        ~Heal();
+        void Update(int dt);
+        bool Is(const std::string &type);
+        void Render();
+        std::shared_ptr<Sprite> healSprite;
+        Timer animationTimer;
+    };
 }

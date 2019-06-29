@@ -36,7 +36,37 @@ namespace Animation {
         if(((this->animationTimer.Get() / 200) & 1) == this->damageSprite->hidden) {
             this->damageSprite->hidden ^= 1;
         }
-        // Acaba após 1s
+        // Acaba após 800s
+        if(this->animationTimer.Get() > 800) {
+            this->associated.RequestDelete();
+        }
+    }
+
+    Heal::Heal(GameObject &associated, Card *target) : Component(associated) {
+        GameData::runningAnimations++;
+        this->healSprite = std::shared_ptr<Sprite>(new Sprite(associated, ANIMATION_PATH + std::string("heal.png")));
+        this->healSprite->SetAngle(target->angle);
+        this->healSprite->SetScale(target->scale, target->scale);
+        this->associated.box.leftUp = target->associated.box.leftUp;
+        this->associated.AddComponent(healSprite);
+        
+        this->animationTimer.Restart();
+    }
+
+    Heal::~Heal() {
+        GameData::runningAnimations--;
+    }
+
+    bool Heal::Is(const std::string &type) {
+        return type == "HealAnimation";
+    }
+
+    void Heal::Render() {
+    }
+
+    void Heal::Update(int dt) {
+        this->animationTimer.Update(dt);
+        // Acaba após 800s
         if(this->animationTimer.Get() > 800) {
             this->associated.RequestDelete();
         }
