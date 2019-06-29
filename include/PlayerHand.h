@@ -33,6 +33,6 @@ private:
     int sizeW, sizeH;
     Vec2Int pos;
     Sprite sprite;
-    std::shared_ptr<Card> lastTarget;
+    std::weak_ptr<Card> lastTarget;
     bool actedSkill;
 };
