@@ -17,16 +17,34 @@ void TitleState::Update(int dt) {
     InputManager &input = InputManager::GetInstance();
     if(input.IsKeyPress('w') || input.IsKeyPress('a')) {
         if(this->selectedOption != 0) {
+            // Da uma abaixadinha na opção desselecionada 
+            GameObject *topOption = this->objectArray[this->lastOption - this->selectedOption].get();
+            topOption->box.leftUp += Vec2(0, Game::heightS / 15).Rotate(topOption->GetAngle());
+           
             this->selectedOption = Option(selectedOption - 1);
-            this->selectSprite->SetAngle(this->objectArray[this->lastOption - this->selectedOption]->GetAngle());
-            this->selectSpriteGO->box = this->objectArray[this->lastOption - this->selectedOption]->box;
+           
+            // Da uma levantadinha na opção selecionada 
+            topOption = this->objectArray[this->lastOption - this->selectedOption].get();
+            topOption->box.leftUp -= Vec2(0, Game::heightS / 15).Rotate(topOption->GetAngle());
+           
+            this->selectSprite->SetAngle(topOption->GetAngle());
+            this->selectSpriteGO->box = topOption->box;
         }
     }
     if(input.IsKeyPress('s') || input.IsKeyPress('d')) {
         if(this->selectedOption != 3) {
+            // Da uma abaixadinha na opção desselecionada 
+            GameObject *topOption = this->objectArray[this->lastOption - this->selectedOption].get();
+            topOption->box.leftUp += Vec2(0, Game::heightS / 15).Rotate(topOption->GetAngle());
+           
             this->selectedOption = Option(selectedOption + 1);
-            this->selectSprite->SetAngle(this->objectArray[this->lastOption - this->selectedOption]->GetAngle());
-            this->selectSpriteGO->box = this->objectArray[this->lastOption - this->selectedOption]->box;
+           
+            // Da uma levantadinha na opção selecionada 
+            topOption = this->objectArray[this->lastOption - this->selectedOption].get();
+            topOption->box.leftUp -= Vec2(0, Game::heightS / 15).Rotate(topOption->GetAngle());
+           
+            this->selectSprite->SetAngle(topOption->GetAngle());
+            this->selectSpriteGO->box = topOption->box;
         }
     }
     if(input.IsKeyPress(' ')) {
@@ -78,7 +96,7 @@ void TitleState::LoadAssets() {
     std::shared_ptr<Sprite> exitSprite = std::shared_ptr<Sprite>(new Sprite(*exitGO, MENU_PATH "exit.png"));
     float optionScale = Game::widthS / 5 / exitSprite->GetWidth();
     exitSprite->SetScale(optionScale, optionScale);
-    exitSprite->SetAngle(86);
+    exitSprite->SetAngle(80);
     exitGO->AddComponent(exitSprite);
     exitGO->box.leftUp = {6.9f * Game::widthS / 10.0f, 3.7f * Game::heightS / 10.0f};
     this->AddObject(exitGO);
@@ -109,21 +127,26 @@ void TitleState::LoadAssets() {
     
     this->lastOption = this->objectArray.size() - 1;
     
+    // Da uma levantadinha na opção selecionada 
+    GameObject *topOption = this->objectArray[this->lastOption - this->selectedOption].get();
+    topOption->box.leftUp -= Vec2(0, Game::heightS / 15).Rotate(topOption->GetAngle());
+    
+    // Coloca o sprite do seletor de opção na posição correta
     this->selectSpriteGO = new GameObject();
     this->selectSprite = std::shared_ptr<Sprite>(new Sprite(*selectSpriteGO, MENU_PATH "select.png"));
     this->selectSprite->SetScale(optionScale, optionScale);
     this->selectSprite->SetAngle(continueGO->GetAngle());
-    this->selectSpriteGO->box = continueGO->box;
     this->selectSpriteGO->AddComponent(this->selectSprite);
+    this->selectSpriteGO->box = continueGO->box;
     this->AddObject(this->selectSpriteGO);
-
+    
     // Toca musica do menu.
     this->music.Open(AUDIO_PATH "menu.ogg");
     this->music.Play(-1);
 }
 
 void TitleState::Render() {
-    this->RenderArray();
+    this->RenderArray();       
     this->objectArray[this->lastOption - this->selectedOption]->Render();
     this->selectSprite->Render();
 }
