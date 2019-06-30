@@ -45,6 +45,11 @@ Game::~Game() {
         delete this->storedState;
     }
 
+    Resources::ClearFonts();
+    Resources::ClearImages();
+    Resources::ClearMusics();
+    Resources::ClearSounds();
+    
     TTF_Quit();
     SDL_DestroyRenderer(Game::renderer);
     SDL_DestroyWindow(Game::window);
@@ -53,6 +58,7 @@ Game::~Game() {
     Mix_Quit();
 
     SDL_Quit();
+
 
     instance = nullptr;
 }
