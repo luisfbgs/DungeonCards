@@ -24,6 +24,8 @@ private:
         Quit
     };
     Option selectedOption;
+    GameObject *selectSpriteGO;
+    std::shared_ptr<Sprite> selectSprite;
     int lastOption;
 };
 

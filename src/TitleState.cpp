@@ -18,11 +18,15 @@ void TitleState::Update(int dt) {
     if(input.IsKeyPress('w') || input.IsKeyPress('a')) {
         if(this->selectedOption != 0) {
             this->selectedOption = Option(selectedOption - 1);
+            this->selectSprite->SetAngle(this->objectArray[this->lastOption - this->selectedOption]->GetAngle());
+            this->selectSpriteGO->box = this->objectArray[this->lastOption - this->selectedOption]->box;
         }
     }
     if(input.IsKeyPress('s') || input.IsKeyPress('d')) {
         if(this->selectedOption != 3) {
             this->selectedOption = Option(selectedOption + 1);
+            this->selectSprite->SetAngle(this->objectArray[this->lastOption - this->selectedOption]->GetAngle());
+            this->selectSpriteGO->box = this->objectArray[this->lastOption - this->selectedOption]->box;
         }
     }
     if(input.IsKeyPress(' ')) {
@@ -105,6 +109,14 @@ void TitleState::LoadAssets() {
     
     this->lastOption = this->objectArray.size() - 1;
     
+    this->selectSpriteGO = new GameObject();
+    this->selectSprite = std::shared_ptr<Sprite>(new Sprite(*selectSpriteGO, MENU_PATH "select.png"));
+    this->selectSprite->SetScale(optionScale, optionScale);
+    this->selectSprite->SetAngle(continueGO->GetAngle());
+    this->selectSpriteGO->box = continueGO->box;
+    this->selectSpriteGO->AddComponent(this->selectSprite);
+    this->AddObject(this->selectSpriteGO);
+
     // Toca musica do menu.
     this->music.Open(AUDIO_PATH "menu.ogg");
     this->music.Play(-1);
@@ -113,6 +125,7 @@ void TitleState::LoadAssets() {
 void TitleState::Render() {
     this->RenderArray();
     this->objectArray[this->lastOption - this->selectedOption]->Render();
+    this->selectSprite->Render();
 }
 
 void TitleState::Start() {
