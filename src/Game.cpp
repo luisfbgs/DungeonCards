@@ -41,10 +41,6 @@ Game::Game(const std::string &title, int width, int height) {
 }   
 
 Game::~Game() {
-    if(this->storedState != nullptr) {
-        delete this->storedState;
-    }
-
     Resources::ClearFonts();
     Resources::ClearImages();
     Resources::ClearMusics();
@@ -79,13 +75,13 @@ SDL_Renderer* Game::GetRenderer() {
 void Game::Run() {
     Camera::speed = {0.7f, 0.7f};
     InputManager &input = InputManager::GetInstance();
-    this->stateStack.push(std::unique_ptr<State>(this->storedState));
+    this->stateStack.push(this->storedState);
     this->storedState = nullptr;
     this->stateStack.top()->Start();
     do {
         if(this->storedState != nullptr) {
             this->stateStack.top()->Pause();
-            this->stateStack.push(std::unique_ptr<State>(this->storedState));
+            this->stateStack.push(this->storedState);
             this->stateStack.top()->Start();
             this->storedState = nullptr;
         }
@@ -134,6 +130,6 @@ int Game::GetWidth() {
     return this->width;
 }
 
-void Game::Push(State* state) {
+void Game::Push(std::shared_ptr<State> state) {
     this->storedState = state;
 }

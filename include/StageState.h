@@ -19,10 +19,10 @@ public:
     void Pause();
     void Resume();
     Board* GetBoardPtr();
-    StageState();
-private:
-    int AddPlayerHand(int num, std::string file);
     Board &board;
+    StageState();
+    int AddPlayerHand(int num, std::string file);
+private:
     Music music;
 };
 

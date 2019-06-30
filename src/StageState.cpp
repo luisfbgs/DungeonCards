@@ -38,24 +38,11 @@ void StageState::LoadAssets() {
     // Criar tabuleiro
     this->board.Init(2, 4, bgSprite->GetWidthS(), bgSprite->GetHeightS());
 
-    // Cria duas cartas de inimigo
-    this->AddCard(std::string(ENEMY_PATH "1.png"), -1); Action::Move(this->board.GetCard(-1).get(), {1, 0});
-    this->AddCard(std::string(ENEMY_PATH "2.png"), -2); Action::Move(this->board.GetCard(-2).get(), {2, 0});
-
-    // Cria a carta do jogador 1
-    this->AddCard(std::string(PLAYER_PATH "1.png"), 1); Action::Move(this->board.GetCard(1).get(), {1, 1});
-
-    this->AddCard(std::string(PLAYER_PATH "2.png"), 2);Action::Move(this->board.GetCard(2).get(), {2, 2});
-
-    // Cria um circulo para representar o timer
+    // Cria o timer
     GameObject *timerGO = new GameObject();
     std::shared_ptr<TurnTimer> turnTimer(new TurnTimer(*timerGO));
     timerGO->AddComponent(turnTimer);
     this->AddObject(timerGO);
-
-    // Adiciona cursores aos jogadores
-    this->AddPlayerHand(1, std::string(CURSOR_PATH "1.png"));
-    this->AddPlayerHand(2, std::string(CURSOR_PATH "2.png"));
 
     // Toca musica de batalha.
     this->music.Open(AUDIO_PATH "battle.mpeg");
@@ -79,8 +66,11 @@ void StageState::Render() {
 }
 
 void StageState::Start() {
-    this->LoadAssets();
+    if(!this->started) {
+        this->LoadAssets();
+    }
     this->StartArray();
+    this->started = true;
 }
 
 int StageState::AddCard(std::string file, int num) {

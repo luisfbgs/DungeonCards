@@ -3,8 +3,7 @@
 #include "GameObject.h"
 #include "Sprite.h"
 #include "MapState.h"
-#include "StageState.h"
-#include "StageState2.h"
+#include "Stages.h"
 #include "InputManager.h"
 
 void MapState::LoadAssets() {
@@ -41,10 +40,10 @@ void MapState::Update(int dt) {
     InputManager &input = InputManager::GetInstance();
     if(input.IsKeyPress(' ')) {
         if(pos == 0) {
-            Game::GetInstance().Push(new StageState());
+            Stages::InitStage1();
         }
         else if(GameData::stagesBeated >= 1){
-            Game::GetInstance().Push(new StageState2());
+            Stages::InitStage2();
         }
     }
     if(input.IsKeyPress('d')){

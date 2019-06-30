@@ -52,10 +52,10 @@ void TitleState::Update(int dt) {
             case Continue:
                 break;
             case NewGame:
-                Game::GetInstance().Push(new MapState());
+                Game::GetInstance().Push(std::shared_ptr<State>(new MapState()));
                 break;
             case Options:
-                Game::GetInstance().Push(new ConfigState());
+                Game::GetInstance().Push(std::shared_ptr<State>(new ConfigState()));
                 break;
             case Quit:
                 this->quitRequested = true;

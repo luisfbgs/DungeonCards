@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "Game.h"
 #include "TitleState.h"
 #include "GameData.h"
@@ -11,7 +13,7 @@ int main (int argc, char** argv) {
     do {
         GameData::restart = false;
         GameData::quitAll = false;
-        Game::GetInstance().Push(new TitleState());
+        Game::GetInstance().Push(std::shared_ptr<State>(new TitleState()));
         Game::GetInstance().Run();
         Game::GetInstance().~Game();
     } while(GameData::restart);

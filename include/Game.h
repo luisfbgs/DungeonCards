@@ -20,7 +20,7 @@ public:
 	int GetHeight();
 	SDL_Renderer* GetRenderer();
 	State& GetCurrentState();
-	void Push (State* state);
+	void Push(std::shared_ptr<State> state);
 	static int width, height;
 	static float widthS, heightS;
 
@@ -32,7 +32,7 @@ private:
 	int dt;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-	State* storedState;
-	std::stack<std::unique_ptr<State>> stateStack;
+	std::shared_ptr<State> storedState;
+	std::stack<std::shared_ptr<State>> stateStack;
 };
 
