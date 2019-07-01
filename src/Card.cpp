@@ -46,9 +46,10 @@ void Card::Update(int dt) {
                 if(this->playerNum < 0) {
                     GameData::enemyCount--;
                 }
+                this->sprite.Open(IMG_PATH "cardBack.png");
                 this->isDead = true;
             }
-            this->lifeBar.Open(LIFE_PATH + std::string("0.png"));
+            this->lifeBar.hidden = true;
             return;
         }
         this->lifeBar.Open(LIFE_PATH + std::to_string(hp) + ".png");

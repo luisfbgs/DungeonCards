@@ -53,7 +53,7 @@ void Event::Volunteer() {
 }
 
 void Event::Run() {
-    int whichEvent = randInt(1, 3);
+    int whichEvent = randInt(1, 1);
     switch (whichEvent) {
         case METEOR:
             Event::Meteor(randInt(1, 2), randInt(1, 3));

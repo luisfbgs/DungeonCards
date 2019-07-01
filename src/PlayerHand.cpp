@@ -32,7 +32,7 @@ void PlayerHand::Update(int dt) {
         this->associated->RequestDelete();
         return;
     }
-    if(TurnState::turnEnded) {
+    if(TurnState::turnEnded || this->myCard->isDead) {
         return;
     }
     switch (TurnState::current) {
@@ -113,7 +113,7 @@ void PlayerHand::Heal(){
 
 void PlayerHand::Render() {
     if(TurnState::current == PlayerAttack || TurnState::current == PlayerSkill) {
-        if(!this->myCard->acted && !TurnState::turnEnded) {
+        if(!this->myCard->acted && !TurnState::turnEnded && !this->myCard->isDead) {
             this->sprite.Render();
         }
     }
