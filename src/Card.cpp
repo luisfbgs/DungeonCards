@@ -62,9 +62,18 @@ void Card::Update(int dt) {
 
         // Caso a carta seja inimigo, causa 3 de dano a um player aleatório
         if(this->playerNum < 0 && TurnState::current == EnemyAttack && !this->acted){
-            if(Action::Attack(this, this->attackPower, randInt(1, GameData::playersCount))) {
-                this->acted = true;
-                this->lastActed = TurnState::current;
+            std::vector<Card*> targets;
+            for(auto player : GameData::players) {
+                if(!player.expired() && !player.lock()->card->isDead) {
+                    targets.push_back(player.lock()->card.get());
+                } 
+            }
+            if(targets.size()) {
+                Card* target = targets[randInt(0, targets.size() - 1)];
+                if(Action::Attack(this, this->attackPower, target->playerNum)) {
+                    this->acted = true;
+                    this->lastActed = TurnState::current;
+                }
             }
         }
     }
