@@ -47,3 +47,12 @@ bool Action::AnonymousAttack(int damage, int targetId) {
     }
     return false;
 }
+
+bool Action::AnonymousHeal(int hp, int targetId) {
+    Board &board = Board::GetInstance();
+    if(board.GetCard(targetId) != nullptr && !board.GetCard(targetId)->isDead) {
+        board.GetCard(targetId)->_Heal(hp);
+        return true;
+    }
+    return false;
+}

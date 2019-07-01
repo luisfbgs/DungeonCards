@@ -105,7 +105,7 @@ int Card::_Damage(int damage) {
     if (damage < 0) {
         return this->_Heal(-damage);
     }
-    else {
+    else if (damage > 0){
         this->hp -= damage;
         
         // Adiciona animação de dano na carta
@@ -121,7 +121,7 @@ int Card::_Heal(int hp) {
     if(hp < 0) {
         return this->_Damage(-hp);
     }
-    else {
+    else if(hp > 0){
         auto aux = this->hp+hp;
         if (aux > Card::MAX_LIFE) {
             this->hp = MAX_LIFE;

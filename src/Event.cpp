@@ -29,11 +29,19 @@ void Event::Meteor(int qtd, int damage) {
 void Event::Rest() {
     std::vector<Card*> targets;
     GameData::AddAlivePlayers(targets);
-    
+    if(targets.size()) {
+        Card* target = targets[randInt(0, targets.size() - 1)];
+        Action::AnonymousHeal(3, target->playerNum);
+
+    }
 }
 
 void Event::PlayersRest() {
-    
+    std::vector<Card*> targets;
+    GameData::AddAlivePlayers(targets);
+    for(auto target : targets) {
+        Action::AnonymousHeal(1, target->playerNum);
+    }
 }
 
 void Event::Immune() {
@@ -45,12 +53,18 @@ void Event::Volunteer() {
 }
 
 void Event::Run() {
-  int whichEvent = randInt(1, 1);
-  switch (whichEvent) {
-  case 1:
-      Event::Meteor(randInt(1, 2), randInt(1, 3));
-      break;
-  default:
-      break;
-  }
+    int whichEvent = randInt(1, 3);
+    switch (whichEvent) {
+        case METEOR:
+            Event::Meteor(randInt(1, 2), randInt(1, 3));
+            break;
+        case REST:
+            Event::Rest();
+            break;
+        case PLAYERS_REST:
+            Event::PlayersRest();
+            break;
+        default:
+            break;
+    }
 }

@@ -2,9 +2,9 @@
 
 class Event {
   enum event {
-    METEOR,
+    METEOR = 1,
     REST,
-    PLAYERSREST,
+    PLAYERS_REST,
     IMMUNE,
     VOLUNTEER    
   };
