@@ -18,6 +18,7 @@ Card::Card(std::shared_ptr<GameObject> associated, std::string file, int num, in
                                                                 sprite(associated, file),
                                                                 lifeBar(associated) {
     this->hp = hp;
+    this->isDead = false;
     this->sizeW = this->sizeH = 1;
     this->pos = {0, 0};
     this->playerNum = num;
@@ -39,29 +40,32 @@ Card::Card(std::shared_ptr<GameObject> associated, std::string file, int num, in
 void Card::Update(int dt) {
     (void)dt;
 
-    if(this->hp <= 0) {
-        if(GameData::runningAnimations == 0) {
-            if(this->playerNum < 0) {
-                GameData::enemyCount--;
+    if(!this->isDead) {
+        if(this->hp <= 0) {
+            if(GameData::runningAnimations == 0) {
+                if(this->playerNum < 0) {
+                    GameData::enemyCount--;
+                }
+                this->isDead = true;
             }
-            this->associated->RequestDelete();
+            this->lifeBar.Open(LIFE_PATH + std::string("0.png"));
+            return;
         }
-        return;
-    }
-    this->lifeBar.Open(LIFE_PATH + std::to_string(hp) + ".png");
-    
-    if(TurnState::turnEnded) {
-        return;
-    }
-    if(TurnState::current != this->lastActed ){
-        this->acted = false;
-    }
+        this->lifeBar.Open(LIFE_PATH + std::to_string(hp) + ".png");
+        
+        if(TurnState::turnEnded) {
+            return;
+        }
+        if(TurnState::current != this->lastActed ){
+            this->acted = false;
+        }
 
-    // Caso a carta seja inimigo, causa 3 de dano a um player aleatório
-    if(this->playerNum < 0 && TurnState::current == EnemyAttack && !this->acted){
-        if(Action::Attack(this, this->attackPower, randInt(1, GameData::playersCnt))) {
-            this->acted = true;
-            this->lastActed = TurnState::current;
+        // Caso a carta seja inimigo, causa 3 de dano a um player aleatório
+        if(this->playerNum < 0 && TurnState::current == EnemyAttack && !this->acted){
+            if(Action::Attack(this, this->attackPower, randInt(1, GameData::playersCount))) {
+                this->acted = true;
+                this->lastActed = TurnState::current;
+            }
         }
     }
 }

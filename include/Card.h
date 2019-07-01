@@ -42,5 +42,5 @@ public:
     Sprite sprite;
     Sprite lifeBar;
     float angle, scale;
-    // std::shared_ptr<Card> lastHitCard;
+    bool isDead;
 };

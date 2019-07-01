@@ -92,11 +92,3 @@ void StageState::Pause() {
 void StageState::Resume() {
     this->music.Play(-1);
 }
-
-int StageState::AddPlayerHand(int num, std::string file) {
-    std::shared_ptr<GameObject> playerHandGO(new GameObject());
-    std::shared_ptr<PlayerHand> playerHand(new PlayerHand(playerHandGO, file, num));
-    playerHandGO->AddComponent(playerHand);
-    this->AddObject(playerHandGO);
-    return ++GameData::playersCnt;
-}

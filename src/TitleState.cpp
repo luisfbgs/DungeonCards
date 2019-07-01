@@ -52,6 +52,7 @@ void TitleState::Update(int dt) {
             case Continue:
                 break;
             case NewGame:
+                GameData::playersCount = 2;
                 Game::GetInstance().Push(std::shared_ptr<State>(new MapState()));
                 break;
             case Options:

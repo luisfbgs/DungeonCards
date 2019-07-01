@@ -1,6 +1,7 @@
 #include <memory>
 
 #include "Game.h"
+#include "Player.h"
 #include "Stages.h"
 #include "StageState.h"
 #include "Action.h"
@@ -15,17 +16,20 @@ void Stages::InitStage1() {
     Action::Move(newStage->board.GetCard(-1).get(), {1, 0});
     newStage->AddCard(std::string(ENEMY_PATH "2.png"), -2);
     Action::Move(newStage->board.GetCard(-2).get(), {2, 0});
-
-    // Cria as cartas dos jogadores
-    newStage->AddCard(std::string(PLAYER_PATH "1.png"), 1);
-    Action::Move(newStage->board.GetCard(1).get(), {1, 1});
-    newStage->AddCard(std::string(PLAYER_PATH "2.png"), 2);
-    Action::Move(newStage->board.GetCard(2).get(), {2, 1});
     GameData::enemyCount = 2;
 
-    // Adiciona cursores aos jogadores
-    newStage->AddPlayerHand(1, std::string(CURSOR_PATH "1.png"));
-    newStage->AddPlayerHand(2, std::string(CURSOR_PATH "2.png"));
+    // Cria as cartas dos jogadores
+    for(int i = 1; i <= GameData::playersCount; i++) {
+        std::shared_ptr<GameObject> playerGO(new GameObject());
+        std::shared_ptr<Player> newPlayer(new Player(playerGO, PLAYER_PATH + std::to_string(i) + ".png", i));
+        playerGO->AddComponent(newPlayer);
+        newStage->AddObject(playerGO);
+        Action::Move(newStage->board.GetCard(i).get(), {i, 1});
+        GameData::players.push_back(newPlayer);
+    }
+    for(auto player : GameData::players) {
+        newStage->AddObject(player.lock()->playerHand->associated);
+    }
 }
 
 void Stages::InitStage2() {
@@ -42,12 +46,16 @@ void Stages::InitStage2() {
     GameData::enemyCount = 3;
 
     // Cria as cartas dos jogadores
-    newStage->AddCard(std::string(PLAYER_PATH "1.png"), 1);
-    Action::Move(newStage->board.GetCard(1).get(), {1, 1});
-    newStage->AddCard(std::string(PLAYER_PATH "2.png"), 2);
-    Action::Move(newStage->board.GetCard(2).get(), {2, 1});
+    for(int i = 1; i <= GameData::playersCount; i++) {
+        std::shared_ptr<GameObject> playerGO(new GameObject());
+        std::shared_ptr<Player> newPlayer(new Player(playerGO, PLAYER_PATH + std::to_string(i) + ".png", i));
+        playerGO->AddComponent(newPlayer);
+        newStage->AddObject(playerGO);
+        Action::Move(newStage->board.GetCard(i).get(), {i, 1});
+        newStage->AddObject(newPlayer->playerHand->associated);
+    }
 
-    // Adiciona cursores aos jogadores
-    newStage->AddPlayerHand(1, std::string(CURSOR_PATH "1.png"));
-    newStage->AddPlayerHand(2, std::string(CURSOR_PATH "2.png"));
+    for(auto player : GameData::players) {
+        newStage->AddObject(player.lock()->playerHand->associated);
+    }
 }

@@ -21,7 +21,6 @@ public:
     Board* GetBoardPtr();
     Board &board;
     StageState();
-    int AddPlayerHand(int num, std::string file);
 private:
     Music music;
 };
