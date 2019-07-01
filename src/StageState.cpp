@@ -37,8 +37,8 @@ void StageState::LoadAssets() {
     float bgScale = Game::widthS / bgSprite->GetWidth();
     bgSprite->SetScale(bgScale, bgScale);
     bgGO->AddComponent(bgSprite);
-
     this->AddObject(bgGO);
+
 
     // Criar tabuleiro
     this->board.Init(2, 4, bgSprite->GetWidthS(), bgSprite->GetHeightS());
@@ -48,6 +48,15 @@ void StageState::LoadAssets() {
     std::shared_ptr<TurnTimer> turnTimer(new TurnTimer(timerGO));
     timerGO->AddComponent(turnTimer);
     this->AddObject(timerGO);
+    
+    // Cria sprite para representar baralho de eventos
+    std::shared_ptr<GameObject> eventGO(new GameObject());
+    std::shared_ptr<Sprite> eventSprite(new Sprite(eventGO, std::string(EVENT_PATH "Back.png")));
+    eventSprite->SetScale(Game::heightS / 2 / eventSprite->GetHeightS(),
+     Game::heightS / 2 / eventSprite->GetHeightS());
+    eventGO->AddComponent(eventSprite);
+    eventGO->box.leftUp = {Game::widthS - eventSprite->GetWidthS() * 1.1f, Game::heightS - eventSprite->GetHeightS() * 1.1f};
+    this->AddObject(eventGO);
 
     // Toca musica de batalha.
     this->music.Open(AUDIO_PATH "battle.mpeg");

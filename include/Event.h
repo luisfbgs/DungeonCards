@@ -2,7 +2,7 @@
 
 class Event {
   enum event {
-    METEOR = 1,
+    METEOR = 0,
     REST,
     PLAYERS_REST,
     IMMUNE,
@@ -19,7 +19,8 @@ public:
   static void Immune();
   // Um inimigo aleatório ataca uma carta ao lado
   static void Volunteer();
-  
+
   static void Run();
+  static void ChooseEvent(int whichEvent);
   static bool occured;
 };

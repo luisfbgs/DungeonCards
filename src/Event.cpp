@@ -1,6 +1,8 @@
 #include <vector>
 
 #include "Event.h"
+#include "Animation.h"
+#include "Game.h"
 #include "GameData.h"
 #include "Common.h"
 #include "Action.h"
@@ -53,7 +55,15 @@ void Event::Volunteer() {
 }
 
 void Event::Run() {
-    int whichEvent = randInt(1, 1);
+    int whichEvent = randInt(0, 2);
+    // Adiciona animação de escolha de evento
+    std::shared_ptr<GameObject> eventAniGO(new GameObject());
+    std::shared_ptr<EventAnimation> eventAni(new EventAnimation(eventAniGO, whichEvent));
+    eventAniGO->AddComponent(eventAni);
+    Game::GetInstance().GetCurrentState().AddObject(eventAniGO);
+}
+
+void Event::ChooseEvent(int whichEvent) {
     switch (whichEvent) {
         case METEOR:
             Event::Meteor(randInt(1, 2), randInt(1, 3));
