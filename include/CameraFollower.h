@@ -6,7 +6,7 @@
 
 class CameraFollower : public Component {
 public:
-    CameraFollower(GameObject& go);
+    CameraFollower(std::shared_ptr<GameObject> go);
     void Update(int dt);
     void Render();
     bool Is(const std::string& type);

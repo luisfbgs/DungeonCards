@@ -14,8 +14,8 @@ public:
     void virtual Start() = 0;
     void virtual Pause() = 0;
     void virtual Resume() = 0;
-    virtual std::weak_ptr<GameObject> AddObject(GameObject* object);
-    virtual std::weak_ptr<GameObject> GetObjectPtr(GameObject* object);
+    virtual std::weak_ptr<GameObject> AddObject(std::shared_ptr<GameObject> object);
+    virtual std::weak_ptr<GameObject> GetObjectPtr(std::shared_ptr<GameObject> object);
     bool PopRequested();
     bool QuitRequested();
     

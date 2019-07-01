@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include "GameObject.h"
 #include "Sprite.h"
@@ -30,8 +31,8 @@ public:
 
 private:
     TurnState();
-    Sprite turnSprite;
-    GameObject turnSpriteGO;
+    std::shared_ptr<Sprite> turnSprite;
+    std::shared_ptr<GameObject> turnSpriteGO;
     static TurnState *instance;
     void SetScale();
 };

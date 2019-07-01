@@ -18,17 +18,20 @@
 #include "Music.h"
 
 StageState::StageState() : board(Board::GetInstance()) {
-    GameData::enemyCount = 2;
 }
 
 StageState::~StageState() {
+    for(auto i : this->objectArray) {
+        i->RequestDelete();
+    }
+    this->objectArray.clear();
     this->board.Reset();
 }
 
 void StageState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
-    GameObject *bgGO = new GameObject();
-    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, std::string(STAGE_PATH "tutorial.jpg")));
+    std::shared_ptr<GameObject> bgGO(new GameObject());
+    std::shared_ptr<Sprite> bgSprite(new Sprite(bgGO, std::string(STAGE_PATH "tutorial.jpg")));
     float bgScale = Game::widthS / bgSprite->GetWidth();
     bgSprite->SetScale(bgScale, bgScale);
     bgGO->AddComponent(bgSprite);
@@ -39,8 +42,8 @@ void StageState::LoadAssets() {
     this->board.Init(2, 4, bgSprite->GetWidthS(), bgSprite->GetHeightS());
 
     // Cria o timer
-    GameObject *timerGO = new GameObject();
-    std::shared_ptr<TurnTimer> turnTimer(new TurnTimer(*timerGO));
+    std::shared_ptr<GameObject> timerGO(new GameObject());
+    std::shared_ptr<TurnTimer> turnTimer(new TurnTimer(timerGO));
     timerGO->AddComponent(turnTimer);
     this->AddObject(timerGO);
 
@@ -74,8 +77,8 @@ void StageState::Start() {
 }
 
 int StageState::AddCard(std::string file, int num) {
-    GameObject *playerCard = new GameObject();
-    std::shared_ptr<Card> card(new Card(*playerCard, file, num));
+    std::shared_ptr<GameObject> playerCard(new GameObject());
+    std::shared_ptr<Card> card(new Card(playerCard, file, num));
     playerCard->AddComponent(card);
 
     this->AddObject(playerCard);
@@ -91,8 +94,8 @@ void StageState::Resume() {
 }
 
 int StageState::AddPlayerHand(int num, std::string file) {
-    GameObject *playerHandGO = new GameObject();
-    std::shared_ptr<PlayerHand> playerHand(new PlayerHand(*playerHandGO, num, file));
+    std::shared_ptr<GameObject> playerHandGO(new GameObject());
+    std::shared_ptr<PlayerHand> playerHand(new PlayerHand(playerHandGO, file, num));
     playerHandGO->AddComponent(playerHand);
     this->AddObject(playerHandGO);
     return ++GameData::playersCnt;

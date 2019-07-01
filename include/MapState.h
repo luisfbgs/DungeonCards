@@ -17,7 +17,7 @@ public:
     void Resume();
 private:
     int pos;
-    GameObject *cursor;
+    std::shared_ptr<GameObject> cursor;
     std::vector<Vec2> stages;
 };
 

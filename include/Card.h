@@ -16,7 +16,7 @@ class Action;
 class Card : public Component {
 // friend CardSkill;
 public:
-    Card(GameObject &associated, std::string file, int num = 0,
+    Card(std::shared_ptr<GameObject>  associated, std::string file, int num = 0,
     int hp = 9, int attackPower = 3);
     void Update(int dt);
     void Render();

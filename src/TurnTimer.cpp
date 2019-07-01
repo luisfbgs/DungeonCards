@@ -10,17 +10,22 @@
 #include "Game.h"
 #include "TurnState.h"
 
-TurnTimer::TurnTimer(GameObject &associated) : Component(associated), timerSprite(timerGO), pointerSprite(pointerGO) {
+TurnTimer::TurnTimer(std::shared_ptr<GameObject> associated) : Component(associated) {
+    this->timerGO = std::shared_ptr<GameObject>(new GameObject());
+    this->timerSprite = std::shared_ptr<Sprite>(new Sprite(this->timerGO));
+    this->pointerGO = std::shared_ptr<GameObject>(new GameObject());
+    this->pointerSprite = std::shared_ptr<Sprite>(new Sprite(this->pointerGO));
+
     TurnState::Init();
     printf("\nInit\n");
     printf("%s\n", turnName[TurnState::current].c_str());
     TurnState::turnEnded = false;
-    this->timerSprite.Open(TIMER_PATH + std::string("timert.png"));
-    float scale = (Game::heightS / 2.0) / this->timerSprite.GetHeight();
-    this->timerSprite.SetScale(scale, scale);
-    this->pointerSprite.Open(TIMER_PATH + std::string("pointer.png"));
-    this->pointerSprite.SetScale(scale, scale);
-    this->pointerGO.box.leftUp = {this->timerSprite.GetWidthS() / 2.235f, this->timerSprite.GetHeightS() / 3.29f};
+    this->timerSprite->Open(TIMER_PATH + std::string("timert.png"));
+    float scale = (Game::heightS / 2.0) / this->timerSprite->GetHeight();
+    this->timerSprite->SetScale(scale, scale);
+    this->pointerSprite->Open(TIMER_PATH + std::string("pointer.png"));
+    this->pointerSprite->SetScale(scale, scale);
+    this->pointerGO->box.leftUp = {this->timerSprite->GetWidthS() / 2.235f, this->timerSprite->GetHeightS() / 3.29f};
 }
 
 void TurnTimer::Update(int dt) {
@@ -37,12 +42,12 @@ void TurnTimer::Update(int dt) {
     }
 
     float clockNum = 360.0f * this->timer.Get() / this->kTurnLength;
-    this->pointerSprite.SetAngle(clockNum);
+    this->pointerSprite->SetAngle(clockNum);
 }
 
 void TurnTimer::Render() {
-    this->timerSprite.Render();
-    this->pointerSprite.Render();
+    this->timerSprite->Render();
+    this->pointerSprite->Render();
     TurnState::Render();
 }
 

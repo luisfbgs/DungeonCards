@@ -14,7 +14,7 @@
 #include "TurnState.h"
 #include "Animation.h"
 
-Card::Card(GameObject &associated, std::string file, int num, int hp, int attackPower) : Component(associated),
+Card::Card(std::shared_ptr<GameObject> associated, std::string file, int num, int hp, int attackPower) : Component(associated),
                                                                 sprite(associated, file),
                                                                 lifeBar(associated) {
     this->hp = hp;
@@ -32,6 +32,8 @@ Card::Card(GameObject &associated, std::string file, int num, int hp, int attack
     float spriteW = this->sprite.GetWidth();
     float spriteH = this->sprite.GetHeight();
     this->scale = std::min(cellW / 1.13f / spriteW, cellH / 1.13f / spriteH);
+    this->lifeBar.Open(LIFE_PATH + std::to_string(hp) + ".png");
+    this->SetScale();
 }
 
 void Card::Update(int dt) {
@@ -42,12 +44,11 @@ void Card::Update(int dt) {
             if(this->playerNum < 0) {
                 GameData::enemyCount--;
             }
-            this->associated.RequestDelete();
+            this->associated->RequestDelete();
         }
         return;
     }
     this->lifeBar.Open(LIFE_PATH + std::to_string(hp) + ".png");
-    this->SetScale();
     
     if(TurnState::turnEnded) {
         return;
@@ -99,8 +100,8 @@ int Card::_Damage(int damage) {
         this->hp -= damage;
         
         // Adiciona animação de dano na carta
-        GameObject *damageAniGO = new GameObject();
-        std::shared_ptr<Animation::Damage> damageAni(new Animation::Damage(*damageAniGO, this));
+        std::shared_ptr<GameObject> damageAniGO(new GameObject());
+        std::shared_ptr<Animation::Damage> damageAni(new Animation::Damage(damageAniGO, this));
         damageAniGO->AddComponent(damageAni);
         Game::GetInstance().GetCurrentState().AddObject(damageAniGO);
     }
@@ -121,8 +122,8 @@ int Card::_Heal(int hp) {
         }
 
         // Adiciona animação de cura na carta
-        GameObject *healAniGO = new GameObject();
-        std::shared_ptr<Animation::Heal> healAni(new Animation::Heal(*healAniGO, this));
+        std::shared_ptr<GameObject> healAniGO(new GameObject());
+        std::shared_ptr<Animation::Heal> healAni(new Animation::Heal(healAniGO, this));
         healAniGO->AddComponent(healAni);
         Game::GetInstance().GetCurrentState().AddObject(healAniGO);
     }

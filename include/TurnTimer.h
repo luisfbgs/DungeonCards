@@ -8,7 +8,7 @@
 
 class TurnTimer : public Component {
 public:
-    TurnTimer(GameObject &associated);
+    TurnTimer(std::shared_ptr<GameObject> associated);
     void Render();
     void SetScale();
     void Update(int dt);
@@ -16,10 +16,10 @@ public:
 
 private:
     const int kTurnLength = 3000;
-    GameObject timerGO;
-    Sprite timerSprite;
-    GameObject pointerGO;
-    Sprite pointerSprite;
+    std::shared_ptr<GameObject> timerGO;
+    std::shared_ptr<Sprite> timerSprite;
+    std::shared_ptr<GameObject> pointerGO;
+    std::shared_ptr<Sprite> pointerSprite;
     Timer timer;
 };
 

@@ -16,7 +16,7 @@
 #include "CardSkill.h"
 #include "Event.h"
 
-PlayerHand::PlayerHand(GameObject &associated, int num, std::string file) 
+PlayerHand::PlayerHand(std::shared_ptr<GameObject> associated, std::string file, int num) 
     : Component(associated), sprite(associated, file) {
     this->sizeW = this->sizeH = 1;
     this->pos = {0, 1};
@@ -29,7 +29,7 @@ PlayerHand::PlayerHand(GameObject &associated, int num, std::string file)
 void PlayerHand::Update(int dt) {
     (void)dt;
     if(!Board::GetInstance().GetCard(this->playerNum).get()) {
-        this->associated.RequestDelete();
+        this->associated->RequestDelete();
         return;
     }
     if(TurnState::turnEnded) {

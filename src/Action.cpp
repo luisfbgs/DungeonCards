@@ -10,11 +10,11 @@ bool Action::Move(Card* sourcePtr, Vec2Int pos, Vec2Int offSet) {
     pos.x = std::max(pos.x, 0);
     pos.y = std::max(pos.y, 0);
     if(sourcePtr->pos != pos) {
-        sourcePtr->associated.box.leftUp = {
+        sourcePtr->associated->box.leftUp = {
             (float)pos.x * board.GetCellW() + board.GetOffset().x,
             (float)pos.y * board.GetCellH() + board.GetOffset().y
         };
-        sourcePtr->associated.box.leftUp += {
+        sourcePtr->associated->box.leftUp += {
             (board.GetCellW() - sourcePtr->sprite.GetWidthS()) / 2,
             (board.GetCellH() - sourcePtr->sprite.GetHeightS()) / 2
             };
@@ -42,10 +42,7 @@ bool Action::Attack(Card* sourcePtr, int damage, int targetId) {
 bool Action::AnonymousAttack(int damage, int targetId) {
     Board &board = Board::GetInstance();
     if(board.GetCard(targetId) != nullptr) {
-        printf("Meteoro [da paixao] em %d\n", targetId);
-        printf("Old hp: %d\n", board.GetCard(targetId)->hp);
         board.GetCard(targetId)->_Damage(damage);
-        printf("New hp: %d\n", board.GetCard(targetId)->hp);
         return true;
     }
     return false;

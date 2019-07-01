@@ -4,7 +4,7 @@ class Event {
   enum event {
     METEOR,
     REST,
-    PLAYERS_REST,
+    PLAYERSREST,
     IMMUNE,
     VOLUNTEER    
   };
@@ -14,11 +14,12 @@ public:
   // Cura 3 hp de uma carta aleatória
   static void Rest();
   // Cura 1 hp de todos os jogadores
-  static void Players_rest();
+  static void PlayersRest();
   // Uma carta de jogador fica imune no próximo turno  
   static void Immune();
   // Um inimigo aleatório ataca uma carta ao lado
   static void Volunteer();
+  
   static void Run();
   static bool occured;
 };

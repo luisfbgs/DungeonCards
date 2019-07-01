@@ -68,8 +68,8 @@ void TitleState::Update(int dt) {
 
 void TitleState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
-    GameObject *bgGO = new GameObject();
-    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, IMG_PATH "/menu/fundo.png"));
+    std::shared_ptr<GameObject> bgGO(new GameObject());
+    std::shared_ptr<Sprite> bgSprite(new Sprite(bgGO, IMG_PATH "/menu/fundo.png"));
     float bgScale = std::min((float)Game::width / bgSprite->GetWidth(),
      (float)Game::height / bgSprite->GetHeight());
     bgSprite->SetScale(bgScale, bgScale);
@@ -83,8 +83,8 @@ void TitleState::LoadAssets() {
     float blackBarY = (float)Game::height - Game::heightS;
     Camera::pos = {-blackBarX / 2, -blackBarY / 2};
 
-    GameObject *logoGO = new GameObject();
-    std::shared_ptr<Sprite> logoSprite = std::shared_ptr<Sprite>(new Sprite(*logoGO, MENU_PATH "logo.png"));
+    std::shared_ptr<GameObject> logoGO(new GameObject());
+    std::shared_ptr<Sprite> logoSprite = std::shared_ptr<Sprite>(new Sprite(logoGO, MENU_PATH "logo.png"));
     float logoScale = Game::widthS / 3.7f / logoSprite->GetWidth();
     logoSprite->SetScale(logoScale, logoScale);
     logoSprite->SetAngle(-10);
@@ -92,8 +92,8 @@ void TitleState::LoadAssets() {
     logoGO->AddComponent(logoSprite);
     this->AddObject(logoGO);
 
-    GameObject *exitGO = new GameObject();
-    std::shared_ptr<Sprite> exitSprite = std::shared_ptr<Sprite>(new Sprite(*exitGO, MENU_PATH "exit.png"));
+    std::shared_ptr<GameObject> exitGO(new GameObject());
+    std::shared_ptr<Sprite> exitSprite = std::shared_ptr<Sprite>(new Sprite(exitGO, MENU_PATH "exit.png"));
     float optionScale = Game::widthS / 5 / exitSprite->GetWidth();
     exitSprite->SetScale(optionScale, optionScale);
     exitSprite->SetAngle(80);
@@ -101,24 +101,24 @@ void TitleState::LoadAssets() {
     exitGO->box.leftUp = {6.9f * Game::widthS / 10.0f, 3.7f * Game::heightS / 10.0f};
     this->AddObject(exitGO);
 
-    GameObject *setupGO = new GameObject();
-    std::shared_ptr<Sprite> setupSprite = std::shared_ptr<Sprite>(new Sprite(*setupGO, MENU_PATH "setup.png"));
+    std::shared_ptr<GameObject> setupGO(new GameObject());
+    std::shared_ptr<Sprite> setupSprite = std::shared_ptr<Sprite>(new Sprite(setupGO, MENU_PATH "setup.png"));
     setupSprite->SetScale(optionScale, optionScale);
     setupSprite->SetAngle(38);
     setupGO->AddComponent(setupSprite);
     setupGO->box.leftUp = {6.3f * Game::widthS / 10.0f, 2 * Game::heightS / 10.0f};
     this->AddObject(setupGO);
   
-    GameObject *newGameGO = new GameObject();
-    std::shared_ptr<Sprite> newGameSprite = std::shared_ptr<Sprite>(new Sprite(*newGameGO, MENU_PATH "newGame.png"));
+    std::shared_ptr<GameObject> newGameGO(new GameObject());
+    std::shared_ptr<Sprite> newGameSprite = std::shared_ptr<Sprite>(new Sprite(newGameGO, MENU_PATH "newGame.png"));
     newGameSprite->SetScale(optionScale, optionScale);
     newGameSprite->SetAngle(22);
     newGameGO->box.leftUp = {5 * Game::widthS / 10.0f, Game::heightS / 10.0f};
     newGameGO->AddComponent(newGameSprite);
     this->AddObject(newGameGO);
 
-    GameObject *continueGO = new GameObject();
-    std::shared_ptr<Sprite> continueSprite = std::shared_ptr<Sprite>(new Sprite(*continueGO, MENU_PATH "continue.png"));
+    std::shared_ptr<GameObject> continueGO(new GameObject());
+    std::shared_ptr<Sprite> continueSprite = std::shared_ptr<Sprite>(new Sprite(continueGO, MENU_PATH "continue.png"));
     continueSprite->SetScale(optionScale, optionScale);
     continueSprite->SetAngle(-10);
     continueGO->box.leftUp = {4 * Game::widthS / 10.0f, Game::heightS / 10.0f};
@@ -132,8 +132,8 @@ void TitleState::LoadAssets() {
     topOption->box.leftUp -= Vec2(0, Game::heightS / 15).Rotate(topOption->GetAngle());
     
     // Coloca o sprite do seletor de opção na posição correta
-    this->selectSpriteGO = new GameObject();
-    this->selectSprite = std::shared_ptr<Sprite>(new Sprite(*selectSpriteGO, MENU_PATH "select.png"));
+    this->selectSpriteGO = std::shared_ptr<GameObject>(new GameObject());
+    this->selectSprite = std::shared_ptr<Sprite>(new Sprite(selectSpriteGO, MENU_PATH "select.png"));
     this->selectSprite->SetScale(optionScale, optionScale);
     this->selectSprite->SetAngle(continueGO->GetAngle());
     this->selectSpriteGO->AddComponent(this->selectSprite);

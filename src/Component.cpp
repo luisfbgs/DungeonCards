@@ -1,7 +1,9 @@
+#include <memory>
+
 #include "Component.h"
 #include "GameObject.h"
 
-Component::Component(GameObject& associated) : associated(associated) {}
+Component::Component(std::shared_ptr<GameObject> associated) : associated(associated) {}
 
 Component::~Component() {}
 

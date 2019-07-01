@@ -10,11 +10,11 @@ bool ActionHand::Move(PlayerHand* sourcePtr, Vec2Int pos, Vec2Int offSet) {
     pos.x = std::max(pos.x, 0);
     pos.y = std::max(pos.y, 0);
     if(sourcePtr->pos != pos) {
-        sourcePtr->associated.box.leftUp = {
+        sourcePtr->associated->box.leftUp = {
             (float)pos.x * board.GetCellW(),
             (float)pos.y * board.GetCellH()
         };
-        sourcePtr->associated.box.leftUp += {
+        sourcePtr->associated->box.leftUp += {
             board.GetOffset().x,
             board.GetOffset().y
         };

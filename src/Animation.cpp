@@ -8,13 +8,13 @@
 #include "GameData.h"
 
 namespace Animation {
-    Damage::Damage(GameObject &associated, Card *target) : Component(associated) {
+    Damage::Damage(std::shared_ptr<GameObject> associated, Card *target) : Component(associated) {
         GameData::runningAnimations++;
         this->damageSprite = std::shared_ptr<Sprite>(new Sprite(associated, ANIMATION_PATH + std::string("damage.png")));
         this->damageSprite->SetAngle(target->angle);
         this->damageSprite->SetScale(target->scale, target->scale);
-        this->associated.box.leftUp = target->associated.box.leftUp;
-        this->associated.AddComponent(damageSprite);
+        this->associated->box.leftUp = target->associated->box.leftUp;
+        this->associated->AddComponent(damageSprite);
         
         this->animationTimer.Restart();
     }
@@ -38,17 +38,17 @@ namespace Animation {
         }
         // Acaba após 800s
         if(this->animationTimer.Get() > 800) {
-            this->associated.RequestDelete();
+            this->associated->RequestDelete();
         }
     }
 
-    Heal::Heal(GameObject &associated, Card *target) : Component(associated) {
+    Heal::Heal(std::shared_ptr<GameObject> associated, Card *target) : Component(associated) {
         GameData::runningAnimations++;
         this->healSprite = std::shared_ptr<Sprite>(new Sprite(associated, ANIMATION_PATH + std::string("heal.png")));
         this->healSprite->SetAngle(target->angle);
         this->healSprite->SetScale(target->scale, target->scale);
-        this->associated.box.leftUp = target->associated.box.leftUp;
-        this->associated.AddComponent(healSprite);
+        this->associated->box.leftUp = target->associated->box.leftUp;
+        this->associated->AddComponent(healSprite);
         
         this->animationTimer.Restart();
     }
@@ -68,7 +68,7 @@ namespace Animation {
         this->animationTimer.Update(dt);
         // Acaba após 800s
         if(this->animationTimer.Get() > 800) {
-            this->associated.RequestDelete();
+            this->associated->RequestDelete();
         }
     }
 }

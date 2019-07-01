@@ -7,7 +7,7 @@
 
 class Collider : public Component {
 public:
-    Collider(GameObject& associated, Vec2 scale = {1, 1}, Vec2 offset = {0, 0});
+    Collider(std::shared_ptr<GameObject> associated, Vec2 scale = {1, 1}, Vec2 offset = {0, 0});
     void Update(int dt);
     void Render();
     bool Is(const std::string& type);

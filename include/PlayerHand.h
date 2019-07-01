@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include "Sprite.h"
 #include "GameObject.h"
@@ -8,7 +9,6 @@
 #include "Vec2Int.h"
 #include "ActionHand.h"
 #include "Card.h"
-#include <memory>
 
 class Board;
 class ActionHand;
@@ -17,7 +17,7 @@ class PlayerHand : public Component {
 friend Board;
 friend ActionHand;
 public:
-    PlayerHand(GameObject &associated, int num, std::string file);
+    PlayerHand(std::shared_ptr<GameObject> associated, std::string file, int num);
     void Update(int dt);
     void Render();
     bool Is(const std::string &type);

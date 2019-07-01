@@ -11,8 +11,8 @@
 
 void ConfigState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
-    GameObject *bgGO = new GameObject();
-    std::shared_ptr<Sprite> bgSprite(new Sprite(*bgGO, MENU_PATH "fundo.png"));
+    std::shared_ptr<GameObject> bgGO(new GameObject());
+    std::shared_ptr<Sprite> bgSprite(new Sprite(bgGO, MENU_PATH "fundo.png"));
     float bgScale = Game::widthS / bgSprite->GetWidth();
     bgSprite->SetScale(bgScale, bgScale);
     bgGO->AddComponent(bgSprite);
@@ -21,8 +21,8 @@ void ConfigState::LoadAssets() {
     SDL_Color color = {0, 0, 0, 0};
     float posY = (Game::height - bgSprite->GetHeightS()) / 2;
     for(auto res : this->resolutionList) {
-        GameObject *resolutionGO = new GameObject();
-        std::shared_ptr<Text> resText(new Text(*resolutionGO, std::string("assets/font/Call me maybe.ttf"),
+        std::shared_ptr<GameObject> resolutionGO(new GameObject());
+        std::shared_ptr<Text> resText(new Text(resolutionGO, std::string("assets/font/Call me maybe.ttf"),
          bgSprite->GetHeightS() / 10, Text::TextStyle::SOLID, std::to_string(res.first) + "x" + std::to_string(res.second), color));
         resolutionGO->AddComponent(resText);
         resolutionGO->box.leftUp = {0.0f, posY};

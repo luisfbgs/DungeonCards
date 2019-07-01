@@ -7,10 +7,13 @@ State::State() {
 }
 
 State::~State() {
+    for(auto i : this->objectArray) {
+        i->RequestDelete();
+    }
     this->objectArray.clear();
 }
 
-std::weak_ptr<GameObject> State::AddObject(GameObject* go) {
+std::weak_ptr<GameObject> State::AddObject(std::shared_ptr<GameObject> go) {
     std::shared_ptr<GameObject> go_ptr(go);
     
     if(this->started && !go->started) {
@@ -22,9 +25,9 @@ std::weak_ptr<GameObject> State::AddObject(GameObject* go) {
     return ret;
 }
 
-std::weak_ptr<GameObject> State::GetObjectPtr(GameObject* go) {
+std::weak_ptr<GameObject> State::GetObjectPtr(std::shared_ptr<GameObject> go) {
     for(std::shared_ptr<GameObject> object : this->objectArray) {
-        if(object.get() == go) {
+        if(object == go) {
             return object;
         }
     }

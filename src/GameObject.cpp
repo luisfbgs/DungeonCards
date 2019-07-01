@@ -32,6 +32,7 @@ bool GameObject::IsDead() {
 
 void GameObject::RequestDelete() {
     this->isDead = true;
+    this->components.clear();
 }
 
 void GameObject::AddComponent(std::shared_ptr<Component> cpt) {

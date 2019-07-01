@@ -9,7 +9,7 @@
 #define INCLUDE_SDL_IMAGE
 #include "SDL_include.h"
 
-Sprite::Sprite(GameObject& associated, int frameCount, int frameTime, int msToSelfDestruct) : Component(associated) {
+Sprite::Sprite(std::shared_ptr<GameObject> associated, int frameCount, int frameTime, int msToSelfDestruct) : Component(associated) {
     this->scale = {1, 1};
     this->angle = 0;
     this->frameCount = frameCount;
@@ -20,7 +20,7 @@ Sprite::Sprite(GameObject& associated, int frameCount, int frameTime, int msToSe
     this->hidden = false;
 }
 
-Sprite::Sprite(GameObject& associated, const std::string &file, int frameCount, int frameTime, int msToSelfDestruct) : Component(associated) {
+Sprite::Sprite(std::shared_ptr<GameObject> associated, const std::string &file, int frameCount, int frameTime, int msToSelfDestruct) : Component(associated) {
     this->scale = {1, 1};
     this->angle = 0;
     this->frameCount = frameCount;
@@ -33,12 +33,11 @@ Sprite::Sprite(GameObject& associated, const std::string &file, int frameCount, 
 }
 
 void Sprite::Open(const std::string &file) {
-    this->scale = {1, 1};
     this->texture = Resources::GetImage(file.c_str());
     SDL_QueryTexture(this->texture.get(), nullptr, nullptr, &this->width, &this->height);
     this->width /= this->frameCount;
     this->SetClip(0, 0, this->width, this->height);
-    this->associated.box = {this->associated.box.leftUp, (float)this->width, (float)this->height};
+    this->associated->box = {this->associated->box.leftUp, (float)this->width, (float)this->height};
 }
 
 bool Sprite::IsOpen() {
@@ -66,7 +65,7 @@ void Sprite::Render(float x, float y) {
 }
 
 void Sprite::Render() {
-    this->Render(associated.box.leftUp.x, associated.box.leftUp.y);
+    this->Render(this->associated->box.leftUp.x, this->associated->box.leftUp.y);
 }
 
 void Sprite::Update(int dt) {
@@ -74,7 +73,7 @@ void Sprite::Update(int dt) {
     if(this->msToSelfDestruct) {
         this->selfDestructCount.Update(dt);
         if(this->selfDestructCount.Get() >= this->msToSelfDestruct) {
-            this->associated.RequestDelete();
+            this->associated->RequestDelete();
             return;
         }
     }
@@ -107,11 +106,11 @@ float Sprite::GetHeightS() {
 }
 
 void Sprite::SetScale(float scaleX, float scaleY) {
-    this->associated.box.w /= this->scale.x;
-    this->associated.box.h /= this->scale.y;
+    this->associated->box.w /= this->scale.x;
+    this->associated->box.h /= this->scale.y;
     this->scale = {scaleX, scaleY};
-    this->associated.box.w *= this->scale.x;
-    this->associated.box.h *= this->scale.y; 
+    this->associated->box.w *= this->scale.x;
+    this->associated->box.h *= this->scale.y; 
 }
 
 Vec2 Sprite::GetScale() {
@@ -120,7 +119,7 @@ Vec2 Sprite::GetScale() {
 
 void Sprite::SetAngle(float angle) {
     this->angle = angle;
-    this->associated.SetAngle(angle);
+    this->associated->SetAngle(angle);
 }
 
 float Sprite::GetAngle() {

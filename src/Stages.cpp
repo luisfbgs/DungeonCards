@@ -4,6 +4,7 @@
 #include "Stages.h"
 #include "StageState.h"
 #include "Action.h"
+#include "GameData.h"
 
 void Stages::InitStage1() {
     std::shared_ptr<StageState> newStage(new StageState());
@@ -20,6 +21,7 @@ void Stages::InitStage1() {
     Action::Move(newStage->board.GetCard(1).get(), {1, 1});
     newStage->AddCard(std::string(PLAYER_PATH "2.png"), 2);
     Action::Move(newStage->board.GetCard(2).get(), {2, 1});
+    GameData::enemyCount = 2;
 
     // Adiciona cursores aos jogadores
     newStage->AddPlayerHand(1, std::string(CURSOR_PATH "1.png"));
@@ -35,8 +37,9 @@ void Stages::InitStage2() {
     Action::Move(newStage->board.GetCard(-1).get(), {1, 0});
     newStage->AddCard(std::string(ENEMY_PATH "4.png"), -2);
     Action::Move(newStage->board.GetCard(-2).get(), {2, 0});
-    newStage->AddCard(std::string(ENEMY_PATH "5.png"), -2);
-    Action::Move(newStage->board.GetCard(-2).get(), {3, 0});
+    newStage->AddCard(std::string(ENEMY_PATH "5.png"), -3);
+    Action::Move(newStage->board.GetCard(-3).get(), {3, 0});
+    GameData::enemyCount = 3;
 
     // Cria as cartas dos jogadores
     newStage->AddCard(std::string(PLAYER_PATH "1.png"), 1);

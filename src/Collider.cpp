@@ -8,17 +8,17 @@
 #include "Game.h"
 //#define DEBUG
 
-Collider::Collider(GameObject& associated, Vec2 scale, Vec2 offset) : Component(associated) {
+Collider::Collider(std::shared_ptr<GameObject> associated, Vec2 scale, Vec2 offset) : Component(associated) {
     this->scale = scale;
     this->offset = offset;
 }
 
 void Collider::Update(int dt) {
     (void)dt;
-    this->box = this->associated.box;
+    this->box = this->associated->box;
     this->box.w *= this->scale.x;
     this->box.h *= this->scale.y;
-    this->box.CenterIn(this->associated.box.Center() + this->offset);
+    this->box.CenterIn(this->associated->box.Center() + this->offset);
 }
 
 bool Collider::Is(const std::string& type) {
@@ -30,20 +30,20 @@ void Collider::Render() {
 	Vec2 center(this->box.Center());
 	SDL_Point points[5];
 
-	Vec2 point = (this->box.leftUp - center).Rotate(this->associated.GetAngle())
+	Vec2 point = (this->box.leftUp - center).Rotate(this->associated->GetAngle())
 					+ center - Camera::pos;
 	points[0] = {(int)point.x, (int)point.y};
 	points[4] = {(int)point.x, (int)point.y};
 	
-	point = (Vec2(this->box.leftUp.x + this->box.w, this->box.leftUp.y) - center).Rotate(this->associated.GetAngle())
+	point = (Vec2(this->box.leftUp.x + this->box.w, this->box.leftUp.y) - center).Rotate(this->associated->GetAngle())
 					+ center - Camera::pos;
 	points[1] = {(int)point.x, (int)point.y};
 	
-	point = (Vec2(this->box.leftUp.x + this->box.w, this->box.leftUp.y + this->box.h) - center).Rotate(this->associated.GetAngle())
+	point = (Vec2(this->box.leftUp.x + this->box.w, this->box.leftUp.y + this->box.h) - center).Rotate(this->associated->GetAngle())
 					+ center - Camera::pos;
 	points[2] = {(int)point.x, (int)point.y};
 	
-	point = (Vec2(this->box.leftUp.x, this->box.leftUp.y + this->box.h) - center).Rotate(this->associated.GetAngle())
+	point = (Vec2(this->box.leftUp.x, this->box.leftUp.y + this->box.h) - center).Rotate(this->associated->GetAngle())
 					+ center - Camera::pos;
 	points[3] = {(int)point.x, (int)point.y};
 

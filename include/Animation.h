@@ -11,7 +11,7 @@
 namespace Animation {
     class Damage : public Component {
     public:
-        Damage(GameObject &associated, Card *target);
+        Damage(std::shared_ptr<GameObject> associated, Card *target);
         ~Damage();
         void Update(int dt);
         bool Is(const std::string &type);
@@ -22,7 +22,7 @@ namespace Animation {
 
     class Heal : public Component {
     public:
-        Heal(GameObject &associated, Card *target);
+        Heal(std::shared_ptr<GameObject> associated, Card *target);
         ~Heal();
         void Update(int dt);
         bool Is(const std::string &type);

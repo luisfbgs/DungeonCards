@@ -15,6 +15,22 @@ void Event::Meteor(int qtd, int damage) {
     }
 }
 
+void Event::Rest() {
+    
+}
+
+void Event::PlayersRest() {
+    
+}
+
+void Event::Immune() {
+    
+}
+
+void Event::Volunteer() {
+    
+}
+
 void Event::Run() {
   int whichEvent = randInt(1, 1);
   switch (whichEvent) {

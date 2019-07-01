@@ -12,7 +12,7 @@
 #define INCLUDE_SDL_TTF
 #include "SDL_include.h"
 
-Text::Text(GameObject& associated, std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color) : Component(associated) {
+Text::Text(std::shared_ptr<GameObject> associated, std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color) : Component(associated) {
     this->texture = nullptr;
     this->fontFile = fontFile;
     this->fontSize = fontSize;
@@ -36,11 +36,11 @@ void Text::Update(int dt) {
 void Text::Render() {
     SDL_Rect clipRect;
     clipRect.x = clipRect.y = 0;
-    clipRect.w = this->associated.box.w;
-    clipRect.h = this->associated.box.h;
+    clipRect.w = this->associated->box.w;
+    clipRect.h = this->associated->box.h;
     SDL_Rect dstrect;
-    dstrect.x = this->associated.box.leftUp.x;
-    dstrect.y = this->associated.box.leftUp.y;
+    dstrect.x = this->associated->box.leftUp.x;
+    dstrect.y = this->associated->box.leftUp.y;
     dstrect.w = clipRect.w;
     dstrect.h = clipRect.h;
     SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), this->texture, &clipRect, &dstrect, 0, nullptr, SDL_FLIP_NONE);
@@ -95,7 +95,7 @@ void Text::RemakeTexture() {
     this->texture = SDL_CreateTextureFromSurface(Game::GetInstance().GetRenderer(), textSurface);
     int auxw, auxh;
     SDL_QueryTexture(this->texture, nullptr, nullptr, &auxw, &auxh);
-    this->associated.box.w = auxw;
-    this->associated.box.h = auxh;
+    this->associated->box.w = auxw;
+    this->associated->box.h = auxh;
     SDL_FreeSurface(textSurface);
 }

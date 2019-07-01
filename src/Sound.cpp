@@ -3,12 +3,12 @@
 #include "GameObject.h"
 #include "Resources.h"
 
-Sound::Sound(GameObject& associated) : Component(associated) {
+Sound::Sound(std::shared_ptr<GameObject> associated) : Component(associated) {
     this->chunk = nullptr;
     this->channel = -1;
 }
 
-Sound::Sound(GameObject& associated, std::string file) : Sound(associated) {
+Sound::Sound(std::shared_ptr<GameObject> associated, std::string file) : Sound(associated) {
     this->Open(file);
 }
 

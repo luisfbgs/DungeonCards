@@ -10,8 +10,8 @@
 
 class Sound : public Component {
 public:
-    Sound(GameObject& associated);
-    Sound(GameObject& associated, std::string file);
+    Sound(std::shared_ptr<GameObject> associated);
+    Sound(std::shared_ptr<GameObject> associated, std::string file);
     void Play(int times = 1);
     void Stop();
     void Open(std::string file);
