@@ -15,17 +15,8 @@ void Event::Meteor(int qtd, int damage) {
     }
 
     std::vector<Card*> targets;
-    for(auto enemy : GameData::enemies) {
-        if(!enemy.expired() && !enemy.lock()->isDead) {
-            targets.push_back(enemy.lock().get());
-        }
-    }
-
-    for(auto player : GameData::players) {
-        if(!player.expired() && !player.lock()->card->isDead) {
-            targets.push_back(player.lock()->card.get());
-        }
-    }
+    GameData::AddAliveEnemies(targets);
+    GameData::AddAlivePlayers(targets);
 
     if(targets.size()) {
         for(int i = 0; i < qtd; i++) {
@@ -36,6 +27,8 @@ void Event::Meteor(int qtd, int damage) {
 }
 
 void Event::Rest() {
+    std::vector<Card*> targets;
+    GameData::AddAlivePlayers(targets);
     
 }
 

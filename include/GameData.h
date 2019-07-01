@@ -16,4 +16,6 @@ namespace GameData {
     extern int runningAnimations;
     extern std::vector<std::weak_ptr<Player>> players;
     extern std::vector<std::weak_ptr<Card>> enemies;
+    extern void AddAliveEnemies(std::vector<Card*> &targets);
+    extern void AddAlivePlayers(std::vector<Card*> &targets);
 };
