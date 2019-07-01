@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "Player.h"
+#include "Card.h"
 
 namespace GameData {
     extern bool playerVictory;
@@ -14,4 +15,5 @@ namespace GameData {
     extern int stagesBeated;
     extern int runningAnimations;
     extern std::vector<std::weak_ptr<Player>> players;
+    extern std::vector<std::weak_ptr<Card>> enemies;
 };

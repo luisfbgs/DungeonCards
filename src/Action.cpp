@@ -30,7 +30,7 @@ bool Action::Attack(Card* sourcePtr, int damage, int targetId) {
     }
     Board &board = Board::GetInstance();
     Card* target = board.GetCard(targetId).get();
-    if(target != nullptr) {
+    if(target != nullptr && !target->isDead) {
         target->_Damage(damage);
         sourcePtr->acted = true;
         sourcePtr->lastActed = TurnState::current;
@@ -41,7 +41,7 @@ bool Action::Attack(Card* sourcePtr, int damage, int targetId) {
 
 bool Action::AnonymousAttack(int damage, int targetId) {
     Board &board = Board::GetInstance();
-    if(board.GetCard(targetId) != nullptr) {
+    if(board.GetCard(targetId) != nullptr && !board.GetCard(targetId)->isDead) {
         board.GetCard(targetId)->_Damage(damage);
         return true;
     }

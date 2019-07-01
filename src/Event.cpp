@@ -1,4 +1,7 @@
+#include <vector>
+
 #include "Event.h"
+#include "GameData.h"
 #include "Common.h"
 #include "Action.h"
 #include "Board.h"
@@ -10,8 +13,25 @@ void Event::Meteor(int qtd, int damage) {
     if(damage < 0) {
         damage = randInt(1, 4);
     }
-    for(int i = 0; i < qtd; i++) {
-        Action::AnonymousAttack(damage, randInt(-2, 2));
+
+    std::vector<Card*> targets;
+    for(auto enemy : GameData::enemies) {
+        if(!enemy.expired() && !enemy.lock()->isDead) {
+            targets.push_back(enemy.lock().get());
+        }
+    }
+
+    for(auto player : GameData::players) {
+        if(!player.expired() && !player.lock()->card->isDead) {
+            targets.push_back(player.lock()->card.get());
+        }
+    }
+
+    if(targets.size()) {
+        for(int i = 0; i < qtd; i++) {
+            Card* target = targets[randInt(0, targets.size() - 1)];
+            Action::AnonymousAttack(damage, target->playerNum);
+        }
     }
 }
 
