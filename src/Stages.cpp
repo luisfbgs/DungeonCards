@@ -18,7 +18,6 @@ void Stages::InitStage1() {
     Action::Move(newStage->board.GetCard(-2).get(), {2, 0});
     GameData::enemyCount = 2;
 
-    GameData::players.clear();
     // Cria as cartas dos jogadores
     for(int i = 1; i <= GameData::playersCount; i++) {
         std::shared_ptr<GameObject> playerGO(new GameObject());
@@ -46,7 +45,6 @@ void Stages::InitStage2() {
     Action::Move(newStage->board.GetCard(-3).get(), {3, 0});
     GameData::enemyCount = 3;
 
-    GameData::players.clear();
     // Cria as cartas dos jogadores
     for(int i = 1; i <= GameData::playersCount; i++) {
         std::shared_ptr<GameObject> playerGO(new GameObject());
@@ -54,7 +52,7 @@ void Stages::InitStage2() {
         playerGO->AddComponent(newPlayer);
         newStage->AddObject(playerGO);
         Action::Move(newStage->board.GetCard(i).get(), {i, 1});
-        newStage->AddObject(newPlayer->playerHand->associated);
+        GameData::players.push_back(newPlayer);
     }
 
     for(auto player : GameData::players) {

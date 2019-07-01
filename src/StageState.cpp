@@ -26,6 +26,8 @@ StageState::~StageState() {
     }
     this->objectArray.clear();
     this->board.Reset();
+    GameData::players.clear();
+    GameData::enemies.clear();
 }
 
 void StageState::LoadAssets() {
