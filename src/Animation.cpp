@@ -92,7 +92,7 @@ EventAnimation::~EventAnimation() {
 }
 
 bool EventAnimation::Is(const std::string &type) {
-    return type == "";
+    return type == "EventAnimation";
 }
 
 void EventAnimation::Render() {
@@ -119,8 +119,8 @@ void EventAnimation::Update(int dt) {
                 this->eventSprite->Open(EVENT_PATH + std::to_string(eventId) + ".png");
                 this->turnDown = false;
             }
-            // Animação acaba após 1 s virada para cima
-            if(this->animationTimer.Get() >= 1200) {
+            // Animação acaba após 2s virada para cima
+            if(this->animationTimer.Get() >= 2200) {
                 this->associated->RequestDelete();
                 Event::ChooseEvent(eventId);
             }
