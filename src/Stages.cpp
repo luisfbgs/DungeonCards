@@ -7,6 +7,18 @@
 #include "Action.h"
 #include "GameData.h"
 
+void Stages::CreatePlayers(std::shared_ptr<StageState> newStage) {
+    for(int i = 1; i <= GameData::playersCount; i++) {
+        std::shared_ptr<GameObject> playerGO(new GameObject());
+        std::shared_ptr<Player> newPlayer(new Player(playerGO, PLAYER_PATH + std::to_string(i) + ".png", i));
+        playerGO->AddComponent(newPlayer);
+        newStage->AddObject(playerGO);
+        Action::Move(newStage->board.GetCard(i).get(), {i, 1});
+        GameData::players.push_back(newPlayer);
+    }
+}
+
+
 void Stages::InitStage1() {
     std::shared_ptr<StageState> newStage(new StageState());
     Game::GetInstance().Push(newStage);
@@ -19,14 +31,7 @@ void Stages::InitStage1() {
     GameData::enemyCount = 2;
 
     // Cria as cartas dos jogadores
-    for(int i = 1; i <= GameData::playersCount; i++) {
-        std::shared_ptr<GameObject> playerGO(new GameObject());
-        std::shared_ptr<Player> newPlayer(new Player(playerGO, PLAYER_PATH + std::to_string(i) + ".png", i));
-        playerGO->AddComponent(newPlayer);
-        newStage->AddObject(playerGO);
-        Action::Move(newStage->board.GetCard(i).get(), {i, 1});
-        GameData::players.push_back(newPlayer);
-    }
+    Stages::CreatePlayers(newStage);
     for(auto player : GameData::players) {
         newStage->AddObject(player.lock()->playerHand->associated);
     }
@@ -46,15 +51,8 @@ void Stages::InitStage2() {
     GameData::enemyCount = 3;
 
     // Cria as cartas dos jogadores
-    for(int i = 1; i <= GameData::playersCount; i++) {
-        std::shared_ptr<GameObject> playerGO(new GameObject());
-        std::shared_ptr<Player> newPlayer(new Player(playerGO, PLAYER_PATH + std::to_string(i) + ".png", i));
-        playerGO->AddComponent(newPlayer);
-        newStage->AddObject(playerGO);
-        Action::Move(newStage->board.GetCard(i).get(), {i, 1});
-        GameData::players.push_back(newPlayer);
-    }
-
+    Stages::CreatePlayers(newStage);
+    
     for(auto player : GameData::players) {
         newStage->AddObject(player.lock()->playerHand->associated);
     }

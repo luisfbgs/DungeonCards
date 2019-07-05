@@ -1,6 +1,7 @@
 #include "Action.h"
 #include "Board.h"
 #include "TurnState.h"
+#include "Card.h"
 
 bool Action::Move(Card* sourcePtr, Vec2Int pos, Vec2Int offSet) {
     pos += offSet;
