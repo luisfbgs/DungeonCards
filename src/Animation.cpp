@@ -9,7 +9,7 @@
 #include "Animation.h"
 #include "GameData.h"
 
-DamageAnimation::DamageAnimation(std::shared_ptr<GameObject> associated, Card *target) : Component(associated) {
+Animation::Damage::Damage(std::shared_ptr<GameObject> associated, Card *target) : Component(associated) {
     GameData::runningAnimations++;
     this->damageSprite = std::shared_ptr<Sprite>(new Sprite(associated, ANIMATION_PATH + std::string("damage.png")));
     this->damageSprite->SetAngle(target->angle);
@@ -20,18 +20,18 @@ DamageAnimation::DamageAnimation(std::shared_ptr<GameObject> associated, Card *t
     this->animationTimer.Restart();
 }
 
-DamageAnimation::~DamageAnimation() {
+Animation::Damage::~Damage() {
     GameData::runningAnimations--;
 }
 
-bool DamageAnimation::Is(const std::string &type) {
+bool Animation::Damage::Is(const std::string &type) {
     return type == "DamageAnimation";
 }
 
-void DamageAnimation::Render() {
+void Animation::Damage::Render() {
 }
 
-void DamageAnimation::Update(int dt) {
+void Animation::Damage::Update(int dt) {
     this->animationTimer.Update(dt);
     // Alterna entre aparecer e sumir a cada 200 ms
     if(((this->animationTimer.Get() / 200) & 1) == this->damageSprite->hidden) {
@@ -43,7 +43,7 @@ void DamageAnimation::Update(int dt) {
     }
 }
 
-HealAnimation::HealAnimation(std::shared_ptr<GameObject> associated, Card *target) : Component(associated) {
+Animation::Heal::Heal(std::shared_ptr<GameObject> associated, Card *target) : Component(associated) {
     GameData::runningAnimations++;
     this->healSprite = std::shared_ptr<Sprite>(new Sprite(associated, ANIMATION_PATH + std::string("heal.png")));
     this->healSprite->SetAngle(target->angle);
@@ -54,18 +54,18 @@ HealAnimation::HealAnimation(std::shared_ptr<GameObject> associated, Card *targe
     this->animationTimer.Restart();
 }
 
-HealAnimation::~HealAnimation() {
+Animation::Heal::~Heal() {
     GameData::runningAnimations--;
 }
 
-bool HealAnimation::Is(const std::string &type) {
+bool Animation::Heal::Is(const std::string &type) {
     return type == "HealAnimation";
 }
 
-void HealAnimation::Render() {
+void Animation::Heal::Render() {
 }
 
-void HealAnimation::Update(int dt) {
+void Animation::Heal::Update(int dt) {
     this->animationTimer.Update(dt);
     // Acaba após 800s
     if(this->animationTimer.Get() > 800) {
@@ -73,7 +73,7 @@ void HealAnimation::Update(int dt) {
     }
 }
 
-EventAnimation::EventAnimation(std::shared_ptr<GameObject> associated, int eventId) : Component(associated) {
+Animation::Event::Event(std::shared_ptr<GameObject> associated, int eventId) : Component(associated) {
     GameData::runningAnimations++;
     this->eventSprite = std::shared_ptr<Sprite>(new Sprite(associated, std::string(EVENT_PATH "Back.png")));
     this->eventSprite->SetScale(Game::heightS / 2 / eventSprite->GetHeightS(),
@@ -87,18 +87,18 @@ EventAnimation::EventAnimation(std::shared_ptr<GameObject> associated, int event
     this->animationTimer.Restart();
 }
 
-EventAnimation::~EventAnimation() {
+Animation::Event::~Event() {
     GameData::runningAnimations--;
 }
 
-bool EventAnimation::Is(const std::string &type) {
+bool Animation::Event::Is(const std::string &type) {
     return type == "EventAnimation";
 }
 
-void EventAnimation::Render() {
+void Animation::Event::Render() {
 }
 
-void EventAnimation::Update(int dt) {
+void Animation::Event::Update(int dt) {
     if(!this->onTarget) {
         Vec2 target = {Game::widthS / 2, Game::heightS / 2};
         Vec2 move = target - this->associated->box.Center();
@@ -122,7 +122,8 @@ void EventAnimation::Update(int dt) {
             // Animação acaba após 2s virada para cima
             if(this->animationTimer.Get() >= 2200) {
                 this->associated->RequestDelete();
-                Event::ChooseEvent(eventId);
+                // sobre um namespace para não dar conflito com o evento de animação
+                ::Event::ChooseEvent(eventId);  
             }
         }
     }

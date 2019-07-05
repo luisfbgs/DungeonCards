@@ -8,38 +8,42 @@
 #include "Sprite.h"
 #include "Timer.h"
 
-class DamageAnimation : public Component {
-public:
-    DamageAnimation(std::shared_ptr<GameObject> associated, Card *target);
-    ~DamageAnimation();
-    void Update(int dt);
-    bool Is(const std::string &type);
-    void Render();
-    std::shared_ptr<Sprite> damageSprite;
-    Timer animationTimer;
-};
+namespace Animation {
 
-class HealAnimation : public Component {
-public:
-    HealAnimation(std::shared_ptr<GameObject> associated, Card *target);
-    ~HealAnimation();
-    void Update(int dt);
-    bool Is(const std::string &type);
-    void Render();
-    std::shared_ptr<Sprite> healSprite;
-    Timer animationTimer;
-};
+    class Damage : public Component {
+    public:
+        Damage(std::shared_ptr<GameObject> associated, Card *target);
+        ~Damage();
+        void Update(int dt);
+        bool Is(const std::string &type);
+        void Render();
+        std::shared_ptr<Sprite> damageSprite;
+        Timer animationTimer;
+    };
 
-class EventAnimation : public Component {
-public:
-    EventAnimation(std::shared_ptr<GameObject> associated, int eventId);
-    ~EventAnimation();
-    void Update(int dt);
-    bool Is(const std::string &type);
-    void Render();
-    std::shared_ptr<Sprite> eventSprite;
-    int eventId;
-    Timer animationTimer;
-    bool onTarget;
-    bool turnDown;
-};
+    class Heal : public Component {
+    public:
+        Heal(std::shared_ptr<GameObject> associated, Card *target);
+        ~Heal();
+        void Update(int dt);
+        bool Is(const std::string &type);
+        void Render();
+        std::shared_ptr<Sprite> healSprite;
+        Timer animationTimer;
+    };
+
+    class Event : public Component {
+    public:
+        Event(std::shared_ptr<GameObject> associated, int eventId);
+        ~Event();
+        void Update(int dt);
+        bool Is(const std::string &type);
+        void Render();
+        std::shared_ptr<Sprite> eventSprite;
+        int eventId;
+        Timer animationTimer;
+        bool onTarget;
+        bool turnDown;
+    };
+
+}

@@ -111,7 +111,7 @@ int Card::_Damage(int damage) {
         
         // Adiciona animação de dano na carta
         std::shared_ptr<GameObject> damageAniGO(new GameObject());
-        std::shared_ptr<DamageAnimation> damageAni(new DamageAnimation(damageAniGO, this));
+        std::shared_ptr<Animation::Damage> damageAni(new Animation::Damage(damageAniGO, this));
         damageAniGO->AddComponent(damageAni);
         Game::GetInstance().GetCurrentState().AddObject(damageAniGO);
     }
@@ -133,7 +133,7 @@ int Card::_Heal(int hp) {
 
         // Adiciona animação de cura na carta
         std::shared_ptr<GameObject> healAniGO(new GameObject());
-        std::shared_ptr<HealAnimation> healAni(new HealAnimation(healAniGO, this));
+        std::shared_ptr<Animation::Heal> healAni(new Animation::Heal(healAniGO, this));
         healAniGO->AddComponent(healAni);
         Game::GetInstance().GetCurrentState().AddObject(healAniGO);
     }

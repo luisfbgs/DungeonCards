@@ -58,7 +58,7 @@ void Event::Run() {
     int whichEvent = randInt(0, 2);
     // Adiciona animação de escolha de evento
     std::shared_ptr<GameObject> eventAniGO(new GameObject());
-    std::shared_ptr<EventAnimation> eventAni(new EventAnimation(eventAniGO, whichEvent));
+    std::shared_ptr<Animation::Event> eventAni(new Animation::Event(eventAniGO, whichEvent));
     eventAniGO->AddComponent(eventAni);
     Game::GetInstance().GetCurrentState().AddObject(eventAniGO);
 }
