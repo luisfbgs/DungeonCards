@@ -43,7 +43,7 @@ void Stages::InitStage2() {
     std::shared_ptr<StageState> newStage(new StageState());
     Game::GetInstance().Push(newStage);
     newStage->Start();
-    // Cria duas cartas de inimigo
+    // Cria tres cartas de inimigo
     newStage->AddCard(std::string(ENEMY_PATH "3.png"), -1);
     Action::Move(newStage->board.GetCard(-1).get(), {1, 0});
     GameData::enemies.push_back(newStage->board.GetCard(-1));

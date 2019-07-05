@@ -18,6 +18,10 @@ bool ActionHand::Move(PlayerHand* sourcePtr, Vec2Int pos, Vec2Int offSet) {
             board.GetOffset().x,
             board.GetOffset().y
         };
+        sourcePtr->associated->box.leftUp += {
+            (board.GetCellW() - sourcePtr->sprite.GetWidthS()) / 2,
+            (board.GetCellH() - sourcePtr->sprite.GetHeightS()) / 2
+        };
         sourcePtr->pos = pos;
         return true;
     }
