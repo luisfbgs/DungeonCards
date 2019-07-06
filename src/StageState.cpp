@@ -32,8 +32,8 @@ StageState::~StageState() {
 
 void StageState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
-    std::shared_ptr<GameObject> bgGO(new GameObject());
-    std::shared_ptr<Sprite> bgSprite(new Sprite(bgGO, std::string(STAGE_PATH "tutorial.jpg")));
+    std::shared_ptr<GameObject> bgGO = std::make_shared<GameObject>();
+    std::shared_ptr<Sprite> bgSprite = std::make_shared<Sprite>(bgGO, std::string(STAGE_PATH "tutorial.jpg"));
     float bgScale = Game::widthS / bgSprite->GetWidth();
     bgSprite->SetScale(bgScale, bgScale);
     bgGO->AddComponent(bgSprite);
@@ -44,14 +44,14 @@ void StageState::LoadAssets() {
     this->board.Init(2, 4, bgSprite->GetWidthS(), bgSprite->GetHeightS());
 
     // Cria o timer
-    std::shared_ptr<GameObject> timerGO(new GameObject());
-    std::shared_ptr<TurnTimer> turnTimer(new TurnTimer(timerGO));
+    std::shared_ptr<GameObject> timerGO = std::make_shared<GameObject>();
+    std::shared_ptr<TurnTimer> turnTimer = std::make_shared<TurnTimer>(timerGO);
     timerGO->AddComponent(turnTimer);
     this->AddObject(timerGO);
     
     // Cria sprite para representar baralho de eventos
-    std::shared_ptr<GameObject> eventGO(new GameObject());
-    std::shared_ptr<Sprite> eventSprite(new Sprite(eventGO, std::string(EVENT_PATH "Back.png")));
+    std::shared_ptr<GameObject> eventGO = std::make_shared<GameObject>();
+    std::shared_ptr<Sprite> eventSprite = std::make_shared<Sprite>(eventGO, std::string(EVENT_PATH "Back.png"));
     eventSprite->SetScale(Game::heightS / 2 / eventSprite->GetHeightS(),
      Game::heightS / 2 / eventSprite->GetHeightS());
     eventGO->AddComponent(eventSprite);
@@ -88,8 +88,8 @@ void StageState::Start() {
 }
 
 int StageState::AddCard(std::string file, int num) {
-    std::shared_ptr<GameObject> playerCard(new GameObject());
-    std::shared_ptr<Card> card(new Card(playerCard, file, num));
+    std::shared_ptr<GameObject> playerCard = std::make_shared<GameObject>();
+    std::shared_ptr<Card> card = std::make_shared<Card>(playerCard, file, num);
     playerCard->AddComponent(card);
 
     this->AddObject(playerCard);

@@ -9,8 +9,8 @@
 
 void Stages::CreatePlayers(std::shared_ptr<StageState> newStage) {
     for(int i = 1; i <= GameData::playersCount; i++) {
-        std::shared_ptr<GameObject> playerGO(new GameObject());
-        std::shared_ptr<Player> newPlayer(new Player(playerGO, PLAYER_PATH + std::to_string(i) + ".png", i));
+        std::shared_ptr<GameObject> playerGO = std::make_shared<GameObject>();
+        std::shared_ptr<Player> newPlayer = std::make_shared<Player>(playerGO, PLAYER_PATH + std::to_string(i) + ".png", i);
         playerGO->AddComponent(newPlayer);
         newStage->AddObject(playerGO);
         Action::Move(newStage->board.GetCard(i).get(), {i, 1});
@@ -20,7 +20,7 @@ void Stages::CreatePlayers(std::shared_ptr<StageState> newStage) {
 
 
 void Stages::InitStage1() {
-    std::shared_ptr<StageState> newStage(new StageState());
+    std::shared_ptr<StageState> newStage = std::make_shared<StageState>();
     Game::GetInstance().Push(newStage);
     newStage->Start();
     // Cria duas cartas de inimigo
@@ -40,7 +40,7 @@ void Stages::InitStage1() {
 }
 
 void Stages::InitStage2() {
-    std::shared_ptr<StageState> newStage(new StageState());
+    std::shared_ptr<StageState> newStage = std::make_shared<StageState>();
     Game::GetInstance().Push(newStage);
     newStage->Start();
     // Cria tres cartas de inimigo

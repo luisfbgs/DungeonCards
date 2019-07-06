@@ -9,14 +9,14 @@
 #include "PlayerHand.h"
 
 Player::Player(std::shared_ptr<GameObject> associated, const std::string &cardFile, int num) : Component(associated) {
-    std::shared_ptr<GameObject> cardGO(new GameObject());
+    std::shared_ptr<GameObject> cardGO = std::make_shared<GameObject>();
     this->cardFile = cardFile;
-    this->card = std::shared_ptr<Card>(new Card(cardGO, cardFile, num));
+    this->card = std::make_shared<Card>(cardGO, cardFile, num);
     cardGO->AddComponent(this->card);
     Board::GetInstance().AddCard(this->card);
 
-    std::shared_ptr<GameObject> playerHandGO(new GameObject());
-    this->playerHand = std::shared_ptr<PlayerHand>(new PlayerHand(playerHandGO, CURSOR_PATH + std::to_string(num) + ".png", num));
+    std::shared_ptr<GameObject> playerHandGO = std::make_shared<GameObject>();
+    this->playerHand = std::make_shared<PlayerHand>(playerHandGO, CURSOR_PATH + std::to_string(num) + ".png", num);
     playerHandGO->AddComponent(this->playerHand);
 }
 

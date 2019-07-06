@@ -13,7 +13,8 @@ enum Turn{
     PlayerSkill
 };
 
-const std::string turnName[4] = {
+const static int TURN = 4;
+const std::string turnName[TURN] = {
     "playerAttack",
     "enemyAttack",
     "event",

@@ -26,6 +26,7 @@
 class Sprite : public Component{
 public:
     Sprite();
+    ~Sprite();
     Sprite(std::shared_ptr<GameObject> associated, const std::string &file, int frameCount = 1, int frameTime = 1, int msToSelfDestruct = 0);
     Sprite(std::shared_ptr<GameObject> associated, int frameCount = 1, int frameTime = 1, int msToSelfDestruct = 0);
     void SetScale(float scaleX, float scaleY); 
@@ -49,7 +50,7 @@ public:
     bool hidden;
 
 private:
-    std::shared_ptr<SDL_Texture> texture;  
+    std::shared_ptr<SDL_Texture> texture;
     int width;
     int height;
     SDL_Rect clipRect;
@@ -61,5 +62,6 @@ private:
     int frameTime;
     int msToSelfDestruct;
     Timer selfDestructCount;
+    std::string file;
 };
 

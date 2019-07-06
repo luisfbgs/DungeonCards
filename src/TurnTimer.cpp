@@ -11,10 +11,10 @@
 #include "TurnState.h"
 
 TurnTimer::TurnTimer(std::shared_ptr<GameObject> associated) : Component(associated) {
-    this->timerGO = std::shared_ptr<GameObject>(new GameObject());
-    this->timerSprite = std::shared_ptr<Sprite>(new Sprite(this->timerGO));
-    this->pointerGO = std::shared_ptr<GameObject>(new GameObject());
-    this->pointerSprite = std::shared_ptr<Sprite>(new Sprite(this->pointerGO));
+    this->timerGO = std::make_shared<GameObject>();
+    this->timerSprite = std::make_shared<Sprite>(this->timerGO);
+    this->pointerGO = std::make_shared<GameObject>();
+    this->pointerSprite = std::make_shared<Sprite>(this->pointerGO);
 
     TurnState::Init();
     printf("\nInit\n");

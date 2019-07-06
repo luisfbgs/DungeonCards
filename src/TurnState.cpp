@@ -10,7 +10,7 @@ bool TurnState::turnEnded = false;
 
 TurnState::TurnState(){
     this->turnSpriteGO = std::shared_ptr<GameObject>(new GameObject);
-    this->turnSprite = std::shared_ptr<Sprite>(new Sprite(this->turnSpriteGO));
+    this->turnSprite = std::make_shared<Sprite>(this->turnSpriteGO);
 }
 
 TurnState::~TurnState() {
@@ -32,7 +32,7 @@ void TurnState::SetScale() {
 }
 
 void TurnState::Next() {
-    TurnState::current = Turn((TurnState::current + 1) % 4);
+    TurnState::current = Turn((TurnState::current + 1) % TURN);
     TurnState::instance->turnSprite->Open(TURN_PATH + turnName[TurnState::current] + ".png");
 }
 

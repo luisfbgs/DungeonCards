@@ -11,7 +11,7 @@
 
 Animation::Damage::Damage(std::shared_ptr<GameObject> associated, Card *target) : Component(associated) {
     GameData::runningAnimations++;
-    this->damageSprite = std::shared_ptr<Sprite>(new Sprite(associated, ANIMATION_PATH + std::string("damage.png")));
+    this->damageSprite = std::make_shared<Sprite>(associated, ANIMATION_PATH + std::string("damage.png"));
     this->damageSprite->SetAngle(target->angle);
     this->damageSprite->SetScale(target->scale, target->scale);
     this->associated->box.leftUp = target->associated->box.leftUp;
@@ -45,7 +45,7 @@ void Animation::Damage::Update(int dt) {
 
 Animation::Heal::Heal(std::shared_ptr<GameObject> associated, Card *target) : Component(associated) {
     GameData::runningAnimations++;
-    this->healSprite = std::shared_ptr<Sprite>(new Sprite(associated, ANIMATION_PATH + std::string("heal.png")));
+    this->healSprite = std::make_shared<Sprite>(associated, ANIMATION_PATH + std::string("heal.png"))   ;
     this->healSprite->SetAngle(target->angle);
     this->healSprite->SetScale(target->scale, target->scale);
     this->associated->box.leftUp = target->associated->box.leftUp;
@@ -75,7 +75,7 @@ void Animation::Heal::Update(int dt) {
 
 Animation::Event::Event(std::shared_ptr<GameObject> associated, int eventId) : Component(associated) {
     GameData::runningAnimations++;
-    this->eventSprite = std::shared_ptr<Sprite>(new Sprite(associated, std::string(EVENT_PATH "Back.png")));
+    this->eventSprite = std::make_shared<Sprite>(Sprite(associated, std::string(EVENT_PATH "Back.png")));
     this->eventSprite->SetScale(Game::heightS / 2 / eventSprite->GetHeightS(),
         Game::heightS / 2 / eventSprite->GetHeightS());
     this->associated->AddComponent(eventSprite);

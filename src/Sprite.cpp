@@ -8,6 +8,11 @@
 #include "Timer.h"
 #define INCLUDE_SDL_IMAGE
 #include "SDL_include.h"
+#include <iostream>
+
+Sprite::~Sprite() {
+  std::cout << "Morreu sprite ===> " << this->file << std::endl;
+}
 
 Sprite::Sprite(std::shared_ptr<GameObject> associated, int frameCount, int frameTime, int msToSelfDestruct) : Component(associated) {
     this->scale = {1, 1};
@@ -33,6 +38,7 @@ Sprite::Sprite(std::shared_ptr<GameObject> associated, const std::string &file, 
 }
 
 void Sprite::Open(const std::string &file) {
+    this->file = file;
     this->texture = Resources::GetImage(file.c_str());
     SDL_QueryTexture(this->texture.get(), nullptr, nullptr, &this->width, &this->height);
     this->width /= this->frameCount;
