@@ -17,7 +17,7 @@ class PlayerHand : public Component {
 friend Board;
 friend ActionHand;
 public:
-    PlayerHand(std::shared_ptr<GameObject> associated, std::string file, int num);
+    PlayerHand(std::shared_ptr<GameObject> associated, std::string file, int num, int playerDamage = 3);
     void Update(int dt);
     void Render();
     bool Is(const std::string &type);
@@ -35,4 +35,5 @@ private:
     Sprite sprite;
     std::weak_ptr<Card> lastTarget;
     bool actedSkill;
+    int playerDamage = 3;
 };

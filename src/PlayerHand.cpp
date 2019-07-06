@@ -16,13 +16,14 @@
 #include "CardSkill.h"
 #include "Event.h"
 
-PlayerHand::PlayerHand(std::shared_ptr<GameObject> associated, std::string file, int num) 
+PlayerHand::PlayerHand(std::shared_ptr<GameObject> associated, std::string file, int num, int playerDamage) 
     : Component(associated), sprite(associated, file) {
     this->sizeW = this->sizeH = 1;
     this->pos = {0, 1};
     this->playerNum = num;
     this->SetScale();
     this->myCard = Board::GetInstance().GetCard(this->playerNum).get();
+    this->playerDamage = playerDamage;
     ActionHand::Move(this, {0, -1}, this->pos);
 }
 
@@ -91,7 +92,7 @@ void PlayerHand::Attack(){
     if(input.IsKeyPress(bAttack[cId])) {
         this->lastTarget = Board::GetInstance().GetCard(this->pos);
         if(!this->lastTarget.expired() && !this->lastTarget.lock()->isDead) {
-            Action::Attack(this->myCard, 3, this->lastTarget.lock()->GetNum());
+            Action::Attack(this->myCard, this->playerDamage, this->lastTarget.lock()->GetNum());
         }
     }
 }

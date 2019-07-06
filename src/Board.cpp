@@ -21,7 +21,7 @@ int Board::AddCard(std::shared_ptr<Card> card) {
     card->SetScale();
     return cards.size();
 }
-
+// TODO: faz sentido? Pode haver uma carta na posição {0,0} ?
 Vec2Int Board::GetBoardPos(int id) {
     if(this->GetCard(id) != nullptr)
         return this->GetCard(id)->pos;
