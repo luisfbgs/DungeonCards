@@ -89,11 +89,11 @@ bool Card::Is(const std::string &type) {
 void Card::SetScale() {
 
     // Ajusta o tamanho da carta
-    this->sprite.SetScale(this->sizeW * this->scale, this->sizeH * this->scale);
+    this->sprite.SetScale(this->scale, this->scale);
     
     // Ajusta o tamanho da barra de vida
     if(this->lifeBar.IsOpen()) {
-        this->lifeBar.SetScale(this->sizeW * this->scale, this->sizeH * this->scale);
+        this->lifeBar.SetScale(this->sprite.GetWidthS() / this->lifeBar.GetWidth(), this->sprite.GetHeightS() / this->lifeBar.GetHeight());
         this->lifeBar.SetAngle(this->angle);
     }
 }
