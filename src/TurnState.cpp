@@ -11,6 +11,10 @@ bool TurnState::turnEnded = false;
 TurnState::TurnState(){
     this->turnSpriteGO = std::shared_ptr<GameObject>(new GameObject);
     this->turnSprite = std::make_shared<Sprite>(this->turnSpriteGO);
+
+    this->turnArtSpriteGO = std::shared_ptr<GameObject>(new GameObject);
+    this->turnArtSprite = std::make_shared<Sprite>(this->turnArtSpriteGO);
+
 }
 
 TurnState::~TurnState() {
@@ -22,20 +26,31 @@ void TurnState::Init() {
     TurnState::instance = &instance;
     TurnState::current = Turn::PlayerAttack;
     instance.turnSprite->Open(TURN_PATH + turnName[TurnState::current] + ".png");
+    instance.turnArtSprite->Open(TURN_PATH "art_" + turnName[TurnState::current] + ".png");
     instance.SetScale();
-    instance.turnSpriteGO->box.leftUp = {-100, instance.turnSprite->GetHeightS()};
+    instance.turnArtSpriteGO->box.leftUp = {0, instance.turnSprite->GetHeightS()};
+    instance.turnSpriteGO->box.CenterIn({
+        (Game::GetInstance().widthS/2.0f),
+        (Game::GetInstance().heightS/2.0f) + (Game::GetInstance().heightS / 10)*0.65
+    });
+    // .leftUp = {-100, instance.turnSprite->GetHeightS()};
 }
 
 void TurnState::SetScale() {
-    float scale = (Game::heightS / 2.0f) / this->turnSprite->GetHeight();
-    this->turnSprite->SetScale(scale, scale);
+    float scaleSprite = (Game::heightS / 2.0f) / this->turnSprite->GetHeight();
+    this->turnSprite->SetScale(scaleSprite, scaleSprite);
+
+    float scaleArtSprite = (Game::heightS / 2.0f) / this->turnArtSprite->GetHeightS();
+    this->turnArtSprite->SetScale(scaleArtSprite, scaleArtSprite);
 }
 
 void TurnState::Next() {
     TurnState::current = Turn((TurnState::current + 1) % TURN);
     TurnState::instance->turnSprite->Open(TURN_PATH + turnName[TurnState::current] + ".png");
+    TurnState::instance->turnArtSprite->Open(TURN_PATH "art_" + turnName[TurnState::current] + ".png");
 }
 
 void TurnState::Render() {
     TurnState::instance->turnSprite->Render();
+    TurnState::instance->turnArtSprite->Render();
 }
