@@ -109,6 +109,8 @@ int Card::_Damage(int damage) {
     }
     else if (damage > 0) {
         this->hp -= damage;
+        
+        // Som de atacado
         Sound::PlaySound("hit.wav");
         // Adiciona animação de dano na carta
         std::shared_ptr<GameObject> damageAniGO = std::make_shared<GameObject>();
@@ -124,7 +126,6 @@ int Card::_Heal(int hp) {
         return this->_Damage(-hp);
     }
     else if(hp > 0) {
-        Sound::PlaySound("healing.wav");
         auto aux = this->hp+hp;
         if (aux > Card::MAX_LIFE) {
             this->hp = MAX_LIFE;
@@ -132,8 +133,8 @@ int Card::_Heal(int hp) {
         else {
             this->hp = aux;
         }
-
         // Adiciona animação de cura na carta
+        Sound::PlaySound("healing.wav");
         std::shared_ptr<GameObject> healAniGO = std::make_shared<GameObject>();
         std::shared_ptr<Animation::Heal> healAni = std::make_shared<Animation::Heal>(healAniGO, this);
         healAniGO->AddComponent(healAni);
