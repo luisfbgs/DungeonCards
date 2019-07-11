@@ -5,6 +5,7 @@
 #include "MapState.h"
 #include "Stages.h"
 #include "InputManager.h"
+#include "Sound.h"
 
 void MapState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
@@ -46,13 +47,16 @@ void MapState::Update(int dt) {
             Stages::InitStage2();
         }
     }
+    auto oldPos = this->pos;
     if(input.IsKeyPress('d')){
         this->pos = std::min((int)this->stages.size() - 1, pos + 1);
     }
-    if(input.IsKeyPress('a')){
+    else if(input.IsKeyPress('a')){
         this->pos = std::max(0, pos - 1);
     }
-
+    if (oldPos != this->pos) {
+        Sound::PlaySound("cursor_movendo.wav");
+    }
     this->cursor->box.leftUp = stages[this->pos];
     this->cursor->box.leftUp.x *= this->cursor->box.w;
     this->cursor->box.leftUp.y *= this->cursor->box.h;
