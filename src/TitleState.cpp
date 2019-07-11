@@ -150,7 +150,8 @@ void TitleState::LoadAssets() {
     // Coloca o sprite do seletor de opção na posição correta
     this->selectSpriteGO = std::shared_ptr<GameObject>(new GameObject());
     this->selectSprite = std::shared_ptr<Sprite>(new Sprite(selectSpriteGO, MENU_PATH "select.png"));
-    this->selectSprite->SetScale(optionScale, optionScale);
+    float selectScale = continueSprite->GetHeightS() / this->selectSprite->GetHeightS();
+    this->selectSprite->SetScale(selectScale, selectScale);
     this->selectSprite->SetAngle(continueGO->GetAngle());
     this->selectSpriteGO->AddComponent(this->selectSprite);
     this->selectSpriteGO->box = continueGO->box;
