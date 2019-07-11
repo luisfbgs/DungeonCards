@@ -45,7 +45,7 @@ void Sprite::Open(const std::string &file) {
     this->SetClip(0, 0, this->width, this->height);
     this->associated->box = {this->associated->box.leftUp, (float)this->width, (float)this->height};
     this->associated->box.w *= this->scale.x;
-    this->associated->box.h *= this->scale.x;
+    this->associated->box.h *= this->scale.y;
 }
 
 bool Sprite::IsOpen() {
