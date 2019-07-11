@@ -157,8 +157,8 @@ void TitleState::LoadAssets() {
     this->AddObject(this->selectSpriteGO);
     
     // Toca musica do menu.
-    // this->music.Open(AUDIO_PATH "menu.ogg");
-    // this->music.Play(-1);
+    this->music.Open(AUDIO_PATH "menu.ogg");
+    this->music.Play(-1);
 }
 
 void TitleState::Render() {

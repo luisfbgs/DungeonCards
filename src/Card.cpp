@@ -28,12 +28,6 @@ Card::Card(std::shared_ptr<GameObject> associated, std::string file, int num, in
     this->angle = randReal(-2.0f, 2.0f);
     this->sprite.SetAngle(this->angle);
 
-    // Calcula escala para carta se ajustar ao tabuleiro
-    Board &board = Board::GetInstance();
-    float cellW = board.GetCellW(), cellH = board.GetCellH();
-    float spriteW = this->sprite.GetWidth();
-    float spriteH = this->sprite.GetHeight();
-    this->scale = std::min(cellW / 1.13f / spriteW, cellH / 1.13f / spriteH);
     this->lifeBar.Open(LIFE_PATH + std::to_string(hp) + ".png");
     this->SetScale();
 }
@@ -48,6 +42,7 @@ void Card::Update(int dt) {
                     GameData::enemyCount--;
                 }
                 this->sprite.Open(IMG_PATH "cardBack.png");
+                this->SetScale();
                 this->isDead = true;
             }
             this->lifeBar.hidden = true;
@@ -88,7 +83,15 @@ bool Card::Is(const std::string &type) {
 
 // Coloca o tamanho do sprite pra ser igual o da célula
 void Card::SetScale() {
+    
+    // Calcula escala para carta se ajustar ao tabuleiro
+    Board &board = Board::GetInstance();
+    float cellW = board.GetCellW(), cellH = board.GetCellH();
 
+    float spriteW = this->sprite.GetWidth();
+    float spriteH = this->sprite.GetHeight();
+    this->scale = std::min(cellW / 1.13f / spriteW, cellH / 1.13f / spriteH);
+    
     // Ajusta o tamanho da carta
     this->sprite.SetScale(this->scale, this->scale);
     
