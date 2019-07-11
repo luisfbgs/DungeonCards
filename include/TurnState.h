@@ -32,8 +32,12 @@ public:
 
 private:
     TurnState();
+
     std::shared_ptr<Sprite> turnSprite;
     std::shared_ptr<GameObject> turnSpriteGO;
+
+    std::shared_ptr<Sprite> turnArtSprite;
+    std::shared_ptr<GameObject> turnArtSpriteGO;
     static TurnState *instance;
     void SetScale();
 };
