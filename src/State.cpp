@@ -19,7 +19,6 @@ std::weak_ptr<GameObject> State::AddObject(std::shared_ptr<GameObject> go) {
     if(this->started && !go->started) {
         go->Start();
     }
-
     this->objectArray.emplace_back(go);
     std::weak_ptr<GameObject> ret(go);
     return ret;

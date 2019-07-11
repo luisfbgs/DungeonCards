@@ -12,6 +12,10 @@
 #include "GameData.h"
 #include "Music.h"
 #include "Sound.h"
+
+#include <iostream>
+using std::cout;
+using std::endl;
 void TitleState::Update(int dt) {
     (void)dt;
     InputManager &input = InputManager::GetInstance();
@@ -68,9 +72,13 @@ void TitleState::Update(int dt) {
             Sound::PlaySound("confirmar.ogg");
         }
     }
+    else if (input.IsKeyPress('c')) {
+        cout << "BORA PRA TELA DE CREDITOSS!\n";
+    }
     // Verificar se o usuário deseja fechar o jogo
     this->quitRequested |= input.QuitRequested();
 }
+
 
 void TitleState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
