@@ -11,7 +11,7 @@
 void CreditState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
     std::shared_ptr<GameObject> bgGO = std::make_shared<GameObject>();
-    std::shared_ptr<Sprite> bgSprite = std::make_shared<Sprite>(bgGO, IMG_PATH "map.png");
+    std::shared_ptr<Sprite> bgSprite = std::make_shared<Sprite>(bgGO, IMG_PATH "MenuFundo.png");
     float bgScale = Game::widthS / bgSprite->GetWidth();
     bgSprite->SetScale(bgScale, bgScale);
     bgGO->AddComponent(bgSprite);
@@ -26,16 +26,70 @@ void CreditState::LoadAssets() {
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        SDL_Color color = {200, 123, 50, 0};
     float posY = (Game::height - bgSprite->GetHeightS()) / 2;
-    for(auto artista : this->artistas) {
-        std::shared_ptr<GameObject> resolutionGO(new GameObject());
-        std::shared_ptr<Text> resText(new Text(resolutionGO, std::string("assets/font/Call_me_maybe.ttf"),
-         bgSprite->GetHeightS() / 10, Text::TextStyle::SOLID, artista, color));
-        resolutionGO->AddComponent(resText);
-        resolutionGO->box.leftUp = {0.0f, posY};
+    SDL_Color color = {200, 123, 50, 0};
+    auto size = this->artistasPos.size();
+    for(unsigned i = 0; i < size; i++) {
+        std::shared_ptr<GameObject> contribuidorGO(new GameObject());
+        std::shared_ptr<Text> constribuidorText(
+            new Text(contribuidorGO,
+                        std::string("assets/font/Call_me_maybe.ttf"),
+                        bgSprite->GetHeightS() / 10,
+                        Text::TextStyle::SOLID,
+                        this->artistas[i],
+                        color)
+            );
+        contribuidorGO->AddComponent(constribuidorText);
+        contribuidorGO->box.leftUp = {20.0f, posY};
+        
+        // contribuidorGO->box.leftUp = this->artistasPos[i] * (i+1)*15;
+        // contribuidorGO->box.leftUp.x *= contribuidorGO->box.w;
+        // contribuidorGO->box.leftUp.y *= contribuidorGO->box.h;
+
         posY += bgSprite->GetHeightS() / 10.0;
-        this->AddObject(resolutionGO);
+        this->AddObject(contribuidorGO);
+    }
+    color = {0x84, 0x89, 0x80, 0};
+    for(unsigned i = 0; i < size; i++) {
+        std::shared_ptr<GameObject> contribuidorGO(new GameObject());
+        std::shared_ptr<Text> constribuidorText(
+            new Text(contribuidorGO,
+                        std::string("assets/font/Call_me_maybe.ttf"),
+                        bgSprite->GetHeightS() / 10,
+                        Text::TextStyle::SOLID,
+                        this->musicos[i],
+                        color)
+            );
+        contribuidorGO->AddComponent(constribuidorText);
+        contribuidorGO->box.leftUp = {20.0f, posY};
+        
+        // contribuidorGO->box.leftUp = this->artistasPos[i] * (i+1)*15;
+        // contribuidorGO->box.leftUp.x *= contribuidorGO->box.w;
+        // contribuidorGO->box.leftUp.y *= contribuidorGO->box.h;
+
+        posY += bgSprite->GetHeightS() / 10.0;
+        this->AddObject(contribuidorGO);
+    }
+    color = {0x1f, 0x89, 0x80, 0};
+    for(unsigned i = 0; i < size; i++) {
+        std::shared_ptr<GameObject> contribuidorGO(new GameObject());
+        std::shared_ptr<Text> constribuidorText(
+            new Text(contribuidorGO,
+                        std::string("assets/font/Call_me_maybe.ttf"),
+                        bgSprite->GetHeightS() / 10,
+                        Text::TextStyle::SOLID,
+                        this->programadores[i],
+                        color)
+            );
+        contribuidorGO->AddComponent(constribuidorText);
+        contribuidorGO->box.leftUp = {20.0f, posY};
+        
+        // contribuidorGO->box.leftUp = this->artistasPos[i] * (i+1)*15;
+        // contribuidorGO->box.leftUp.x *= contribuidorGO->box.w;
+        // contribuidorGO->box.leftUp.y *= contribuidorGO->box.h;
+
+        posY += bgSprite->GetHeightS() / 10.0;
+        this->AddObject(contribuidorGO);
     }
 }
 
@@ -54,7 +108,7 @@ void CreditState::Start() {
     };
     this->artistasPos = {
         {3, 8},
-        {6, 7}
+        {3, 6}
     };
     this->pos = 0;
     this->LoadAssets();

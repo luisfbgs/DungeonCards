@@ -57,7 +57,7 @@ void MapState::Update(int dt) {
     if (oldPos != this->pos) {
         Sound::PlaySound("cursor_movendo.wav");
     }
-    this->cursor->box.leftUp = stages[this->pos];
+    this->cursor->box.leftUp = this->stages[this->pos];
     this->cursor->box.leftUp.x *= this->cursor->box.w;
     this->cursor->box.leftUp.y *= this->cursor->box.h;
 
