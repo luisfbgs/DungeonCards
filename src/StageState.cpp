@@ -59,7 +59,7 @@ void StageState::LoadAssets() {
     this->AddObject(eventGO);
 
     // Toca musica de batalha.
-    this->music.Open(AUDIO_PATH "battle.mpeg");
+    this->music.Open(AUDIO_PATH "battle.ogg");
     this->music.Play(-1);
 }
 
