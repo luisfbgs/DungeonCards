@@ -78,7 +78,7 @@ void TitleState::Update(int dt) {
         Game::GetInstance().Push(make_shared<CreditState>());
     }
     // Verificar se o usuário deseja fechar o jogo
-    this->quitRequested |= input.QuitRequested();
+    this->quitRequested |= input.QuitRequested() || input.IsKeyPress(ESCAPE_KEY);
 }
 
 
