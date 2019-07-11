@@ -22,8 +22,8 @@ void ConfigState::LoadAssets() {
     float posY = (Game::height - bgSprite->GetHeightS()) / 2;
     for(auto res : this->resolutionList) {
         std::shared_ptr<GameObject> resolutionGO(new GameObject());
-        std::shared_ptr<Text> resText(new Text(resolutionGO, std::string("assets/font/Call me maybe.ttf"),
-         bgSprite->GetHeightS() / 10, Text::TextStyle::SOLID, std::to_string(res.first) + "x" + std::to_string(res.second), color));
+        std::shared_ptr<Text> resText(new Text(resolutionGO, std::string("assets/font/Call_me_maybe.ttf"),
+        bgSprite->GetHeightS() / 10, Text::TextStyle::SOLID, std::to_string(res.first) + "x" + std::to_string(res.second), color));
         resolutionGO->AddComponent(resText);
         resolutionGO->box.leftUp = {0.0f, posY};
         posY += bgSprite->GetHeightS() / 10.0;

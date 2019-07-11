@@ -12,10 +12,11 @@
 #include "GameData.h"
 #include "Music.h"
 #include "Sound.h"
-
+#include "CreditState.h"
 #include <iostream>
 using std::cout;
 using std::endl;
+using std::make_shared;
 void TitleState::Update(int dt) {
     (void)dt;
     InputManager &input = InputManager::GetInstance();
@@ -59,10 +60,10 @@ void TitleState::Update(int dt) {
                 break;
             case NewGame:
                 GameData::playersCount = 2;
-                Game::GetInstance().Push(std::make_shared<MapState>());
+                Game::GetInstance().Push(make_shared<MapState>());
                 break;
             case Options:
-                Game::GetInstance().Push(std::make_shared<ConfigState>());
+                Game::GetInstance().Push(make_shared<ConfigState>());
                 break;
             case Quit:
                 this->quitRequested = true;
@@ -74,6 +75,7 @@ void TitleState::Update(int dt) {
     }
     else if (input.IsKeyPress('c')) {
         cout << "BORA PRA TELA DE CREDITOSS!\n";
+        Game::GetInstance().Push(make_shared<CreditState>());
     }
     // Verificar se o usuário deseja fechar o jogo
     this->quitRequested |= input.QuitRequested();
