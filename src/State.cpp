@@ -14,14 +14,14 @@ State::~State() {
 }
 
 std::weak_ptr<GameObject> State::AddObject(std::shared_ptr<GameObject> go) {
-    std::shared_ptr<GameObject> go_ptr(go);
+    // std::shared_ptr<GameObject> go_ptr(go);
     
     if(this->started && !go->started) {
         go->Start();
     }
 
-    this->objectArray.emplace_back(go_ptr);
-    std::weak_ptr<GameObject> ret(go_ptr);
+    this->objectArray.emplace_back(go);
+    std::weak_ptr<GameObject> ret(go);
     return ret;
 }
 

@@ -11,7 +11,7 @@
 #include "ConfigState.h"
 #include "GameData.h"
 #include "Music.h"
-
+#include "Sound.h"
 void TitleState::Update(int dt) {
     (void)dt;
     InputManager &input = InputManager::GetInstance();
@@ -61,6 +61,9 @@ void TitleState::Update(int dt) {
             case Quit:
                 this->quitRequested = true;
                 break;
+        }
+        if (!this->quitRequested) {
+            Sound::PlaySound("confirmar.ogg");
         }
     }
     // Verificar se o usuário deseja fechar o jogo
