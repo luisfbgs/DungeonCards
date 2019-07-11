@@ -25,10 +25,15 @@ void TurnState::Init() {
     static TurnState instance;
     TurnState::instance = &instance;
     TurnState::current = Turn::PlayerAttack;
+    auto umCentoWidth = (float)(Game::GetInstance().widthS) / 100.0f;
+    auto umCentoHeight = (float)(Game::GetInstance().heightS) / 100.0f;
     instance.turnSprite->Open(TURN_PATH + turnName[TurnState::current] + ".png");
     instance.turnArtSprite->Open(TURN_PATH "art_" + turnName[TurnState::current] + ".png");
     instance.SetScale();
-    instance.turnArtSpriteGO->box.leftUp = {0, instance.turnSprite->GetHeightS()};
+    instance.turnArtSpriteGO->box.leftUp = {
+        3 * umCentoWidth,
+        65 * umCentoHeight
+    };
     instance.turnSpriteGO->box.CenterIn({
         (Game::GetInstance().widthS/2.0f),
         (Game::GetInstance().heightS/2.0f) + (Game::GetInstance().heightS / 10)*0.65
@@ -40,7 +45,7 @@ void TurnState::SetScale() {
     float scaleSprite = (Game::heightS / 2.0f) / this->turnSprite->GetHeight();
     this->turnSprite->SetScale(scaleSprite, scaleSprite);
 
-    float scaleArtSprite = (Game::heightS / 2.0f) / this->turnArtSprite->GetHeightS();
+    float scaleArtSprite = (Game::heightS / 3.5f) / this->turnArtSprite->GetHeightS();
     this->turnArtSprite->SetScale(scaleArtSprite, scaleArtSprite);
 }
 
