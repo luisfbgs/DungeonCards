@@ -69,6 +69,7 @@ void StageState::Update(int dt) {
     
     // Verificar se o usuário deseja fechar o jogo
     this->quitRequested |= input.QuitRequested() || input.IsKeyPress(ESCAPE_KEY);
+    GameData::quitAll |= input.QuitRequested();
     if(GameData::enemyCount == 0) {
         this->quitRequested = true;
         GameData::stagesBeated++;
