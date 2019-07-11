@@ -23,7 +23,7 @@ void TurnState::Init() {
     TurnState::current = Turn::PlayerAttack;
     instance.turnSprite->Open(TURN_PATH + turnName[TurnState::current] + ".png");
     instance.SetScale();
-    instance.turnSpriteGO->box.leftUp = {0, instance.turnSprite->GetHeightS()};
+    instance.turnSpriteGO->box.leftUp = {-100, instance.turnSprite->GetHeightS()};
 }
 
 void TurnState::SetScale() {

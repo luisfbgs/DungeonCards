@@ -29,6 +29,25 @@ void CreditState::LoadAssets() {
     float posY = (Game::height - bgSprite->GetHeightS()) / 2;
     SDL_Color color = {200, 123, 50, 0};
     auto size = this->artistasPos.size();
+
+    ;;;;;;;;;;;
+    ///////////
+    std::shared_ptr<GameObject> contribuidorGO(new GameObject());
+    std::shared_ptr<Text> constribuidorText(
+        new Text(contribuidorGO,
+                std::string("assets/font/Call_me_maybe.ttf"),
+                bgSprite->GetHeightS() / 10,
+                Text::TextStyle::SOLID,
+                "Artistas",
+                color
+            )
+    );
+    contribuidorGO->AddComponent(constribuidorText);
+    contribuidorGO->box.leftUp = {300.0f, posY};
+    posY += bgSprite->GetHeightS() / 10.0;
+    this->AddObject(contribuidorGO);
+    ;;;;;;;;;;;
+
     for(unsigned i = 0; i < size; i++) {
         std::shared_ptr<GameObject> contribuidorGO(new GameObject());
         std::shared_ptr<Text> constribuidorText(
@@ -41,14 +60,10 @@ void CreditState::LoadAssets() {
             );
         contribuidorGO->AddComponent(constribuidorText);
         contribuidorGO->box.leftUp = {20.0f, posY};
-        
-        // contribuidorGO->box.leftUp = this->artistasPos[i] * (i+1)*15;
-        // contribuidorGO->box.leftUp.x *= contribuidorGO->box.w;
-        // contribuidorGO->box.leftUp.y *= contribuidorGO->box.h;
-
         posY += bgSprite->GetHeightS() / 10.0;
         this->AddObject(contribuidorGO);
     }
+
     color = {0x84, 0x89, 0x80, 0};
     for(unsigned i = 0; i < size; i++) {
         std::shared_ptr<GameObject> contribuidorGO(new GameObject());

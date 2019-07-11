@@ -59,7 +59,7 @@ void PlayerHand::Update(int dt) {
             }
             break;
         }
-        case _Event: {
+        case Event: {
             if(not Event::occured) {
                 Event::Run();
                 Event::occured = true;
