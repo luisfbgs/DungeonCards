@@ -16,6 +16,7 @@ void TitleState::Update(int dt) {
     (void)dt;
     InputManager &input = InputManager::GetInstance();
     if(input.IsKeyPress('w') || input.IsKeyPress('a')) {
+        Sound::PlaySound("cima.ogg");
         if(this->selectedOption != 0) {
             // Da uma abaixadinha na opção desselecionada 
             GameObject *topOption = this->objectArray[this->lastOption - this->selectedOption].get();
@@ -32,6 +33,7 @@ void TitleState::Update(int dt) {
         }
     }
     if(input.IsKeyPress('s') || input.IsKeyPress('d')) {
+        Sound::PlaySound("baixo.ogg");
         if(this->selectedOption != 3) {
             // Da uma abaixadinha na opção desselecionada 
             GameObject *topOption = this->objectArray[this->lastOption - this->selectedOption].get();
@@ -145,8 +147,8 @@ void TitleState::LoadAssets() {
     this->AddObject(this->selectSpriteGO);
     
     // Toca musica do menu.
-    this->music.Open(AUDIO_PATH "menu.ogg");
-    this->music.Play(-1);
+    // this->music.Open(AUDIO_PATH "menu.ogg");
+    // this->music.Play(-1);
 }
 
 void TitleState::Render() {
