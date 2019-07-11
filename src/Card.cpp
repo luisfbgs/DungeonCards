@@ -13,6 +13,7 @@
 #include "InputManager.h"
 #include "TurnState.h"
 #include "Animation.h"
+#include "Sound.h"
 
 Card::Card(std::shared_ptr<GameObject> associated, std::string file, int num, int hp, int attackPower) : Component(associated),
                                                                 sprite(associated, file),
@@ -108,7 +109,7 @@ int Card::_Damage(int damage) {
     }
     else if (damage > 0) {
         this->hp -= damage;
-        
+        Sound::PlaySound("hit.wav");
         // Adiciona animação de dano na carta
         std::shared_ptr<GameObject> damageAniGO = std::make_shared<GameObject>();
         std::shared_ptr<Animation::Damage> damageAni = std::make_shared<Animation::Damage>(damageAniGO, this);
@@ -123,6 +124,7 @@ int Card::_Heal(int hp) {
         return this->_Damage(-hp);
     }
     else if(hp > 0) {
+        Sound::PlaySound("healing.wav");
         auto aux = this->hp+hp;
         if (aux > Card::MAX_LIFE) {
             this->hp = MAX_LIFE;

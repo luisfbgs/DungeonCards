@@ -44,7 +44,6 @@ bool Action::Attack(Card* sourcePtr, int damage, int targetId) {
 bool Action::AnonymousAttack(int damage, int targetId) {
     Board &board = Board::GetInstance();
     if(board.GetCard(targetId) != nullptr && !board.GetCard(targetId)->isDead) {
-        Sound::PlaySound("hit.wav");
         board.GetCard(targetId)->_Damage(damage);
         return true;
     }
@@ -54,7 +53,6 @@ bool Action::AnonymousAttack(int damage, int targetId) {
 bool Action::AnonymousHeal(int hp, int targetId) {
     Board &board = Board::GetInstance();
     if(board.GetCard(targetId) != nullptr && !board.GetCard(targetId)->isDead) {
-        Sound::PlaySound("heal.wav");
         board.GetCard(targetId)->_Heal(hp);
         return true;
     }
