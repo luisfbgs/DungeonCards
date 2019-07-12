@@ -27,7 +27,8 @@ void MapState::LoadAssets() {
 void MapState::Start() {
     this->stages = {
         {3, 8},
-        {6, 7}
+        {6, 7},
+        {10, 3}
     };
     this->pos = 0;
     this->LoadAssets();
@@ -43,8 +44,11 @@ void MapState::Update(int dt) {
         if(pos == 0) {
             Stages::InitStage1();
         }
-        else if(GameData::stagesBeated >= 1){
+        else if(GameData::stagesBeated >= 1 && pos == 1){
             Stages::InitStage2();
+        }
+        else if(GameData::stagesBeated >= 0 && pos == 2){
+            Stages::InitStage3();
         }
     }
     auto oldPos = this->pos;
