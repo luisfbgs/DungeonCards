@@ -18,6 +18,7 @@
 using std::cout;
 using std::endl;
 using std::make_shared;
+
 void TitleState::Update(int dt) {
     (void)dt;
     InputManager &input = InputManager::GetInstance();
@@ -60,7 +61,7 @@ void TitleState::Update(int dt) {
             case Continue:
                 break;
             case NewGame:
-                GameData::playersCount = 2;
+                GameData::playersCount = 3;
                 Game::GetInstance().Push(make_shared<MapState>());
                 break;
             case Options:

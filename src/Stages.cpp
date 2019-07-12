@@ -13,7 +13,7 @@ void Stages::CreatePlayers(std::shared_ptr<StageState> newStage) {
         std::shared_ptr<Player> newPlayer = std::make_shared<Player>(playerGO, PLAYER_PATH + std::to_string(i) + ".png", i);
         playerGO->AddComponent(newPlayer);
         newStage->AddObject(playerGO);
-        Action::Move(newStage->board.GetCard(i).get(), {i, 1});
+        Action::Move(newStage->board.GetCard(i).get(), {i - (GameData::playersCount > 2), 1});
         GameData::players.push_back(newPlayer);
     }
 }

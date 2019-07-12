@@ -16,17 +16,17 @@ bool CardSkill::IsPassive(int id) {
 }
 
 bool CardSkill::Run(int id, Vec2Int pos, Card* source, std::weak_ptr<Card> lastTarget) {
+  auto target = Board::GetInstance().GetCard(pos);
   switch (id) {
-  case 0:
-    if(!lastTarget.expired() && !lastTarget.lock()->isDead) {
-      CardSkill::DoubleDamage(lastTarget.lock().get(), source);
+  case 1:
+    if(target != nullptr && !target->isDead) {
+      CardSkill::HealCard(target.get());
       return true;
     }
     break;
-  case 1:
-    auto target = Board::GetInstance().GetCard(pos);
-    if(target != nullptr && !target->isDead) {
-      CardSkill::HealCard(target.get());
+  case 3:
+    if(!lastTarget.expired() && !lastTarget.lock()->isDead) {
+      CardSkill::DoubleDamage(lastTarget.lock().get(), source);
       return true;
     }
     break;
