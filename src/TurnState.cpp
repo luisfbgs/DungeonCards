@@ -24,7 +24,7 @@ TurnState::~TurnState() {
 void TurnState::Init() {
     static TurnState instance;
     TurnState::instance = &instance;
-    TurnState::current = Turn::PlayerAttack;
+    TurnState::current = Turn::PlayerSkill;
     instance.turnSprite->Open(TURN_PATH + turnName[TurnState::current] + ".png");
     instance.turnArtSprite->Open(TURN_PATH "art_" + turnName[TurnState::current] + ".png");
     instance.SetScale();

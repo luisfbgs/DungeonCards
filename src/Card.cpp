@@ -17,7 +17,7 @@
 
 Card::Card(std::shared_ptr<GameObject> associated, std::string file, int num, int hp, int attackPower) : Component(associated),
                                                                 sprite(associated, file),
-                                                                lifeBar(associated) {
+                                                                lifeBar(associated), skillIcon0(associated), skillIcon1(associated) {
     this->hp = hp;
     this->isDead = false;
     this->sizeW = this->sizeH = 1;
@@ -25,10 +25,16 @@ Card::Card(std::shared_ptr<GameObject> associated, std::string file, int num, in
     this->playerNum = num;
     this->acted = false;
     this->attackPower = attackPower;
+    this->skills[0] = 0;
+    this->skills[1] = 1;
+
     this->angle = randReal(-2.0f, 2.0f);
     this->sprite.SetAngle(this->angle);
-
     this->lifeBar.Open(LIFE_PATH + std::to_string(hp) + ".png");
+    if(this->playerNum > 0) {
+        this->skillIcon0.Open(SKILL_PATH + std::to_string(skills[0]) + "r.png");
+        this->skillIcon1.Open(SKILL_PATH + std::to_string(skills[1]) + "l.png");
+    }
     this->SetScale();
 }
 
@@ -46,6 +52,10 @@ void Card::Update(int dt) {
                 this->isDead = true;
             }
             this->lifeBar.hidden = true;
+            if(this->playerNum > 0) {
+                this->skillIcon0.hidden = true;
+                this->skillIcon1.hidden = true;
+            }
             return;
         }
         this->lifeBar.Open(LIFE_PATH + std::to_string(hp) + ".png");
@@ -75,6 +85,10 @@ void Card::Update(int dt) {
 void Card::Render() {
     this->sprite.Render();
     this->lifeBar.Render();
+    if(this->playerNum > 0) {
+        this->skillIcon0.Render();
+        this->skillIcon1.Render();
+    }
 }
 
 bool Card::Is(const std::string &type) {
@@ -99,6 +113,18 @@ void Card::SetScale() {
     if(this->lifeBar.IsOpen()) {
         this->lifeBar.SetScale(this->sprite.GetWidthS() / this->lifeBar.GetWidth(), this->sprite.GetHeightS() / this->lifeBar.GetHeight());
         this->lifeBar.SetAngle(this->angle);
+    }
+
+    if(this->playerNum > 0){
+        // Ajusta tamanhos dos icones de skill
+        if(this->skillIcon0.IsOpen()) {
+            this->skillIcon0.SetScale(this->sprite.GetWidthS() / this->skillIcon0.GetWidth(), this->sprite.GetHeightS() / this->skillIcon0.GetHeight());
+            this->skillIcon0.SetAngle(this->angle);
+        }
+        if(this->skillIcon1.IsOpen()) {
+            this->skillIcon1.SetScale(this->sprite.GetWidthS() / this->skillIcon1.GetWidth(), this->sprite.GetHeightS() / this->skillIcon1.GetHeight());
+            this->skillIcon1.SetAngle(this->angle);
+        }
     }
 }
 

@@ -24,6 +24,9 @@ PlayerHand::PlayerHand(std::shared_ptr<GameObject> associated, std::string file,
     this->SetScale();
     this->myCard = Board::GetInstance().GetCard(this->playerNum).get();
     this->playerDamage = playerDamage;
+    this->onSkill = false;
+    this->selectedSkill = -1;
+    this->skillPos = 0;
     ActionHand::Move(this, {0, -1}, this->pos);
 }
 
@@ -43,18 +46,24 @@ void PlayerHand::Update(int dt) {
             Event::occured = false;
             break;
         case PlayerSkill: {
-            this->MoveOnBoard(); 
             if (!this->myCard->acted){
-                // gambiarra: player 1 dano em dobro, e o outro heala a si mesmo
-                if (this->playerNum == 1) {
-                    if(!this->lastTarget.expired() && !this->lastTarget.lock()->isDead) {
-                        CardSkill::DoubleDamage(this->lastTarget.lock().get(), this->myCard);
+                if(this->selectedSkill == -1) {
+                    this->MoveOnSkill();
+                }
+                else {
+                    if(CardSkill::IsPassive(this->selectedSkill)) {
+                        this->myCard->acted = CardSkill::Run(this->selectedSkill, this->pos, this->myCard, this->lastTarget);
+                        if(!this->myCard->acted) {
+                            this->selectedSkill = -1;
+                        }
                     }
-                    this->myCard->acted = true;
+                    else {
+                        this->MoveOnBoard();
+                        this->myCard->acted = this->CastSkill();
+                    }
+                }
+                if(this->myCard->acted) {
                     this->myCard->lastActed = TurnState::current;
-                } 
-                else if (this->playerNum == 2) {
-                    this->Heal();
                 }
             }
             break;
@@ -73,6 +82,14 @@ void PlayerHand::Update(int dt) {
 }
 
 void PlayerHand::MoveOnBoard() {
+    // Coloca a mao na posicao que estava antes do turno de skill
+    if (this->onSkill) {
+        ActionHand::Move(this, {1, 0}, this->pos);
+        ActionHand::Move(this, {-1, 0}, this->pos);
+        ActionHand::Move(this, {1, 0}, this->pos);
+        ActionHand::Move(this, {-1, 0}, this->pos);
+        this->onSkill = false;
+    }
     // Indíce do controle
     int cId = this->playerNum - 1;
     InputManager &input = InputManager::GetInstance();
@@ -81,6 +98,8 @@ void PlayerHand::MoveOnBoard() {
     int xMove = input.IsKeyPress(buttonRight[cId]) - input.IsKeyPress(buttonLeft[cId]);
     if(xMove || yMove) {
         ActionHand::Move(this, {xMove, yMove}, this->pos);
+        printf("MoveuBoard %f %f\n", this->associated->box.leftUp.x, this->associated->box.leftUp.y);
+    
     }
 }
 
@@ -89,7 +108,7 @@ void PlayerHand::Attack(){
     int cId = this->playerNum - 1;
     InputManager &input = InputManager::GetInstance();
     // Ataca a posição atual
-    if(input.IsKeyPress(bAttack[cId])) {
+    if(input.IsKeyPress(buttonAttack[cId])) {
         this->lastTarget = Board::GetInstance().GetCard(this->pos);
         if(!this->lastTarget.expired() && !this->lastTarget.lock()->isDead) {
             Action::Attack(this->myCard, this->playerDamage, this->lastTarget.lock()->GetNum());
@@ -102,7 +121,7 @@ void PlayerHand::Heal(){
     int cId = this->playerNum - 1;
     InputManager &input = InputManager::GetInstance();
     // Cura a posição atual
-    if(input.IsKeyPress(bAttack[cId])) {
+    if(input.IsKeyPress(buttonAttack[cId])) {
         this->lastTarget = Board::GetInstance().GetCard(this->pos);
         if(!this->lastTarget.expired() && !this->lastTarget.lock()->isDead) {
             CardSkill::HealCard(this->lastTarget.lock().get());
@@ -138,4 +157,39 @@ void PlayerHand::SetScale() {
 
 int PlayerHand::GetNum() {
     return this->playerNum;
+}
+
+void PlayerHand::MoveOnSkill() {
+    // Coloca a mao na posicao que de uma skill
+    if (!this->onSkill) {
+        Vec2 pos = this->myCard->associated->box.leftUp;
+        pos.y += 0.35f * this->myCard->associated->box.h;
+        pos.x -= 0.5f * this->myCard->associated->box.w;
+        this->associated->box.leftUp = pos;
+        this->associated->box.leftUp.x += 0.75f * myCard->associated->box.w * this->skillPos;
+        this->onSkill = true;
+    }
+
+    // Indíce do controle
+    int cId = this->playerNum - 1;
+    InputManager &input = InputManager::GetInstance();
+    int xMove = input.IsKeyPress(buttonRight[cId]) - input.IsKeyPress(buttonLeft[cId]);
+    if (xMove + this->skillPos >= 0 && xMove + this->skillPos <= 1) {
+        this->skillPos += xMove;
+        this->associated->box.leftUp.x += 0.75f * myCard->associated->box.w * xMove;
+    }
+
+    if (input.IsKeyPress(buttonAttack[cId])) {
+        this->selectedSkill = this->myCard->skills[this->skillPos];
+    }
+}
+
+
+bool PlayerHand::CastSkill() {
+    int cId = this->playerNum - 1;
+    InputManager &input = InputManager::GetInstance();
+    if (input.IsKeyPress(buttonAttack[cId])) {
+        return CardSkill::Run(this->selectedSkill, this->pos, this->myCard, this->lastTarget);
+    }
+    return false;
 }

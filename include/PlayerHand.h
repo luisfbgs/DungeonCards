@@ -28,6 +28,8 @@ private:
     void Heal();
     Card *myCard;
     void MoveOnBoard();
+    void MoveOnSkill();
+    bool CastSkill();
     // playerNum é positivo para jogadores e negativo para inimigos
     int playerNum;
     int sizeW, sizeH;
@@ -35,5 +37,7 @@ private:
     Sprite sprite;
     std::weak_ptr<Card> lastTarget;
     bool actedSkill;
+    bool onSkill;
     int playerDamage = 3;
+    int skillPos, selectedSkill;
 };

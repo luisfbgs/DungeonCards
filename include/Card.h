@@ -41,6 +41,8 @@ public:
     Vec2Int pos;
     Sprite sprite;
     Sprite lifeBar;
+    Sprite skillIcon0, skillIcon1;
     float angle, scale;
     bool isDead;
+    int skills[2];
 };

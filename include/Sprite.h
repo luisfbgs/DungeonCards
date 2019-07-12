@@ -22,6 +22,7 @@
 #define ANIMATION_PATH "assets/img/animation/"
 #define LIFE_PATH "assets/img/life/life"
 #define TIMER_PATH "assets/img/timer/"
+#define SKILL_PATH "assets/img/skill/"
 
 class Sprite : public Component{
 public:
