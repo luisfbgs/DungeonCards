@@ -6,6 +6,7 @@
 #include "State.h"
 #include "GameObject.h"
 #include "Vec2.h"
+#include "Music.h"
 
 class MapState : public State {
 public:
@@ -19,5 +20,6 @@ private:
     int pos;
     std::shared_ptr<GameObject> cursor;
     std::vector<Vec2> stages;
+    Music music;
 };
 

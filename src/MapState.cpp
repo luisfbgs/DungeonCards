@@ -35,6 +35,10 @@ void MapState::Start() {
     this->cursor->box.leftUp = stages[0];
     this->cursor->box.leftUp.x *= this->cursor->box.w;
     this->cursor->box.leftUp.y *= this->cursor->box.h;
+
+    // Toca musica de batalha.
+    this->music.Open(AUDIO_PATH "battle.mpeg");
+    this->music.Play(-1);
 }
 
 void MapState::Update(int dt) {
