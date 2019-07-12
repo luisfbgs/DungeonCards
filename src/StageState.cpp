@@ -46,16 +46,20 @@ void StageState::LoadAssets() {
     // Cria o timer
     std::shared_ptr<GameObject> timerGO = std::make_shared<GameObject>();
     std::shared_ptr<TurnTimer> turnTimer = std::make_shared<TurnTimer>(timerGO);
+
     timerGO->AddComponent(turnTimer);
     this->AddObject(timerGO);
-    
+
     // Cria sprite para representar baralho de eventos
     std::shared_ptr<GameObject> eventGO = std::make_shared<GameObject>();
     std::shared_ptr<Sprite> eventSprite = std::make_shared<Sprite>(eventGO, std::string(EVENT_PATH "Back.png"));
     eventSprite->SetScale(Game::heightS / 2 / eventSprite->GetHeightS(),
      Game::heightS / 2 / eventSprite->GetHeightS());
     eventGO->AddComponent(eventSprite);
-    eventGO->box.leftUp = {Game::widthS - eventSprite->GetWidthS() * 1.1f, Game::heightS - eventSprite->GetHeightS() * 1.1f};
+    eventGO->box.leftUp = {
+        Game::widthS - eventSprite->GetWidthS() * 1.1f,
+        Game::heightS - eventSprite->GetHeightS() * 1.1f
+    };
     this->AddObject(eventGO);
 
     // Toca musica de batalha.
