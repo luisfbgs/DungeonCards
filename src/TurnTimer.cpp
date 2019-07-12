@@ -51,6 +51,18 @@ void TurnTimer::Update(int dt) {
         TurnState::turnEnded = false;
         this->timer.Restart();
         TurnState::Next();
+        if(TurnState::current == PlayerSkill) {
+            for(auto card : GameData::players) {
+                if(!card.expired()) {
+                    card.lock()->card->myAttibutes = Card::Attributes::clear;
+                }
+            }
+            for(auto card : GameData::enemies) {
+                if(!card.expired()) {
+                    card.lock()->myAttibutes = Card::Attributes::clear;
+                }
+            }
+        }
         printf("%s\n", turnName[TurnState::current].c_str());
     }
 

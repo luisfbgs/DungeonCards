@@ -19,6 +19,10 @@ int CardSkill::FireWall(Card* target, Card* self) {
   return target->_Damage(1);
 }
 
+void CardSkill::WolfSpirit(Card* target) {
+  target->myAttibutes |= Card::Attributes::doubleDamage;
+}
+
 bool CardSkill::IsPassive(int id) {
   (void) id;
   return false;
@@ -52,6 +56,12 @@ bool CardSkill::Run(int id, Vec2Int pos, Card* source, std::weak_ptr<Card> lastT
   case 3:
     if(target != nullptr && !target->isDead) {
       CardSkill::HealCard(target.get());
+      return true;
+    }
+    break;
+  case 4:
+    if(target != nullptr && !target->isDead) {
+      CardSkill::WolfSpirit(target.get());
       return true;
     }
     break;

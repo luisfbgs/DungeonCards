@@ -54,5 +54,5 @@ public:
         doubleAttack = 1 << 2,
         halvesDamage = 1 << 3
     };
-    Attributes myAttibutes;
+    int myAttibutes;
 };

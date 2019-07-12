@@ -142,6 +142,7 @@ int Card::_Damage(int damage) {
     }
     else if (damage > 0) {
         damage = (this->myAttibutes & immune) ? 0 : damage;
+        damage *= (this->myAttibutes & doubleDamage) ? 2 : 1;
         this->hp -= damage / ((this->myAttibutes & halvesDamage) ? 2 : 1);
         
         // Som de atacado
