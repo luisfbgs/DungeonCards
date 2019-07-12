@@ -17,6 +17,7 @@
 #include "PlayerHand.h"
 #include "Music.h"
 #include "GameOverState.h"
+#include "CongratsState.h"
 
 StageState::StageState() : board(Board::GetInstance()) {
 }
@@ -75,10 +76,6 @@ void StageState::Update(int dt) {
     // Verificar se o usuário deseja fechar o jogo
     this->quitRequested |= input.QuitRequested() || input.IsKeyPress(ESCAPE_KEY);
     GameData::quitAll |= input.QuitRequested();
-    if(GameData::enemyCount == 0) {
-        this->quitRequested = true;
-        GameData::stagesBeated++;
-    }
 
     bool alive = false;
     for(auto card : GameData::players) {
@@ -86,7 +83,12 @@ void StageState::Update(int dt) {
             alive = true;
         }
     }
-    if(!alive) {
+    if(GameData::enemyCount == 0 && alive) {
+        // this->quitRequested = true;
+        GameData::stagesBeated++;
+        Game::GetInstance().Push(std::make_shared<CongratsState>(&Game::GetInstance().GetCurrentState()));
+    }
+    else if (!alive) {
         Game::GetInstance().Push(std::make_shared<GameOverState>(&Game::GetInstance().GetCurrentState()));
     }
 }
