@@ -25,6 +25,7 @@ Card::Card(std::shared_ptr<GameObject> associated, std::string file, int num, in
     this->playerNum = num;
     this->acted = false;
     this->attackPower = attackPower;
+    this->myAttibutes = clear;
 
     if(this->playerNum > 0) {
         // Pega o id das habilidades, baseado na carta utilizada
@@ -140,7 +141,8 @@ int Card::_Damage(int damage) {
         return this->_Heal(-damage);
     }
     else if (damage > 0) {
-        this->hp -= damage;
+        damage = (this->myAttibutes & immune) ? 0 : damage;
+        this->hp -= damage / ((this->myAttibutes & halvesDamage) ? 2 : 1);
         
         // Som de atacado
         Sound::PlaySound("hit.wav");

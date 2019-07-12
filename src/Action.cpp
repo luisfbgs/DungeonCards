@@ -33,7 +33,7 @@ bool Action::Attack(Card* sourcePtr, int damage, int targetId) {
     Board &board = Board::GetInstance();
     Card* target = board.GetCard(targetId).get();
     if(target != nullptr && !target->isDead) {
-        target->_Damage(damage);
+        target->_Damage(damage * ((sourcePtr->myAttibutes & Card::Attributes::doubleDamage) ? 2 : 1));
         sourcePtr->acted = true;
         sourcePtr->lastActed = TurnState::current;
         return true;

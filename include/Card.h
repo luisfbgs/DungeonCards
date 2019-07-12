@@ -45,4 +45,14 @@ public:
     float angle, scale;
     bool isDead;
     int skills[2];
+
+    // Atributos temporarios
+    enum Attributes {
+        clear = 0,
+        immune = 1,
+        doubleDamage = 1 << 1,
+        doubleAttack = 1 << 2,
+        halvesDamage = 1 << 3
+    };
+    Attributes myAttibutes;
 };
