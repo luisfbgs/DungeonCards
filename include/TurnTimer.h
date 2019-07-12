@@ -15,7 +15,7 @@ public:
     bool Is(const std::string &type);
 
 private:
-    const int kTurnLength = 3000;
+    const int kTurnLength = 7000;
     std::shared_ptr<GameObject> timerGO;
     std::shared_ptr<Sprite> timerSprite;
     std::shared_ptr<GameObject> pointerGO;

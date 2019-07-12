@@ -64,7 +64,7 @@ void TitleState::Update(int dt) {
             case Continue:
                 break;
             case NewGame:
-                GameData::playersCount = 3;
+                GameData::playersCount = 4;
                 Game::GetInstance().Push(make_shared<MapState>());
                 break;
             case Options:
