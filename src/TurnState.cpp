@@ -34,7 +34,7 @@ void TurnState::Init() {
     };
     instance.turnSpriteGO->box.CenterIn({
         (Game::GetInstance().widthS/2.0f),
-        (Game::GetInstance().heightS/2.0f) + (Game::GetInstance().heightS / 10)*0.65
+        (Game::GetInstance().heightS/2.0f) + (Game::GetInstance().heightS / 10.0f) * 0.65f
     });
     // .leftUp = {-100, instance.turnSprite->GetHeightS()};
 }
