@@ -14,6 +14,7 @@
 #include "Sound.h"
 #include "CreditState.h"
 #include <iostream>
+#include "TutorialState.h"
 using std::cout;
 using std::endl;
 using std::make_shared;
@@ -76,6 +77,10 @@ void TitleState::Update(int dt) {
     else if (input.IsKeyPress('c')) {
         cout << "BORA PRA TELA DE CREDITOSS!\n";
         Game::GetInstance().Push(make_shared<CreditState>());
+    }
+    else if (input.IsKeyPress('t')) {
+        cout << "Partiu tutorial !" << endl;
+        Game::GetInstance().Push(make_shared<TutorialState>());
     }
     // Verificar se o usuário deseja fechar o jogo
     this->quitRequested |= input.QuitRequested() || input.IsKeyPress(ESCAPE_KEY);
