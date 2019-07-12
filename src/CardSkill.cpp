@@ -11,22 +11,47 @@ int CardSkill::DoubleDamage(Card* target, Card* self) {
   return target->_Damage( self->GetAttackPower() );
 }
 
+int CardSkill::Immolate(Card* target, Card* self) {
+  return target->_Damage(9 - self->hp);
+}
+
+int CardSkill::FireWall(Card* target, Card* self) {
+  return target->_Damage(1);
+}
+
 bool CardSkill::IsPassive(int id) {
-  return id == 0;
+  (void) id;
+  return false;
 }
 
 bool CardSkill::Run(int id, Vec2Int pos, Card* source, std::weak_ptr<Card> lastTarget) {
   auto target = Board::GetInstance().GetCard(pos);
+  auto targetLeft = Board::GetInstance().GetCard({pos.x-1, pos.y});
+  auto targetRight = Board::GetInstance().GetCard({pos.x+1, pos.y});
   switch (id) {
   case 1:
     if(target != nullptr && !target->isDead) {
-      CardSkill::HealCard(target.get());
+      CardSkill::Immolate(target.get(), source);
       return true;
     }
     break;
+  case 2:
+    if(target != nullptr && !target->isDead) {
+      CardSkill::FireWall(target.get(), source);
+    }
+
+    if(targetLeft != nullptr && !targetLeft->isDead) {
+      CardSkill::FireWall(targetLeft.get(), source);
+    }
+
+    if(targetRight != nullptr && !targetRight->isDead) {
+      CardSkill::FireWall(targetRight.get(), source);
+    }
+    return target || targetLeft || targetRight;
+    break;
   case 3:
-    if(!lastTarget.expired() && !lastTarget.lock()->isDead) {
-      CardSkill::DoubleDamage(lastTarget.lock().get(), source);
+    if(target != nullptr && !target->isDead) {
+      CardSkill::HealCard(target.get());
       return true;
     }
     break;

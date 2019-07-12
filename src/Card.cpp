@@ -31,8 +31,8 @@ Card::Card(std::shared_ptr<GameObject> associated, std::string file, int num, in
         int skillId = file[file.size() - 5] - '0';
         this->skills[0] = skillId * 2;
         this->skills[1] = skillId * 2 - 1;
-        this->skillIcon0.Open(SKILL_PATH + std::to_string(skills[0]) + "r.png");
-        this->skillIcon1.Open(SKILL_PATH + std::to_string(skills[1]) + "l.png");
+        this->skillIcon0.Open(SKILL_PATH + std::to_string(skills[0]) + "l.png");
+        this->skillIcon1.Open(SKILL_PATH + std::to_string(skills[1]) + "r.png");
     }
 
     this->angle = randReal(-2.0f, 2.0f);
