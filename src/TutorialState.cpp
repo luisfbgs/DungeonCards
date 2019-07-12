@@ -9,7 +9,7 @@
 #include <iostream>
 using std::cout;
 using std::endl;
-const std::string TutorialState::prefix("exemplo");
+const std::string TutorialState::prefix("");
 
 void TutorialState::LoadAssets() {
     // Cria background e ajusta pro tamanho da janela
@@ -61,11 +61,12 @@ void TutorialState::LoadAssets() {
             bgGO->AddComponent(rightArrowSprite);    
             this->AddObject(rightArrowGO);
         }
+
     }
 }
 
 void TutorialState::Start() {
-    this->min_max_fileNumber = Vec2Int(2, 9);
+    this->min_max_fileNumber = Vec2Int(1, 18);
     this->curr = min_max_fileNumber.x;    
     this->LoadAssets();
 }
@@ -74,10 +75,12 @@ void TutorialState::Update(int dt) {
     (void)dt;
     InputManager &input = InputManager::GetInstance();
     if(input.IsKeyPress(LEFT_ARROW_KEY) || input.IsKeyPress('a')){
-        this->PrevScreen();
+        if (this->curr > this->min_max_fileNumber.x)
+            this->PrevScreen();
     }
     else if(input.IsKeyPress(RIGHT_ARROW_KEY) || input.IsKeyPress('d')) {
-        this->NextScreen();
+        if (this->curr < this->min_max_fileNumber.y)
+            this->NextScreen();
     }
     this->quitRequested |= input.IsKeyPress(ESCAPE_KEY) || input.QuitRequested();
     GameData::quitAll |= input.QuitRequested();
@@ -93,19 +96,13 @@ void TutorialState::Pause(){
 void TutorialState::Resume(){
 }
 void TutorialState::NextScreen() {
-    int old = this->curr;
-    this->curr = std::min(this->curr+1, this->min_max_fileNumber.y);
-    if (this->curr != old) {
-        this->_UpdateBackground();
-    }
+    this->curr += 1;
+    this->_UpdateBackground();
 }
 
 void TutorialState::PrevScreen() {
-    int old = this->curr;
-    this->curr = std::max(this->curr-1, this->min_max_fileNumber.x);
-    if (this->curr != old) {
-        this->_UpdateBackground();
-    }
+    this->curr -= 1;
+    this->_UpdateBackground();
 }
 
 void TutorialState::_UpdateBackground() {
