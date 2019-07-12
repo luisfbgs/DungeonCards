@@ -44,6 +44,7 @@ void PlayerHand::Update(int dt) {
             this->MoveOnBoard(); 
             this->Attack();
             Event::occured = false;
+            this->selectedSkill = -1;
             break;
         case PlayerSkill: {
             if (!this->myCard->acted){
