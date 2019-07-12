@@ -9,6 +9,7 @@
 #include "GameData.h"
 #include "Game.h"
 #include "TurnState.h"
+#include "Sound.h"
 
 TurnTimer::TurnTimer(std::shared_ptr<GameObject> associated) : Component(associated) {
     this->timerGO = std::make_shared<GameObject>();
@@ -48,6 +49,7 @@ void TurnTimer::Update(int dt) {
             TurnState::turnEnded = true;
             return;
         }
+        Sound::PlaySound("troca_de_turno.wav");
         TurnState::turnEnded = false;
         this->timer.Restart();
         TurnState::Next();
