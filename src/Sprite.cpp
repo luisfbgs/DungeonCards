@@ -11,7 +11,7 @@
 #include <iostream>
 
 Sprite::~Sprite() {
-  std::cout << "Morreu sprite ===> " << this->file << std::endl;
+//   std::cout << "Morreu sprite ===> " << this->file << std::endl;
 }
 
 Sprite::Sprite(std::shared_ptr<GameObject> associated, int frameCount, int frameTime, int msToSelfDestruct) : Component(associated) {

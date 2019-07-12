@@ -17,52 +17,51 @@ void TutorialState::LoadAssets() {
     std::shared_ptr<Sprite> bgSprite = std::make_shared<Sprite>(
         bgGO, TUTORIAL_PATH + prefix + std::to_string(this->curr) + ".png"
     );
-    std::shared_ptr<GameObject> leftArrowGO = std::make_shared<GameObject>();
-    std::shared_ptr<Sprite> leftArrowSprite = std::make_shared<Sprite>(
-        leftArrowGO, TUTORIAL_PATH "arrow.png"
-    );
-    std::shared_ptr<GameObject> rightArrowGO = std::make_shared<GameObject>();
-    std::shared_ptr<Sprite> rightArrowSprite = std::make_shared<Sprite>(
-        rightArrowGO, TUTORIAL_PATH "arrow.png"
-    );
-    // Sprite eh o mesmo, muda soh a rotacao
-    leftArrowSprite->SetAngle(90);
-    rightArrowSprite->SetAngle(-90);
-    float leftPadding = 0.1;
-    leftArrowGO->box.leftUp = {
-        ((float)(Game::widthS)) * 0.1,
-        ((float)(Game::heightS)) * 0.83
-    };
-    rightArrowGO->box.leftUp = {
-        ((float)(Game::widthS)) * 0.87,
-        ((float)(Game::heightS)) * 0.83
-    };
-
-    // std::shared_ptr<Sprite> rightArrow = std::make_shared<Sprite>(
-    //     bgGO, TUTORIAL_PATH "arrow.png"
-    // );
-
     float bgScale = Game::widthS / bgSprite->GetWidth();
-
     bgSprite->SetScale(bgScale, bgScale);
-    // Quer-se escala tal que caibam n setas empilhadas.]
-    int n = 8;
-    float arrowScale = (float)(Game::GetInstance().heightS)/(n * leftArrowSprite->GetHeight());
-
-    leftArrowSprite->SetScale(arrowScale,arrowScale);
-    rightArrowSprite->SetScale(arrowScale,arrowScale);
-
-    // leftArrowSprite
-
-
     bgGO->AddComponent(bgSprite);
-    bgGO->AddComponent(leftArrowSprite);
-    bgGO->AddComponent(rightArrowSprite);
-    
     this->AddObject(bgGO);
-    this->AddObject(leftArrowGO);
-    this->AddObject(rightArrowGO);
 
+
+    // Comum para as duas setas
+    // Quer-se escala tal que caibam n setas empilhadas.]
+    bool hasLeftArrow = this->curr > this->min_max_fileNumber.x;
+    bool hasRightArrow = this->curr < this->min_max_fileNumber.y;
+    if(hasLeftArrow || hasRightArrow) {
+        int n = 8;
+        // Verifica se precisa adicionar seta esquerda, e  adiciona-a caso necessario
+        if(hasLeftArrow) {
+            std::shared_ptr<GameObject> leftArrowGO = std::make_shared<GameObject>();
+            std::shared_ptr<Sprite> leftArrowSprite = std::make_shared<Sprite>(
+                leftArrowGO, TUTORIAL_PATH "arrow.png"
+            );
+            float arrowScale = (float)(Game::GetInstance().heightS)/(n * leftArrowSprite->GetHeight());
+            leftArrowSprite->SetAngle(90);
+            leftArrowGO->box.leftUp = {
+                ((float)(Game::widthS)) * 0.1f,
+                ((float)(Game::heightS)) * 0.83f
+            };
+            leftArrowSprite->SetScale(arrowScale,arrowScale);
+            bgGO->AddComponent(leftArrowSprite);
+            this->AddObject(leftArrowGO);
+        }
+        if (hasRightArrow) {
+            std::shared_ptr<GameObject> rightArrowGO = std::make_shared<GameObject>();
+            std::shared_ptr<Sprite> rightArrowSprite = std::make_shared<Sprite>(
+                rightArrowGO, TUTORIAL_PATH "arrow.png"
+            );
+            float arrowScale = (float)(Game::GetInstance().heightS)/(n * rightArrowSprite->GetHeight());
+            // Sprite eh o mesmo, muda soh a rotacao
+            rightArrowSprite->SetAngle(-90);
+            rightArrowGO->box.leftUp = {
+                ((float)(Game::widthS)) * 0.87f,
+                ((float)(Game::heightS)) * 0.83f
+            };
+            rightArrowSprite->SetScale(arrowScale,arrowScale);
+            bgGO->AddComponent(rightArrowSprite);    
+            this->AddObject(rightArrowGO);
+        }
+    }
 }
 
 void TutorialState::Start() {
@@ -81,6 +80,7 @@ void TutorialState::Update(int dt) {
         this->NextScreen();
     }
     this->quitRequested |= input.IsKeyPress(ESCAPE_KEY) || input.QuitRequested();
+    GameData::quitAll |= input.QuitRequested();
 }
 
 void TutorialState::Render(){
@@ -110,5 +110,4 @@ void TutorialState::PrevScreen() {
 
 void TutorialState::_UpdateBackground() {
     this->LoadAssets();
-    cout << "OPA!, foi aberto\n";
 }

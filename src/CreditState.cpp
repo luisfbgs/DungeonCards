@@ -158,6 +158,7 @@ void CreditState::Update(int dt) {
     this->cursor->box.leftUp.y *= this->cursor->box.h;
 
     this->quitRequested |= input.IsKeyPress(ESCAPE_KEY) || input.QuitRequested();
+    GameData::quitAll |= input.QuitRequested();
 }
 
 void CreditState::Render(){
