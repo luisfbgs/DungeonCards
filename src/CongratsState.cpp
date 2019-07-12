@@ -40,6 +40,10 @@ void CongratsState::LoadAssets() {
 
 void CongratsState::Start() {
     this->LoadAssets();
+
+    // Toca musica de batalha.
+    this->music.Open(AUDIO_PATH "endStateWin.ogg");
+    this->music.Play(-1);
 }
 
 void CongratsState::Update(int dt) {
