@@ -17,12 +17,6 @@ void CreditState::LoadAssets() {
     bgGO->AddComponent(bgSprite);
     this->AddObject(bgGO);
 
-    this->cursor = std::make_shared<GameObject>();
-    std::shared_ptr<Sprite> cursorSprite = std::make_shared<Sprite>(this->cursor, CURSOR_PATH "creditos.png");
-    float cursorScale = (Game::heightS / 10) / cursorSprite->GetHeight();
-    cursorSprite->SetScale(cursorScale, cursorScale);
-    this->cursor->AddComponent(cursorSprite);
-    this->AddObject(this->cursor);
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,21 +26,21 @@ void CreditState::LoadAssets() {
 
     ;;;;;;;;;;;
     ///////////
-    std::shared_ptr<GameObject> contribuidorGO(new GameObject());
-    std::shared_ptr<Text> constribuidorText(
-        new Text(contribuidorGO,
-                std::string("assets/font/Call_me_maybe.ttf"),
-                bgSprite->GetHeightS() / 10,
-                Text::TextStyle::SOLID,
-                "Artistas",
-                color
-            )
-    );
-    contribuidorGO->AddComponent(constribuidorText);
-    contribuidorGO->box.leftUp = {300.0f, posY};
-    posY += bgSprite->GetHeightS() / 10.0;
-    this->AddObject(contribuidorGO);
-    ;;;;;;;;;;;
+    // std::shared_ptr<GameObject> contribuidorGO(new GameObject());
+    // std::shared_ptr<Text> constribuidorText(
+    //     new Text(contribuidorGO,
+    //             std::string("assets/font/Call_me_maybe.ttf"),
+    //             bgSprite->GetHeightS() / 10,
+    //             Text::TextStyle::SOLID,
+    //             "Artistas",
+    //             color
+    //         )
+    // );
+    // contribuidorGO->AddComponent(constribuidorText);
+    // contribuidorGO->box.leftUp = {300.0f, posY};
+    // posY += bgSprite->GetHeightS() / 10.0;
+    // this->AddObject(contribuidorGO);
+    // ;;;;;;;;;;;
 
     for(unsigned i = 0; i < size; i++) {
         std::shared_ptr<GameObject> contribuidorGO(new GameObject());
@@ -127,9 +121,6 @@ void CreditState::Start() {
     };
     this->pos = 0;
     this->LoadAssets();
-    this->cursor->box.leftUp = this->artistasPos[0];
-    this->cursor->box.leftUp.x *= this->cursor->box.w;
-    this->cursor->box.leftUp.y *= this->cursor->box.h;
 }
 
 void CreditState::Update(int dt) {
@@ -143,19 +134,12 @@ void CreditState::Update(int dt) {
             Stages::InitStage2();
         }
     }
-    auto oldPos = this->pos;
     if(input.IsKeyPress('d')){
         this->pos = std::min((int)this->artistasPos.size() - 1, pos + 1);
     }
     else if(input.IsKeyPress('a')){
         this->pos = std::max(0, pos - 1);
     }
-    if (oldPos != this->pos) {
-        Sound::PlaySound("cursor_movendo.wav");
-    }
-    this->cursor->box.leftUp = this->artistasPos[this->pos];
-    this->cursor->box.leftUp.x *= this->cursor->box.w;
-    this->cursor->box.leftUp.y *= this->cursor->box.h;
 
     this->quitRequested |= input.IsKeyPress(ESCAPE_KEY) || input.QuitRequested();
     GameData::quitAll |= input.QuitRequested();
