@@ -22,7 +22,6 @@ GameOverState::~GameOverState() {
     if (this->caller) {
         this->caller->quitRequested = true;
     }
-    Game::GetInstance().GetCurrentState().quitRequested = true;
 }
 
 void GameOverState::LoadAssets() {

@@ -17,7 +17,7 @@ class Card : public Component {
 // friend CardSkill;
 public:
     Card(std::shared_ptr<GameObject>  associated, std::string file, int num = 0,
-    int hp = 9, int attackPower = 3);
+    int hp = 1, int attackPower = 3);
     void Update(int dt);
     void Render();
     bool Is(const std::string &type);

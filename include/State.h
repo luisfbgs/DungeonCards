@@ -19,7 +19,6 @@ public:
     bool PopRequested();
     bool QuitRequested();
     
-protected:
     void StartArray();
     virtual void UpdateArray(int dt);
     virtual void RenderArray();

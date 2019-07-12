@@ -16,6 +16,7 @@
 #include "TurnTimer.h"
 #include "PlayerHand.h"
 #include "Music.h"
+#include "GameOverState.h"
 
 StageState::StageState() : board(Board::GetInstance()) {
 }
@@ -77,6 +78,16 @@ void StageState::Update(int dt) {
     if(GameData::enemyCount == 0) {
         this->quitRequested = true;
         GameData::stagesBeated++;
+    }
+
+    bool alive = false;
+    for(auto card : GameData::players) {
+        if(!card.expired() && !card.lock()->card->isDead) {
+            alive = true;
+        }
+    }
+    if(!alive) {
+        Game::GetInstance().Push(std::make_shared<GameOverState>(&Game::GetInstance().GetCurrentState()));
     }
 }
 
