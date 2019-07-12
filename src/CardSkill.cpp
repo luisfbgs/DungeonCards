@@ -23,6 +23,11 @@ void CardSkill::WolfSpirit(Card* target) {
   target->myAttibutes |= Card::Attributes::doubleDamage;
 }
 
+void CardSkill::Revive(Card* target) {
+  target->Revive();
+  CardSkill::HealCard(target, 3);
+}
+
 bool CardSkill::IsPassive(int id) {
   (void) id;
   return false;
@@ -62,6 +67,12 @@ bool CardSkill::Run(int id, Vec2Int pos, Card* source, std::weak_ptr<Card> lastT
   case 4:
     if(target != nullptr && !target->isDead) {
       CardSkill::WolfSpirit(target.get());
+      return true;
+    }
+    break;
+  case 5:
+    if(target != nullptr && target->isDead) {
+      CardSkill::Revive(target.get());
       return true;
     }
     break;

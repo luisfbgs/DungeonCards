@@ -27,6 +27,7 @@ public:
     // especificas. Melhorar isso.
     int _Damage(int damage);
     int _Heal(int hp);
+    void Revive();
     // std::shared_ptr<Card> GetLastHitCard(){return this->lastHitCard;}
     bool HasActed(){return this->acted;}
     int GetAttackPower();
@@ -45,6 +46,7 @@ public:
     float angle, scale;
     bool isDead;
     int skills[2];
+    std::string spriteFile;
 
     // Atributos temporarios
     enum Attributes {

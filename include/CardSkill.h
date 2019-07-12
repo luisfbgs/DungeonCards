@@ -14,6 +14,7 @@ public:
   static int Immolate(Card* target, Card* self);
   static int FireWall(Card* target, Card* self);
   static void WolfSpirit(Card* target);
+  static void Revive(Card* target);
   static bool IsPassive(int id);
   static bool Run(int id, Vec2Int pos, Card* source, std::weak_ptr<Card> lastTarget);
 };

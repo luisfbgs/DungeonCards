@@ -26,6 +26,7 @@ Card::Card(std::shared_ptr<GameObject> associated, std::string file, int num, in
     this->acted = false;
     this->attackPower = attackPower;
     this->myAttibutes = clear;
+    this->spriteFile = file;
 
     if(this->playerNum > 0) {
         // Pega o id das habilidades, baseado na carta utilizada
@@ -42,11 +43,23 @@ Card::Card(std::shared_ptr<GameObject> associated, std::string file, int num, in
     this->SetScale();
 }
 
+void Card::Revive() {
+    this->isDead = false;
+    this->lifeBar.hidden = false;
+    if(this->playerNum > 0) {
+        this->skillIcon0.hidden = false;
+        this->skillIcon1.hidden = false;
+    }
+    this->sprite.Open(this->spriteFile);
+    this->SetScale();
+}
+
 void Card::Update(int dt) {
     (void)dt;
 
     if(!this->isDead) {
         if(this->hp <= 0) {
+            this->hp = 0;
             if(GameData::runningAnimations == 0) {
                 if(this->playerNum < 0) {
                     GameData::enemyCount--;
