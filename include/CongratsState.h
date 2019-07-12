@@ -9,6 +9,7 @@
 #include <string>
 #include "Vec2Int.h"
 #include "MapState.h"
+#include "Music.h"
 
 class CongratsState : public State {
 public:
@@ -25,4 +26,5 @@ public:
 private:
     std::shared_ptr<GameObject> backgroundGO;
     std::shared_ptr<Sprite> backgroundSprite;
+    Music music;
 };

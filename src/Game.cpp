@@ -38,7 +38,7 @@ Game::Game(const std::string &title, int width, int height) {
     this->frameStart = 0;
     this->width = width;
     this->height = height;
-    //SDL_SetWindowFullscreen(this->window, SDL_WINDOW_FULLSCREEN);
+    SDL_SetWindowFullscreen(this->window, SDL_WINDOW_FULLSCREEN);
 }
 
 Game::~Game() {
