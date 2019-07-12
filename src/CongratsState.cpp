@@ -22,7 +22,7 @@ CongratsState::~CongratsState() {
     if (this->caller) {
         this->caller->quitRequested = true;
     }
-    Game::GetInstance().GetCurrentState().quitRequested = true;
+    // Game::GetInstance().GetCurrentState().quitRequested = true;
 }
 
 void CongratsState::LoadAssets() {
