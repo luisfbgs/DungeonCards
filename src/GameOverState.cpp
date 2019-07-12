@@ -39,6 +39,10 @@ void GameOverState::LoadAssets() {
 
 void GameOverState::Start() {
     this->LoadAssets();
+    
+    // Toca musica de batalha.
+    this->music.Open(AUDIO_PATH "endStateLose.ogg");
+    this->music.Play(-1);
 }
 
 void GameOverState::Update(int dt) {
