@@ -14,8 +14,6 @@ State::~State() {
 }
 
 std::weak_ptr<GameObject> State::AddObject(std::shared_ptr<GameObject> go) {
-    // std::shared_ptr<GameObject> go_ptr(go);
-    
     if(this->started && !go->started) {
         go->Start();
     }

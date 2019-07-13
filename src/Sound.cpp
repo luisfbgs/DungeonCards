@@ -7,14 +7,11 @@
 #ifndef AUDIO_PATH
 #define AUDIO_PATH "assets/audio/"
 #endif
-using std::cout;
-using std::endl;
 using std::make_shared;
 using std::shared_ptr;
 using std::weak_ptr;
 
 Sound::~Sound() {
-    std::cout << "this->file! " << this->file << std::endl;
 }
 
 Sound::Sound(std::shared_ptr<GameObject> associated) : Component(associated) {
@@ -51,8 +48,6 @@ bool Sound::IsOpen() {
 void Sound::Update(int dt) {
     (void)dt;
     if ( ! Mix_Playing( this->channel ) ) {
-        cout << "NDA NADA DNA\n";
-        abort();
         this->associated->RequestDelete();
     }
     abort();

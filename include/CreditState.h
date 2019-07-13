@@ -17,7 +17,6 @@ public:
 private:
     int pos;
     // Ideia: permitir navegar nas fotos dos programadores/artistas/músicos do game
-    // std::shared_ptr<GameObject> cursor;
     
     std::vector<std::string> artistas;
     std::vector<Vec2> artistasPos;

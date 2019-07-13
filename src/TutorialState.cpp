@@ -7,8 +7,6 @@
 #include "InputManager.h"
 #include "Sound.h"
 #include <iostream>
-using std::cout;
-using std::endl;
 const std::string TutorialState::prefix("");
 
 void TutorialState::LoadAssets() {

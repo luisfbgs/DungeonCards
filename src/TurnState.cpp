@@ -36,7 +36,6 @@ void TurnState::Init() {
         (Game::GetInstance().widthS/2.0f),
         (Game::GetInstance().heightS/2.0f) + (Game::GetInstance().heightS / 10.0f) * 0.65f
     });
-    // .leftUp = {-100, instance.turnSprite->GetHeightS()};
 }
 
 void TurnState::SetScale() {

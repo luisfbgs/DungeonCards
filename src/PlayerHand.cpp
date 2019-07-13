@@ -53,7 +53,7 @@ void PlayerHand::Update(int dt) {
                 }
                 else {
                     if(CardSkill::IsPassive(this->selectedSkill)) {
-                        this->myCard->acted = CardSkill::Run(this->selectedSkill, this->pos, this->myCard, this->lastTarget);
+                        this->myCard->acted = CardSkill::Run(this->selectedSkill, this->pos, this->myCard);
                         if(!this->myCard->acted) {
                             this->selectedSkill = -1;
                         }
@@ -99,7 +99,6 @@ void PlayerHand::MoveOnBoard() {
     int xMove = input.IsKeyPress(buttonRight[cId]) - input.IsKeyPress(buttonLeft[cId]);
     if(xMove || yMove) {
         ActionHand::Move(this, {xMove, yMove}, this->pos);
-        printf("MoveuBoard %f %f\n", this->associated->box.leftUp.x, this->associated->box.leftUp.y);
     
     }
 }
@@ -190,7 +189,7 @@ bool PlayerHand::CastSkill() {
     int cId = this->playerNum - 1;
     InputManager &input = InputManager::GetInstance();
     if (input.IsKeyPress(buttonAttack[cId])) {
-        return CardSkill::Run(this->selectedSkill, this->pos, this->myCard, this->lastTarget);
+        return CardSkill::Run(this->selectedSkill, this->pos, this->myCard);
     }
     return false;
 }

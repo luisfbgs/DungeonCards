@@ -7,8 +7,6 @@
 #include "InputManager.h"
 #include "Sound.h"
 #include <iostream>
-using std::cout;
-using std::endl;
 
 CongratsState::CongratsState(State* caller) {
     this->caller = caller;
@@ -22,7 +20,6 @@ CongratsState::~CongratsState() {
     if (this->caller) {
         this->caller->quitRequested = true;
     }
-    // Game::GetInstance().GetCurrentState().quitRequested = true;
 }
 
 void CongratsState::LoadAssets() {

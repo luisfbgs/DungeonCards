@@ -15,7 +15,7 @@ int CardSkill::Immolate(Card* target, Card* self) {
   return target->_Damage(9 - self->hp);
 }
 
-int CardSkill::FireWall(Card* target, Card* self) {
+int CardSkill::FireWall(Card* target) {
   return target->_Damage(1);
 }
 
@@ -33,7 +33,7 @@ bool CardSkill::IsPassive(int id) {
   return false;
 }
 
-bool CardSkill::Run(int id, Vec2Int pos, Card* source, std::weak_ptr<Card> lastTarget) {
+bool CardSkill::Run(int id, Vec2Int pos, Card* source) {
   auto target = Board::GetInstance().GetCard(pos);
   auto targetLeft = Board::GetInstance().GetCard({pos.x-1, pos.y});
   auto targetRight = Board::GetInstance().GetCard({pos.x+1, pos.y});
@@ -46,15 +46,15 @@ bool CardSkill::Run(int id, Vec2Int pos, Card* source, std::weak_ptr<Card> lastT
     break;
   case 2:
     if(target != nullptr && !target->isDead) {
-      CardSkill::FireWall(target.get(), source);
+      CardSkill::FireWall(target.get());
     }
 
     if(targetLeft != nullptr && !targetLeft->isDead) {
-      CardSkill::FireWall(targetLeft.get(), source);
+      CardSkill::FireWall(targetLeft.get());
     }
 
     if(targetRight != nullptr && !targetRight->isDead) {
-      CardSkill::FireWall(targetRight.get(), source);
+      CardSkill::FireWall(targetRight.get());
     }
     return target || targetLeft || targetRight;
     break;

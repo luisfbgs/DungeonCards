@@ -84,7 +84,6 @@ void StageState::Update(int dt) {
         }
     }
     if(GameData::enemyCount == 0 && alive) {
-        // this->quitRequested = true;
         GameData::stagesBeated++;
         Game::GetInstance().Push(std::make_shared<CongratsState>(&Game::GetInstance().GetCurrentState()));
     }

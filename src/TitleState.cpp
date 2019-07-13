@@ -18,8 +18,6 @@
 #include "GameOverState.h"
 #include "CongratsState.h"
 
-using std::cout;
-using std::endl;
 using std::make_shared;
 
 void TitleState::Update(int dt) {
@@ -79,19 +77,15 @@ void TitleState::Update(int dt) {
         }
     }
     else if (input.IsKeyPress('c')) {
-        cout << "BORA PRA TELA DE CREDITOSS!\n";
         Game::GetInstance().Push(make_shared<CreditState>());
     }
     else if (input.IsKeyPress('t')) {
-        cout << "Partiu tutorial !" << endl;
         Game::GetInstance().Push(make_shared<TutorialState>());
     }
     else if (input.IsKeyPress('g')) {
-        cout << "Fim de jogo..." << endl;
         Game::GetInstance().Push(make_shared<GameOverState>());
     }
     else if (input.IsKeyPress('v')) {
-        cout << "Fim de jogo!!!" << endl;
         Game::GetInstance().Push(make_shared<CongratsState>());
     }
     // Verificar se o usuário deseja fechar o jogo

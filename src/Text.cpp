@@ -12,8 +12,7 @@
 #define INCLUDE_SDL
 #define INCLUDE_SDL_TTF
 #include "SDL_include.h"
-using std::cout;
-using std::endl;
+
 Text::Text(std::shared_ptr<GameObject> associated, std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color) : Component(associated) {
     this->texture = nullptr;
     this->fontFile = fontFile;
@@ -45,9 +44,6 @@ void Text::Render() {
     dstrect.y = this->associated->box.leftUp.y;
     dstrect.w = clipRect.w;
     dstrect.h = clipRect.h;
-    cout << "Text: " << this->text << endl;
-    printf("Altura: %lf\n", this->associated->box.h);
-    printf("Largura: %lf\n", this->associated->box.w);
 
     SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), this->texture, &clipRect, &dstrect, 0, nullptr, SDL_FLIP_NONE);
 }

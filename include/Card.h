@@ -14,7 +14,6 @@ class Board;
 class Action;
 
 class Card : public Component {
-// friend CardSkill;
 public:
     Card(std::shared_ptr<GameObject>  associated, std::string file, int num = 0,
     int hp = 9, int attackPower = 3);
@@ -28,7 +27,6 @@ public:
     int _Damage(int damage);
     int _Heal(int hp);
     void Revive();
-    // std::shared_ptr<Card> GetLastHitCard(){return this->lastHitCard;}
     bool HasActed(){return this->acted;}
     int GetAttackPower();
     Vec2Int GetPos();
