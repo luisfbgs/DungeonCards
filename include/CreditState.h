@@ -6,6 +6,11 @@
 #include "GameObject.h"
 #include "Vec2.h"
 
+#define INCLUDE_SDL
+#define INCLUDE_SDL_TTF
+#include "SDL_include.h"
+
+
 class CreditState : public State {
 public:
     void LoadAssets();
@@ -14,8 +19,8 @@ public:
     void Start();
     void Pause();
     void Resume();
+    float LoadNames(std::vector<std::string>& whichOnes, SDL_Color color, float posX, float posY, float backgroundHeightS );
 private:
-    int pos;
     // Ideia: permitir navegar nas fotos dos programadores/artistas/músicos do game
     
     std::vector<std::string> artistas;

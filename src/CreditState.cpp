@@ -18,88 +18,47 @@ void CreditState::LoadAssets() {
     this->AddObject(bgGO);
 
 
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    float posY = (Game::height - bgSprite->GetHeightS()) / 2;
+    float backgroundHeightS = bgSprite->GetHeightS();
+    float posX = 6;
+    float posY = (Game::height - backgroundHeightS) / 2;
     SDL_Color color = {200, 123, 50, 0};
-    auto size = this->artistasPos.size();
-
-    ;;;;;;;;;;;
-    ///////////
-    // std::shared_ptr<GameObject> contribuidorGO(new GameObject());
-    // std::shared_ptr<Text> constribuidorText(
-    //     new Text(contribuidorGO,
-    //             std::string("assets/font/Call_me_maybe.ttf"),
-    //             bgSprite->GetHeightS() / 10,
-    //             Text::TextStyle::SOLID,
-    //             "Artistas",
-    //             color
-    //         )
-    // );
-    // contribuidorGO->AddComponent(constribuidorText);
-    // contribuidorGO->box.leftUp = {300.0f, posY};
-    // posY += bgSprite->GetHeightS() / 10.0;
-    // this->AddObject(contribuidorGO);
-    // ;;;;;;;;;;;
-
-    for(unsigned i = 0; i < size; i++) {
-        std::shared_ptr<GameObject> contribuidorGO(new GameObject());
-        std::shared_ptr<Text> constribuidorText(
-            new Text(contribuidorGO,
-                        std::string("assets/font/Call_me_maybe.ttf"),
-                        bgSprite->GetHeightS() / 10,
-                        Text::TextStyle::SOLID,
-                        this->artistas[i],
-                        color)
-            );
-        contribuidorGO->AddComponent(constribuidorText);
-        contribuidorGO->box.leftUp = {20.0f, posY};
-        posY += bgSprite->GetHeightS() / 10.0;
-        this->AddObject(contribuidorGO);
-    }
-
+    posY = this->LoadNames( this->artistas, color, posX, posY, backgroundHeightS );
     color = {0x84, 0x89, 0x80, 0};
-    for(unsigned i = 0; i < size; i++) {
-        std::shared_ptr<GameObject> contribuidorGO(new GameObject());
-        std::shared_ptr<Text> constribuidorText(
-            new Text(contribuidorGO,
-                        std::string("assets/font/Call_me_maybe.ttf"),
-                        bgSprite->GetHeightS() / 10,
-                        Text::TextStyle::SOLID,
-                        this->musicos[i],
-                        color)
-            );
-        contribuidorGO->AddComponent(constribuidorText);
-        contribuidorGO->box.leftUp = {20.0f, posY};
-        
-        // contribuidorGO->box.leftUp = this->artistasPos[i] * (i+1)*15;
-        // contribuidorGO->box.leftUp.x *= contribuidorGO->box.w;
-        // contribuidorGO->box.leftUp.y *= contribuidorGO->box.h;
-
-        posY += bgSprite->GetHeightS() / 10.0;
-        this->AddObject(contribuidorGO);
-    }
+    posY = this->LoadNames( this->programadores, color, posX, posY, backgroundHeightS );
     color = {0x1f, 0x89, 0x80, 0};
-    for(unsigned i = 0; i < size; i++) {
+    this->LoadNames( this->musicos, color, posX, posY,  backgroundHeightS );
+
+    posX = 70;
+    posY = (Game::height - backgroundHeightS) / 2;
+    std::vector<std::string> tmp = {
+        "", ""
+    };
+    color = {0xc8, 0x7b, 0x32, 0}; tmp[0] = "Artistas";
+    posY = this->LoadNames( tmp, color, posX, posY, backgroundHeightS );
+    color = {0x84, 0x89, 0x80, 0}; tmp[0] = "Programadores";
+    posY = this->LoadNames( tmp, color, posX, posY, backgroundHeightS );
+    color = {0x1f, 0x89, 0x80, 0}; tmp[0] = "Musicos";
+    this->LoadNames( tmp, color, posX, posY,  backgroundHeightS );
+}
+
+// Cada nome tem altura de 1 dehcimo do background.
+float CreditState::LoadNames(std::vector<std::string>& whichOnes, SDL_Color color, float posX, float posY, float backgroundHeightS) {
+    for(unsigned i = 0; i < whichOnes.size(); i++) {
         std::shared_ptr<GameObject> contribuidorGO(new GameObject());
         std::shared_ptr<Text> constribuidorText(
             new Text(contribuidorGO,
                         std::string("assets/font/Call_me_maybe.ttf"),
-                        bgSprite->GetHeightS() / 10,
+                        backgroundHeightS / 10,
                         Text::TextStyle::SOLID,
-                        this->programadores[i],
+                        whichOnes[i],
                         color)
             );
         contribuidorGO->AddComponent(constribuidorText);
-        contribuidorGO->box.leftUp = {20.0f, posY};
-        
-        // contribuidorGO->box.leftUp = this->artistasPos[i] * (i+1)*15;
-        // contribuidorGO->box.leftUp.x *= contribuidorGO->box.w;
-        // contribuidorGO->box.leftUp.y *= contribuidorGO->box.h;
-
-        posY += bgSprite->GetHeightS() / 10.0;
+        contribuidorGO->box.leftUp = { ((float)Game::widthS / 100) * posX, posY};
+        posY += backgroundHeightS / 10.0;
         this->AddObject(contribuidorGO);
     }
+    return posY;
 }
 
 void CreditState::Start() {
@@ -119,28 +78,12 @@ void CreditState::Start() {
         {3, 8},
         {3, 6}
     };
-    this->pos = 0;
     this->LoadAssets();
 }
 
 void CreditState::Update(int dt) {
     (void)dt;
     InputManager &input = InputManager::GetInstance();
-    if(input.IsKeyPress(' ')) {
-        if(pos == 0) {
-            Stages::InitStage1();
-        }
-        else if(GameData::stagesBeated >= 1){
-            Stages::InitStage2();
-        }
-    }
-    if(input.IsKeyPress('d')){
-        this->pos = std::min((int)this->artistasPos.size() - 1, pos + 1);
-    }
-    else if(input.IsKeyPress('a')){
-        this->pos = std::max(0, pos - 1);
-    }
-
     this->quitRequested |= input.IsKeyPress(ESCAPE_KEY) || input.QuitRequested();
     GameData::quitAll |= input.QuitRequested();
 }
