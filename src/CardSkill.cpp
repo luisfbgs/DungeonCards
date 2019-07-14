@@ -6,15 +6,17 @@
 int CardSkill::HealCard(Card* target, int hp) {
     return target->_Heal(hp);
 }
-
+// Retorna 
+/// Retorna a nova vida do inimigo apos tê-lo atacado.
 int CardSkill::DoubleDamage(Card* target, Card* self) {
   return target->_Damage( self->GetAttackPower() );
 }
-
+/// Retorna a nova vida do inimigo apos ter usado habilidade Immolation nele.
 int CardSkill::Immolate(Card* target, Card* self) {
   return target->_Damage(9 - self->hp);
 }
-
+/// Wrapper. Deve ser chamado 3 vezes, com os alvos adequados, para que seja de fato
+/// usada a habilidade "Firewall".
 int CardSkill::FireWall(Card* target) {
   return target->_Damage(1);
 }
