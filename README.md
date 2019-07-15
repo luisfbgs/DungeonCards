@@ -81,5 +81,9 @@ As quatro cavaleiras do apocalipse foram ao inferno acabar com a rebelião que n
 
 Os jogadores controlam cartas das quatro cavaleiras.
 
-## Github: https://github.com/luisfbgs/DungeonCards
+## Github: c/DungeonCards
 
+### Programadores
+
++ Luís: https://github.com/luisfbgs
++ Maffei: https://github.com/maffei2443
