@@ -49,6 +49,10 @@ A partida termina quando todas as cartas de jogador ou de inimigo ficam com 0 de
 
 ### Mapa
 
+#### ESC - Volta a tela anterior
+
+#### ALT + F4 - Fecha o jogo
+
 #### a, d - Altera entre próxima fase e fase anterior
 
 #### barra de espaço - Inicia a fase
