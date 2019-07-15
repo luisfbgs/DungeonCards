@@ -65,15 +65,15 @@ A partida termina quando todas as cartas de jogador ou de inimigo ficam com 0 de
 
 #### i, j, k, l - Movimenta o cursor do P3 no tabuleiro
 
+#### t, f, g, h - Movimenta o cursor do P4 no tabuleiro
+
 #### q - P1 ataca/seleciona habilidade/usa habilidade que o cursor aponta
 
 #### barra de espaço - P2 ataca/seleciona habilidade/usa habilidade que o cursor aponta
 
 #### u - P3 ataca/seleciona habilidade/usa habilidade que o cursor aponta
 
-
-
-
+#### y - P4 ataca/seleciona habilidade/usa habilidade que o cursor aponta
 
 ## História
 
