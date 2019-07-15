@@ -75,4 +75,11 @@ A partida termina quando todas as cartas de jogador ou de inimigo ficam com 0 de
 
 #### y - P4 ataca/seleciona habilidade/usa habilidade que o cursor aponta
 
+## História
+
+As quatro cavaleiras do apocalipse foram ao inferno acabar com a rebelião que nele estava se passando.
+
+Os jogadores controlam cartas das quatro cavaleiras.
+
 ## Github: https://github.com/luisfbgs/DungeonCards
+
