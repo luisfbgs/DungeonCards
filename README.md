@@ -70,3 +70,11 @@ A partida termina quando todas as cartas de jogador ou de inimigo ficam com 0 de
 #### barra de espaço - P2 ataca/seleciona habilidade/usa habilidade que o cursor aponta
 
 #### u - P3 ataca/seleciona habilidade/usa habilidade que o cursor aponta
+
+
+
+
+
+## História
+
+Os quatro cavaleiros do apocalipse foram ao inferno acabar com a rebelião que nele estava se passando.
